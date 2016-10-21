@@ -1,0 +1,23 @@
+Лексемы:
+whspc - ' ', \t, \n
+kw_nt - non-terminal
+kw_t - terminal
+op_eq - ::=
+op_lp - (
+op_rp - )
+op_or - |
+op_sc - ;
+op_com - ,
+op_mul - *,
+op_plus - +,
+op_quest - ?,
+ident = [a-zA-Z+*'()]
+
+Грамматика:
+SAMPLE ::= HEADER MAIN
+HEADER ::= kw_nt ident (op_com ident)* op_sc kw_t ident (op_com ident)* op_sc
+MAIN ::= RULE+
+RULE ::= ident op_eq ITEM+ op_sc
+ITEM ::= ident+ | ITEM (op_or ITEM)+ | op_lp ITEM+ op_rp | ITEM (op_mul | op_plus | op_quest)
+
+axiom - SAMPLE
