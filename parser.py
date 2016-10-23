@@ -2,8 +2,8 @@
 import antlr4
 from antlr4 import *
 
-from InputGrammarLexer import InputGrammarLexer
-from InputGrammarParser import InputGrammarParser
+from antlr_files.InputGrammarLexer import InputGrammarLexer
+from antlr_files.InputGrammarParser import InputGrammarParser
 
 
 class Symbol(object):
