@@ -43,15 +43,6 @@ class Symbol(object):
         return symbol in Symbol.SPECIAL_SYMBOLS
 
 
-class ParserError(Exception):
-    """Ошибки, возникающие при работе парсера"""
-    def __init__(self, value):
-        self._value = value
-
-    def __str__(self):
-        return repr(self._value)
-
-
 class EBNFStructure(object):
     """
     Представляет структуру РБНФ (*, +, ?, |, ())
@@ -120,7 +111,7 @@ class Rule(object):
         self._rhs = rhs
 
     def __str__(self):
-        string = self._lhs + ' ::= '
+        string = str(self._lhs) + ' ::= '
 
         for symbol in self._rhs:
             string += str(symbol)
@@ -140,6 +131,15 @@ class ASTParser(object):
         self.handle_header()
         # Выделяем правила
         self.handle_main()
+
+    def get_terminals(self):
+        return self._terminals
+
+    def get_non_terminals(self):
+        return self._non_terminals
+
+    def get_rules(self):
+        return self._rules
 
     def handle_header(self):
         # Описание терминалов и нетерминалов грамматики
@@ -163,12 +163,21 @@ class ASTParser(object):
         for r in rules:
             items = list(r.getChildren())
             lhs = items[0]
+            if not self.is_terminal_or_non_terminal(lhs.getText()):
+                raise ParserError('Symbol \'%s\' was not defined' % lhs.getText())
+            else:
+                if self.is_non_terminal(lhs.getText()):
+                    lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.getText())
+                else:
+                    raise ParserError('Symbol in the left side of a rule should be non terminal, got terminal \'%s\''
+                                      % lhs.getText())
+
             rhs = []
-            # Отбрасываем символ ::=
-            for symbol in items[2:]:
-                print symbol.getText()
-                if symbol.getText() != ';':
-                    print self.create_ebnf_structure(symbol)
+            # Отбрасываем символы ::= и ;
+            for symbol in items[2:-1]:
+                rhs.append(self.create_ebnf_structure(symbol))
+
+            self._rules.append(Rule(lhs, rhs))
 
     # Принимает на вход узел antlr и возвращает экземпляр класса EBNFStructure
     def create_ebnf_structure(self, node):
@@ -292,10 +301,29 @@ class ASTParser(object):
         else:
             raise ParserError('WRONG EBNF TYPE FOR %s' % (item.getText()))
 
+    # Распечатать терминалы, нетерминалы и правила
+    def print_abstract_ast(self):
+        terminals = reduce(lambda x, y: x + ' ' + y, [str(t) for t in self._terminals])
+        non_terminals = reduce(lambda x, y: x + ' ' + y, [str(nt) for nt in self._non_terminals])
+        rules = reduce(lambda x, y: x + '\n' + y, [str(r) for r in self._rules])
+
+        print 'terminals: ' + terminals
+        print 'non-terminals: ' + non_terminals
+        print 'rules:\n' + rules
+
     # Получает на вход узел AST antlr, возвращает True, если узел - терминал
     @staticmethod
     def is_antlr_terminal_node(node):
         return isinstance(node, antlr4.tree.Tree.TerminalNode)
+
+
+class ParserError(Exception):
+    """Ошибки, возникающие при работе парсера"""
+    def __init__(self, value):
+        self._value = value
+
+    def __str__(self):
+        return repr(self._value)
 
 
 def print_tokens(stream):
@@ -310,6 +338,7 @@ def main():
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree)
+    ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
     main()
