@@ -18,6 +18,9 @@ class Symbol(object):
 
     SPECIAL_SYMBOLS = ['*', '+', '?', '|', '(', ')']
 
+    # Отображение символа на его версию
+    versions_mapping = {}
+
     def __init__(self, symbol_type, image, version=0):
         if symbol_type not in Symbol.TYPES:
             raise ParserError('Incorrect symbol type \'%s\'' % symbol_type)
@@ -25,6 +28,12 @@ class Symbol(object):
         self._type = symbol_type
         self._image = image
         self._version = version
+
+        if self._type == Symbol.TYPE_NON_TERMINAL:
+            if self._image not in Symbol.versions_mapping:
+                Symbol.versions_mapping[self._image] = 0
+            else:
+                Symbol.versions_mapping[self._image] += 1
 
     def get_type(self):
         return self._type
@@ -168,7 +177,7 @@ class ASTParser(object):
                 raise ParserError('Symbol \'%s\' was not defined' % lhs.getText())
             else:
                 if self.is_non_terminal(lhs.getText()):
-                    lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.getText())
+                    lhs = self.get_non_terminal(lhs.getText())
                 else:
                     raise ParserError('Symbol in the left side of a rule should be non terminal, got terminal \'%s\''
                                       % lhs.getText())
@@ -189,9 +198,9 @@ class ASTParser(object):
         if node_type == EBNFStructure.TYPE_IDENTS:
             for child in children:
                 if self.is_terminal(child.getText()):
-                    descendants.append(Symbol(Symbol.TYPE_TERMINAL, child.getText()))
+                    descendants.append(self.get_terminal(child.getText()))
                 elif self.is_non_terminal(child.getText()):
-                    descendants.append(Symbol(Symbol.TYPE_NON_TERMINAL, child.getText()))
+                    descendants.append(self.get_non_terminal(child.getText()))
 
         # item (OP_OR item)+
         if node_type == EBNFStructure.TYPE_OR:
@@ -199,9 +208,9 @@ class ASTParser(object):
             for i in range(0, len(children), 2):
                 if ASTParser.is_antlr_terminal_node(children[i]):
                     if self.is_terminal(children[i].getText()):
-                        descendants.append(Symbol(Symbol.TYPE_TERMINAL, children[i].getText()))
+                        descendants.append(self.get_terminal(children[i].getText()))
                     elif self.is_non_terminal(children[i].getText()):
-                        descendants.append(Symbol(Symbol.TYPE_NON_TERMINAL, children[i].getText()))
+                        descendants.append(self.get_non_terminal(children[i].getText()))
                 else:
                     descendants.append(self.create_ebnf_structure(children[i]))
 
@@ -239,6 +248,22 @@ class ASTParser(object):
     # получает на вход строку и проверяет, содержится ли символ с таким образом в массиве нетерминалов или нетерминалов
     def is_terminal_or_non_terminal(self, symbol):
         return self.is_terminal(symbol) or self.is_non_terminal(symbol)
+
+    # На вход "образ" терминала, выдает терминал с данным образом или None
+    def get_terminal(self, image):
+        for terminal in self._terminals:
+            if terminal.get_image() == image:
+                return terminal
+
+        return None
+
+    # На вход "образ" нетерминала, выдает нетерминал с данным образом или None
+    def get_non_terminal(self, image):
+        for non_terminal in self._non_terminals:
+            if non_terminal.get_image() == image:
+                return non_terminal
+
+        return None
 
     # На вход узел AST antlr, представляющий нетерминал item, на выходе - тип нетерминала
     def get_item_type(self, item):
@@ -302,6 +327,9 @@ class ASTParser(object):
         else:
             raise ParserError('WRONG EBNF TYPE FOR %s' % (item.getText()))
 
+    def transform_ebnf_to_bnf(self):
+        pass
+
     # Распечатать терминалы, нетерминалы и правила
     def print_abstract_ast(self):
         terminals = reduce(lambda x, y: x + ' ' + y, [str(t) for t in self._terminals])
@@ -340,6 +368,7 @@ def main():
     tree = parser.sample()
     ast_parser = ASTParser(tree)
     ast_parser.print_abstract_ast()
+    print Symbol.versions_mapping
 
 if __name__ == '__main__':
     main()
