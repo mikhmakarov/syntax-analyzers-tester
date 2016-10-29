@@ -18,12 +18,13 @@ class Symbol(object):
 
     SPECIAL_SYMBOLS = ['*', '+', '?', '|', '(', ')']
 
-    def __init__(self, symbol_type, image):
+    def __init__(self, symbol_type, image, version=0):
         if symbol_type not in Symbol.TYPES:
             raise ParserError('Incorrect symbol type \'%s\'' % symbol_type)
 
         self._type = symbol_type
         self._image = image
+        self._version = version
 
     def get_type(self):
         return self._type
@@ -35,7 +36,7 @@ class Symbol(object):
         if self._type == Symbol.TYPE_TERMINAL:
             return '<{0}>'.format(self._image)
         else:
-            return '[{0}]'.format(self._image)
+            return '[{0}_{1}]'.format(self._image, self._version)
 
     # Получает на вход строку и возвращает True, если символ является "специальным"
     @staticmethod
