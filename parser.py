@@ -10,30 +10,33 @@ class Symbol(object):
     """Представляет символ входного языка"""
 
     TOKEN_TERMINAL = 'terminal'
+    TOKEN_EPSILON = 'eps'
 
     TYPE_TERMINAL = 0
     TYPE_NON_TERMINAL = 1
     TYPE_SPECIAL_SYMBOL = 2
-    TYPES = [TYPE_TERMINAL, TYPE_NON_TERMINAL, TYPE_SPECIAL_SYMBOL]
+    TYPE_EPSILON = 3
+    TYPES = [TYPE_TERMINAL, TYPE_NON_TERMINAL, TYPE_SPECIAL_SYMBOL, TYPE_EPSILON]
 
     SPECIAL_SYMBOLS = ['*', '+', '?', '|', '(', ')']
 
     # Отображение символа на его версию
     versions_mapping = {}
 
-    def __init__(self, symbol_type, image, version=0):
+    def __init__(self, symbol_type, image):
         if symbol_type not in Symbol.TYPES:
             raise ParserError('Incorrect symbol type \'%s\'' % symbol_type)
 
         self._type = symbol_type
         self._image = image
-        self._version = version
 
         if self._type == Symbol.TYPE_NON_TERMINAL:
             if self._image not in Symbol.versions_mapping:
                 Symbol.versions_mapping[self._image] = 0
             else:
                 Symbol.versions_mapping[self._image] += 1
+
+            self._version = Symbol.versions_mapping[self._image]
 
     def get_type(self):
         return self._type
@@ -44,8 +47,21 @@ class Symbol(object):
     def __str__(self):
         if self._type == Symbol.TYPE_TERMINAL:
             return '<{0}>'.format(self._image)
-        else:
+        elif self._type == Symbol.TYPE_NON_TERMINAL:
             return '[{0}_{1}]'.format(self._image, self._version)
+        elif self._type == Symbol.TYPE_EPSILON:
+            return self._image
+
+    def __eq__(self, other):
+        return str(self) == str(other)
+
+    def __cmp__(self, other):
+        if str(self) > str(other):
+            return 1
+        elif str(self) < str(other):
+            return -1
+        else:
+            return 0
 
     # Получает на вход строку и возвращает True, если символ является "специальным"
     @staticmethod
@@ -120,6 +136,12 @@ class Rule(object):
         # rhs - массив деревьев, каждое из которых является деревом РБНФ или символом
         self._rhs = rhs
 
+    def get_rhs(self):
+        return self._rhs
+
+    def get_lhs(self):
+        return self._lhs
+
     def __str__(self):
         string = str(self._lhs) + ' ::= '
 
@@ -134,13 +156,17 @@ class ASTParser(object):
     def __init__(self, tree):
         self._terminals = []
         self._non_terminals = []
+        # правила РБНФ
         self._rules = []
+        self._bnf_rules = []
         self._tree = tree
         self._header, self._main = list(self._tree.getChildren())
         # Выделяем терминалы и нетерминалы
         self.handle_header()
         # Выделяем правила
         self.handle_main()
+        # Переводим РБНФ в БНФ
+        self.transform_ebnf_to_bnf()
 
     def get_terminals(self):
         return self._terminals
@@ -327,18 +353,104 @@ class ASTParser(object):
         else:
             raise ParserError('WRONG EBNF TYPE FOR %s' % (item.getText()))
 
+    # Этот метод изменяет список нетерминалов и правил
     def transform_ebnf_to_bnf(self):
-        pass
+        self._bnf_rules = list(self._rules)
+        while True:
+            # Список индексов правил, которые должныть быть удалены (т.к. они изменились)
+            to_delete = []
+            to_append = []
+            for i, rule in enumerate(self._bnf_rules):
+                changed = False
+                new_rule_rhs = []
+                lhs = rule.get_lhs()
+                for element in rule.get_rhs():
+                    if isinstance(element, EBNFStructure):
+                        if element.get_type() == EBNFStructure.TYPE_IDENTS:
+                            for ident in element.get_children():
+                                new_rule_rhs.append(ident)
+                        # x -> ... y* ... => x_0 -> ... x_1 ...
+                        # x_1 -> eps
+                        # x_1 -> y x_1
+                        elif element.get_type() == EBNFStructure.TYPE_MUL:
+                            new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            new_rule_rhs.append(new_lhs)
+                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
+                        # x -> ... y* ... => x_0 -> ... y x_1 ...
+                        # x_1 -> eps
+                        # x_1 -> y x_1
+                        elif element.get_type() == EBNFStructure.TYPE_PLUS:
+                            new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            new_rule_rhs.extend(element.get_children() + [new_lhs])
+                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
+                        # x -> a y? b => x_0 -> a x_1 b
+                        # x_1 -> eps
+                        # x_1 -> y
+                        elif element.get_type() == EBNFStructure.TYPE_QUEST:
+                            new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            new_rule_rhs.extend([new_lhs])
+                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, element.get_children()))
+                        # x -> ... (a|b) ... => x_0 -> ... x_1 ...
+                        # x_1 -> a
+                        # x_1 -> b
+                        elif element.get_type() == EBNFStructure.TYPE_OR:
+                            new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            new_rule_rhs.append(new_lhs)
+                            to_append.append(Rule(new_lhs, [element.get_children()[0]]))
+                            to_append.append(Rule(new_lhs, [element.get_children()[1]]))
+                        # Удаляем скобки
+                        elif element.get_type() == EBNFStructure.TYPE_PARENS:
+                            new_rule_rhs.extend(element.get_children())
+
+                        changed = True
+                    # element - Symbol
+                    else:
+                        new_rule_rhs.append(element)
+
+                if changed:
+                    to_delete.append(i)
+                    to_append.append(Rule(lhs, new_rule_rhs))
+
+            if len(to_delete) == 0:
+                break
+
+            for i in sorted(to_delete, reverse=True):
+                del self._bnf_rules[i]
+
+            for r in to_append:
+                self._bnf_rules.append(r)
+
+            self._bnf_rules.sort(key=lambda x: x.get_lhs())
 
     # Распечатать терминалы, нетерминалы и правила
     def print_abstract_ast(self):
-        terminals = reduce(lambda x, y: x + ' ' + y, [str(t) for t in self._terminals])
-        non_terminals = reduce(lambda x, y: x + ' ' + y, [str(nt) for nt in self._non_terminals])
-        rules = reduce(lambda x, y: x + '\n' + y, [str(r) for r in self._rules])
+        if len(self._terminals) > 0:
+            terminals = reduce(lambda x, y: x + ' ' + y, [str(t) for t in self._terminals])
+        else:
+            terminals = ''
+
+        if len(self._non_terminals) > 0:
+            non_terminals = reduce(lambda x, y: x + ' ' + y, [str(nt) for nt in self._non_terminals])
+        else:
+            non_terminals = ''
+
+        if len(self._rules):
+            rules = reduce(lambda x, y: x + '\n' + y, [str(r) for r in self._rules])
+        else:
+            rules = ''
+
+        if len(self._bnf_rules):
+            bnf_rules = reduce(lambda x, y: x + '\n' + y, [str(r) for r in self._bnf_rules])
+        else:
+            bnf_rules = ''
 
         print 'terminals: ' + terminals
         print 'non-terminals: ' + non_terminals
         print 'rules:\n' + rules
+        print 'bnf rules:\n' + bnf_rules
 
     # Получает на вход узел AST antlr, возвращает True, если узел - терминал
     @staticmethod
