@@ -1,0 +1,7 @@
+non-terminal S, A, B, E, F;
+terminal a, f, s;
+
+S ::= A S | B S | s;
+E ::=  E F | F F;
+A ::= a;
+F ::= f;
