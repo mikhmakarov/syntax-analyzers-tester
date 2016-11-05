@@ -133,7 +133,7 @@ class Rule(object):
     def __init__(self, lhs, rhs):
         # lhs - символ в левой части правила
         self._lhs = lhs
-        # rhs - массив деревьев, каждое из которых является деревом РБНФ или символом
+        # rhs - массив деревьев, каждое из которых является деревом РБНФ
         self._rhs = rhs
 
     def get_rhs(self):
@@ -374,14 +374,16 @@ class ASTParser(object):
                         # x_1 -> y x_1
                         elif element.get_type() == EBNFStructure.TYPE_MUL:
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            self._non_terminals.append(new_lhs)
                             new_rule_rhs.append(new_lhs)
                             to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
                             to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
-                        # x -> ... y* ... => x_0 -> ... y x_1 ...
+                        # x -> ... y+ ... => x_0 -> ... y x_1 ...
                         # x_1 -> eps
                         # x_1 -> y x_1
                         elif element.get_type() == EBNFStructure.TYPE_PLUS:
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            self._non_terminals.append(new_lhs)
                             new_rule_rhs.extend(element.get_children() + [new_lhs])
                             to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
                             to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
@@ -390,6 +392,7 @@ class ASTParser(object):
                         # x_1 -> y
                         elif element.get_type() == EBNFStructure.TYPE_QUEST:
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            self._non_terminals.append(new_lhs)
                             new_rule_rhs.extend([new_lhs])
                             to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
                             to_append.append(Rule(new_lhs, element.get_children()))
@@ -398,6 +401,7 @@ class ASTParser(object):
                         # x_1 -> b
                         elif element.get_type() == EBNFStructure.TYPE_OR:
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
+                            self._non_terminals.append(new_lhs)
                             new_rule_rhs.append(new_lhs)
                             to_append.append(Rule(new_lhs, [element.get_children()[0]]))
                             to_append.append(Rule(new_lhs, [element.get_children()[1]]))
