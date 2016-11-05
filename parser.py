@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import argparse
 import antlr4
 from antlr4 import *
 
@@ -43,6 +44,15 @@ class Symbol(object):
 
     def get_image(self):
         return self._image
+
+    def is_terminal(self):
+        return self._type == Symbol.TYPE_TERMINAL
+
+    def is_non_terminal(self):
+        return self._type == Symbol.TYPE_NON_TERMINAL
+
+    def is_epsilon(self):
+        return self._type == Symbol.TYPE_EPSILON
 
     def __str__(self):
         if self._type == Symbol.TYPE_TERMINAL:
@@ -142,6 +152,44 @@ class Rule(object):
     def get_lhs(self):
         return self._lhs
 
+    # Возвращает True, если все символы из правой части являются терминалами или epsilon
+    def all_rhs_symbols_terminals_or_eps(self):
+        result = True
+
+        for item in self._rhs:
+            if not isinstance(item, Symbol):
+                result = False
+                break
+            else:
+                if not (item.is_terminal() or item.is_epsilon()):
+                    result = False
+                    break
+
+        return result
+
+    # Возвращает set из всех нетерминалов, входящих в правую часть (на первом уровне вложенности)
+    def get_all_rhs_non_terminals(self):
+        s = set()
+
+        for item in self._rhs:
+            if isinstance(item, Symbol) and item.is_non_terminal():
+                s.add(item)
+
+        return s
+
+    # Возвращает True, если правило содержит nt в левой или правой части, иначе False
+    def contains_non_terminal(self, nt):
+        result = False
+
+        if nt == self._lhs:
+            result = True
+        else:
+            for item in self._rhs:
+                if isinstance(item, Symbol) and item.is_non_terminal() and nt == item:
+                    result = True
+
+        return result
+
     def __str__(self):
         string = str(self._lhs) + ' ::= '
 
@@ -167,6 +215,8 @@ class ASTParser(object):
         self.handle_main()
         # Переводим РБНФ в БНФ
         self.transform_ebnf_to_bnf()
+        # Удаляем бесполезные символы
+        self.delete_useless_symbols()
 
     def get_terminals(self):
         return self._terminals
@@ -429,6 +479,98 @@ class ASTParser(object):
 
             self._bnf_rules.sort(key=lambda x: x.get_lhs())
 
+    # Удаление бесполезных символов из грамматики
+    # 1. Удалить из грамматики правила, содержащие непорождающие нетерминалы.
+    # 2. Удалить из грамматики правила, содержащие недостижимые нетерминалы.
+    def delete_useless_symbols(self):
+        all_non_terminals = set(self._non_terminals)
+        # Нетерминалы, которые  являются левыми частями правил, у которых в правых частях стоят только терминалы
+        # или epsilon'ы
+        generating_non_terminals = set(
+            map(lambda x: x.get_lhs(), filter(lambda r: r.all_rhs_symbols_terminals_or_eps(), self._bnf_rules))
+        )
+        current_length = len(generating_non_terminals)
+
+        while True:
+            for r in self._bnf_rules:
+                # Если найдено такое правило, что все нетерминалы, стоящие в его правой части, уже входят в множество,
+                # то добавить в множество нетерминалы, стоящие в его левой части.
+                if generating_non_terminals.issuperset(r.get_all_rhs_non_terminals()):
+                    generating_non_terminals.add(r.get_lhs())
+
+            if current_length < len(generating_non_terminals):
+                current_length = len(generating_non_terminals)
+            else:
+                break
+
+        # Непорождающие нетерминалы
+        non_generating = all_non_terminals - generating_non_terminals
+        # Индексы нетерминалов, которые нужно удалить
+        non_terminals_to_delete = []
+        # Индексы правил, которые нужно удалить
+        rules_to_delete = []
+
+        for i, nt in enumerate(self._non_terminals):
+            if nt in non_generating:
+                non_terminals_to_delete.append(i)
+
+        for nt in non_generating:
+            print 'WARNING: symbol %s is useless' % nt
+            for i, r in enumerate(self._bnf_rules):
+                if r.contains_non_terminal(nt):
+                    if i not in rules_to_delete:
+                        rules_to_delete.append(i)
+
+        rules_to_delete.sort()
+
+        for i in reversed(non_terminals_to_delete):
+            del self._non_terminals[i]
+
+        for i in reversed(rules_to_delete):
+            del self._bnf_rules[i]
+
+        all_non_terminals = set(self._non_terminals)
+        reachable = {self._non_terminals[0]}
+        current_length = len(reachable)
+
+        while True:
+            # Если найдено правило, в левой части которого стоит нетерминал, содержащийся в множестве,
+            # добавить в множество все нетерминалы из правой части.
+            for r in self._bnf_rules:
+                if r.get_lhs() in reachable:
+                    reachable = reachable | r.get_all_rhs_non_terminals()
+
+            if current_length < len(reachable):
+                current_length = len(reachable)
+            else:
+                break
+
+        # Непорождающие нетерминалы
+        non_reachable = all_non_terminals - reachable
+        # Индексы нетерминалов, которые нужно удалить
+        non_terminals_to_delete = []
+        # Индексы правил, которые нужно удалить
+        rules_to_delete = []
+
+        for i, nt in enumerate(self._non_terminals):
+            if nt in non_reachable:
+                non_terminals_to_delete.append(i)
+
+        for nt in non_reachable:
+            print 'WARNING: symbol %s is useless' % nt
+            for i, r in enumerate(self._bnf_rules):
+                if r.contains_non_terminal(nt):
+                    if i not in rules_to_delete:
+                        rules_to_delete.append(i)
+
+        rules_to_delete.sort()
+
+        for i in reversed(non_terminals_to_delete):
+            del self._non_terminals[i]
+
+        for i in reversed(rules_to_delete):
+            del self._bnf_rules[i]
+
     # Распечатать терминалы, нетерминалы и правила
     def print_abstract_ast(self):
         if len(self._terminals) > 0:
@@ -478,13 +620,24 @@ def print_tokens(stream):
 
 
 def main():
-    lexer = InputGrammarLexer(FileStream('input.txt', encoding='utf-8'))
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument(
+        '-i',
+        '--input',
+        default='input.txt',
+        help='path to file with a grammar',
+        type=str,
+        metavar=''
+    )
+
+    args = parser.parse_args()
+
+    lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
     stream = CommonTokenStream(lexer)
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree)
     ast_parser.print_abstract_ast()
-    print Symbol.versions_mapping
 
 if __name__ == '__main__':
     main()
