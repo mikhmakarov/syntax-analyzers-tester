@@ -9,8 +9,9 @@ OP_PLUS=8
 OP_QUEST=9
 OP_LP=10
 OP_RP=11
-IDENT=12
-WS=13
+EPS=12
+IDENT=13
+WS=14
 'non-terminal'=1
 'terminal'=2
 '::='=3
@@ -22,3 +23,4 @@ WS=13
 '?'=9
 '('=10
 ')'=11
+'eps'=12
