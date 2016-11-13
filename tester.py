@@ -204,6 +204,8 @@ class ASTParser(object):
     def __init__(self, tree):
         self._terminals = []
         self._non_terminals = []
+        # создаем объект для eps, чтобы потом использовать его для всех эпсилон в грамматике
+        self._eps = Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)
         # правила РБНФ
         self._rules = []
         self._bnf_rules = []
@@ -216,7 +218,7 @@ class ASTParser(object):
         # Переводим РБНФ в БНФ
         self.transform_ebnf_to_bnf()
         # Удаляем бесполезные символы
-        # self.delete_useless_symbols()
+        self.delete_useless_symbols()
 
     def get_terminals(self):
         return self._terminals
@@ -229,6 +231,10 @@ class ASTParser(object):
 
     def get_bnf_rules(self):
         return self._bnf_rules
+
+    # получить объект eps
+    def get_epsilon(self):
+        return self._eps
 
     def handle_header(self):
         # Описание терминалов и нетерминалов грамматики
@@ -252,7 +258,7 @@ class ASTParser(object):
         for r in rules:
             items = list(r.getChildren())
             lhs = items[0]
-            if not self.is_terminal_or_non_terminal(lhs.getText()):
+            if not self.is_terminal_non_terminal_eps(lhs.getText()):
                 raise ParserError('Symbol \'%s\' was not defined' % lhs.getText())
             else:
                 if self.is_non_terminal(lhs.getText()):
@@ -280,6 +286,8 @@ class ASTParser(object):
                     descendants.append(self.get_terminal(child.getText()))
                 elif self.is_non_terminal(child.getText()):
                     descendants.append(self.get_non_terminal(child.getText()))
+                elif self.is_epsilon(child.getText()):
+                    descendants.append(self._eps)
 
         # item (OP_OR item)+
         if node_type == EBNFStructure.TYPE_OR:
@@ -324,9 +332,14 @@ class ASTParser(object):
 
         return False
 
+    # получает на вход строку и проверяет, является ли эта строка eps
+    def is_epsilon(self, symbol):
+        return symbol == Symbol.TOKEN_EPSILON
+
     # получает на вход строку и проверяет, содержится ли символ с таким образом в массиве нетерминалов или нетерминалов
-    def is_terminal_or_non_terminal(self, symbol):
-        return self.is_terminal(symbol) or self.is_non_terminal(symbol)
+    # или является
+    def is_terminal_non_terminal_eps(self, symbol):
+        return self.is_terminal(symbol) or self.is_non_terminal(symbol) or self.is_epsilon(symbol)
 
     # На вход "образ" терминала, выдает терминал с данным образом или None
     def get_terminal(self, image):
@@ -363,12 +376,12 @@ class ASTParser(object):
         for child in children:
 
             if (ASTParser.is_antlr_terminal_node(child)
-                and not self.is_terminal_or_non_terminal(child.getText())
+                and not self.is_terminal_non_terminal_eps(child.getText())
                     and not Symbol.is_special_symbol(child.getText())):
                 raise ParserError('Symbol \'%s\' was not defined' % child.getText())
 
             if not (ASTParser.is_antlr_terminal_node(child) and
-                    self.is_terminal_or_non_terminal(child.getText())):
+                    self.is_terminal_non_terminal_eps(child.getText())):
                 all_terminals = False
 
             if ASTParser.is_antlr_terminal_node(child) and child.getText() == '|':
@@ -429,7 +442,7 @@ class ASTParser(object):
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
                             self._non_terminals.append(new_lhs)
                             new_rule_rhs.append(new_lhs)
-                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, [self._eps]))
                             to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
                         # x -> ... y+ ... => x_0 -> ... y x_1 ...
                         # x_1 -> eps
@@ -438,7 +451,7 @@ class ASTParser(object):
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
                             self._non_terminals.append(new_lhs)
                             new_rule_rhs.extend(element.get_children() + [new_lhs])
-                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, [self._eps]))
                             to_append.append(Rule(new_lhs, element.get_children() + [new_lhs]))
                         # x -> a y? b => x_0 -> a x_1 b
                         # x_1 -> eps
@@ -447,7 +460,7 @@ class ASTParser(object):
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
                             self._non_terminals.append(new_lhs)
                             new_rule_rhs.extend([new_lhs])
-                            to_append.append(Rule(new_lhs, [Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)]))
+                            to_append.append(Rule(new_lhs, [self._eps]))
                             to_append.append(Rule(new_lhs, element.get_children()))
                         # x -> ... (a|b) ... => x_0 -> ... x_1 ...
                         # x_1 -> a
@@ -606,6 +619,15 @@ class ASTParser(object):
     def is_antlr_terminal_node(node):
         return isinstance(node, antlr4.tree.Tree.TerminalNode)
 
+    @staticmethod
+    # Определяет, содержит ли множество эпсилон
+    def contains_epsilon(chain):
+        for item in chain:
+            if item.get_type() == Symbol.TYPE_EPSILON:
+                return True
+
+        return False
+
 
 class Tester(object):
     """
@@ -617,8 +639,51 @@ class Tester(object):
         self._terminals = parser.get_terminals()
         self._non_terminals = parser.get_non_terminals()
         self._rules = parser.get_bnf_rules()
+        # Для нетерминалов
+        self._FIRST = {}
+        self._FOLLOW = {}
 
+        self.calculate_first_for_non_terminals()
+        pass
 
+    # Считает множество FIRST для цепочки символов u
+    def calculate_first(self, u):
+        # Возможно, если длина 1 и символ нетерминал, стоит возвращать все мн-во FIRST
+        if len(u) == 0:
+            return set()
+
+        if self._parser.is_terminal(u[0].get_image()):
+            return {u[0]}
+
+        if self._parser.is_non_terminal(u[0].get_image()):
+            first = self._FIRST[str(u[0])]
+
+            if not ASTParser.contains_epsilon(first):
+                return first
+            else:
+                return (first - {self._parser.get_epsilon()}) | self.calculate_first(u[1:])
+            
+        if len(u) == 1 and ASTParser.contains_epsilon(u):
+            return {self._parser.get_epsilon()}
+        
+        raise ParserError('Can\'t calculate FIRST for %s' % u)
+
+    def calculate_first_for_non_terminals(self):
+        for nt in self._non_terminals:
+            self._FIRST[str(nt)] = set()
+
+        while True:
+            changed = False
+            for rule in self._rules:
+                old_length = len(self._FIRST[str(rule.get_lhs())])
+                self._FIRST[str(rule.get_lhs())] |= self.calculate_first(rule.get_rhs())
+                if len(self._FIRST[str(rule.get_lhs())]) > old_length:
+                    changed = True
+
+            if not changed:
+                break
+            
+        
 class ParserError(Exception):
     """Ошибки, возникающие при работе парсера"""
     def __init__(self, value):
@@ -649,6 +714,7 @@ def main():
 
     lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
     stream = CommonTokenStream(lexer)
+    print_tokens(stream)
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree)
