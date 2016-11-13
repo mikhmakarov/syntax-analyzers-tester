@@ -1,0 +1,6 @@
+non-terminal E, E1, T, T1, F;
+terminal '+', '*', n, '(', ')';
+
+S ::= T E1;
+E1 ::= '+' T E1;
+E1 ::= eps;
