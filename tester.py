@@ -216,7 +216,7 @@ class ASTParser(object):
         # Переводим РБНФ в БНФ
         self.transform_ebnf_to_bnf()
         # Удаляем бесполезные символы
-        self.delete_useless_symbols()
+        # self.delete_useless_symbols()
 
     def get_terminals(self):
         return self._terminals
@@ -226,6 +226,9 @@ class ASTParser(object):
 
     def get_rules(self):
         return self._rules
+
+    def get_bnf_rules(self):
+        return self._bnf_rules
 
     def handle_header(self):
         # Описание терминалов и нетерминалов грамматики
@@ -604,6 +607,18 @@ class ASTParser(object):
         return isinstance(node, antlr4.tree.Tree.TerminalNode)
 
 
+class Tester(object):
+    """
+    Получает на вход абстрактное AST (в виде объекта класса ASTParser), строит множества FIRST и FOLLOW,
+    таблицу разбора, порождает набор позитивных и негативных тестов
+    """
+    def __init__(self, parser):
+        self._parser = parser
+        self._terminals = parser.get_terminals()
+        self._non_terminals = parser.get_non_terminals()
+        self._rules = parser.get_bnf_rules()
+
+
 class ParserError(Exception):
     """Ошибки, возникающие при работе парсера"""
     def __init__(self, value):
@@ -637,6 +652,7 @@ def main():
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree)
+    tester = Tester(ast_parser)
     ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
