@@ -19,26 +19,26 @@ def serializedATN():
         buf.write(u".\3\5\3\5\3\6\3\6\6\6\65\n\6\r\6\16\6\66\3\6\3\6\6\6")
         buf.write(u";\n\6\r\6\16\6<\3\6\3\6\5\6A\n\6\3\6\3\6\3\6\6\6F\n\6")
         buf.write(u"\r\6\16\6G\3\6\3\6\7\6L\n\6\f\6\16\6O\13\6\3\6\2\3\n")
-        buf.write(u"\7\2\4\6\b\n\2\3\3\2\t\13U\2\f\3\2\2\2\4\17\3\2\2\2\6")
-        buf.write(u"%\3\2\2\2\b)\3\2\2\2\n@\3\2\2\2\f\r\5\4\3\2\r\16\5\6")
-        buf.write(u"\4\2\16\3\3\2\2\2\17\20\7\3\2\2\20\25\7\17\2\2\21\22")
-        buf.write(u"\7\b\2\2\22\24\7\17\2\2\23\21\3\2\2\2\24\27\3\2\2\2\25")
-        buf.write(u"\23\3\2\2\2\25\26\3\2\2\2\26\30\3\2\2\2\27\25\3\2\2\2")
-        buf.write(u"\30\31\7\7\2\2\31\32\7\4\2\2\32\37\7\17\2\2\33\34\7\b")
-        buf.write(u"\2\2\34\36\7\17\2\2\35\33\3\2\2\2\36!\3\2\2\2\37\35\3")
-        buf.write(u"\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\"#\7\7\2\2")
-        buf.write(u"#\5\3\2\2\2$&\5\b\5\2%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2")
-        buf.write(u"\'(\3\2\2\2(\7\3\2\2\2)*\7\17\2\2*,\7\5\2\2+-\5\n\6\2")
-        buf.write(u",+\3\2\2\2-.\3\2\2\2.,\3\2\2\2./\3\2\2\2/\60\3\2\2\2")
-        buf.write(u"\60\61\7\7\2\2\61\t\3\2\2\2\62\64\b\6\1\2\63\65\7\17")
-        buf.write(u"\2\2\64\63\3\2\2\2\65\66\3\2\2\2\66\64\3\2\2\2\66\67")
-        buf.write(u"\3\2\2\2\67A\3\2\2\28:\7\f\2\29;\5\n\6\2:9\3\2\2\2;<")
-        buf.write(u"\3\2\2\2<:\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7\r\2\2?A\3")
-        buf.write(u"\2\2\2@\62\3\2\2\2@8\3\2\2\2AM\3\2\2\2BE\f\5\2\2CD\7")
-        buf.write(u"\6\2\2DF\5\n\6\2EC\3\2\2\2FG\3\2\2\2GE\3\2\2\2GH\3\2")
-        buf.write(u"\2\2HL\3\2\2\2IJ\f\3\2\2JL\t\2\2\2KB\3\2\2\2KI\3\2\2")
-        buf.write(u"\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2N\13\3\2\2\2OM\3\2\2")
-        buf.write(u"\2\f\25\37\'.\66<@GKM")
+        buf.write(u"\7\2\4\6\b\n\2\4\3\2\16\17\3\2\t\13U\2\f\3\2\2\2\4\17")
+        buf.write(u"\3\2\2\2\6%\3\2\2\2\b)\3\2\2\2\n@\3\2\2\2\f\r\5\4\3\2")
+        buf.write(u"\r\16\5\6\4\2\16\3\3\2\2\2\17\20\7\3\2\2\20\25\7\17\2")
+        buf.write(u"\2\21\22\7\b\2\2\22\24\7\17\2\2\23\21\3\2\2\2\24\27\3")
+        buf.write(u"\2\2\2\25\23\3\2\2\2\25\26\3\2\2\2\26\30\3\2\2\2\27\25")
+        buf.write(u"\3\2\2\2\30\31\7\7\2\2\31\32\7\4\2\2\32\37\7\17\2\2\33")
+        buf.write(u"\34\7\b\2\2\34\36\7\17\2\2\35\33\3\2\2\2\36!\3\2\2\2")
+        buf.write(u"\37\35\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\"#")
+        buf.write(u"\7\7\2\2#\5\3\2\2\2$&\5\b\5\2%$\3\2\2\2&\'\3\2\2\2\'")
+        buf.write(u"%\3\2\2\2\'(\3\2\2\2(\7\3\2\2\2)*\7\17\2\2*,\7\5\2\2")
+        buf.write(u"+-\5\n\6\2,+\3\2\2\2-.\3\2\2\2.,\3\2\2\2./\3\2\2\2/\60")
+        buf.write(u"\3\2\2\2\60\61\7\7\2\2\61\t\3\2\2\2\62\64\b\6\1\2\63")
+        buf.write(u"\65\t\2\2\2\64\63\3\2\2\2\65\66\3\2\2\2\66\64\3\2\2\2")
+        buf.write(u"\66\67\3\2\2\2\67A\3\2\2\28:\7\f\2\29;\5\n\6\2:9\3\2")
+        buf.write(u"\2\2;<\3\2\2\2<:\3\2\2\2<=\3\2\2\2=>\3\2\2\2>?\7\r\2")
+        buf.write(u"\2?A\3\2\2\2@\62\3\2\2\2@8\3\2\2\2AM\3\2\2\2BE\f\5\2")
+        buf.write(u"\2CD\7\6\2\2DF\5\n\6\2EC\3\2\2\2FG\3\2\2\2GE\3\2\2\2")
+        buf.write(u"GH\3\2\2\2HL\3\2\2\2IJ\f\3\2\2JL\t\3\2\2KB\3\2\2\2KI")
+        buf.write(u"\3\2\2\2LO\3\2\2\2MK\3\2\2\2MN\3\2\2\2N\13\3\2\2\2OM")
+        buf.write(u"\3\2\2\2\f\25\37\'.\66<@GKM")
         return buf.getvalue()
 
 
@@ -343,7 +343,7 @@ class InputGrammarParser ( Parser ):
                 self.state = 44 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==InputGrammarParser.OP_LP or _la==InputGrammarParser.IDENT):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
                     break
 
             self.state = 46
@@ -367,6 +367,12 @@ class InputGrammarParser ( Parser ):
                 return self.getTokens(InputGrammarParser.IDENT)
             else:
                 return self.getToken(InputGrammarParser.IDENT, i)
+
+        def EPS(self, i=None):
+            if i is None:
+                return self.getTokens(InputGrammarParser.EPS)
+            else:
+                return self.getToken(InputGrammarParser.EPS, i)
 
         def OP_LP(self):
             return self.getToken(InputGrammarParser.OP_LP, 0)
@@ -421,14 +427,18 @@ class InputGrammarParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 62
             token = self._input.LA(1)
-            if token in [InputGrammarParser.IDENT]:
+            if token in [InputGrammarParser.EPS, InputGrammarParser.IDENT]:
                 self.state = 50 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 49
-                        self.match(InputGrammarParser.IDENT)
+                        _la = self._input.LA(1)
+                        if not(_la==InputGrammarParser.EPS or _la==InputGrammarParser.IDENT):
+                            self._errHandler.recoverInline(self)
+                        else:
+                            self.consume()
 
                     else:
                         raise NoViableAltException(self)
@@ -449,7 +459,7 @@ class InputGrammarParser ( Parser ):
                     self.state = 58 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not (_la==InputGrammarParser.OP_LP or _la==InputGrammarParser.IDENT):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
                         break
 
                 self.state = 60

@@ -45,7 +45,7 @@ grammar_rule
     ;
 
 item
-    : IDENT+ | item (OP_OR item)+ | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
+    : (IDENT | EPS)+ | item (OP_OR item)+ | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
     ;
 
 KW_NT
