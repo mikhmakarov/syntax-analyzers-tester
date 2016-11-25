@@ -646,7 +646,13 @@ class Tester(object):
 
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
-        pass
+
+        # таблица предсказывающего анализатора представляет собой словарь словарей,
+        # где первый ключ нетерминал, второй - терминал
+        self._table = {}
+        self.build_table()
+
+        self.print_table()
 
     # Считает множество FIRST для цепочки символов u
     def calculate_first(self, u):
@@ -724,9 +730,53 @@ class Tester(object):
             if not changed:
                 break
 
+    def build_table(self):
+        for nt in self._non_terminals:
+            self._table[str(nt)] = {}
+            for t in self._terminals:
+                self._table[str(nt)][str(t)] = []
+
+        for r in self._rules:
+            X = r.get_lhs()
+            u = r.get_rhs()
+            first = self.calculate_first(u)
+            for a in first:
+                if not a.is_epsilon():
+                    if len(self._table[str(X)][str(a)]) > 0:
+                        raise TesterError('Cell for %s %s is not empty' % (str(X), str(a)))
+
+                    self._table[str(X)][str(a)] += u
+
+            if ASTParser.contains_epsilon(first):
+                for b in self._FOLLOW[str(X)]:
+                    if len(self._table[str(X)][str(b)]) > 0:
+                        raise TesterError('Cell for %s %s is not empty' % (str(X), str(b)))
+                    self._table[str(X)][str(b)] += u
+
+    def print_table(self):
+        for nt, line in self._table.iteritems():
+            for t, val in line.iteritems():
+                str_repr = ''
+                if len(val) > 0:
+                    for s in val:
+                        str_repr += str(s) + ' '
+                else:
+                    str_repr = 'ERROR'
+
+                print '(%s, %s) %s' % (nt, t, str_repr)
+
 
 class ParserError(Exception):
     """Ошибки, возникающие при работе парсера"""
+    def __init__(self, value):
+        self._value = value
+
+    def __str__(self):
+        return repr(self._value)
+
+
+class TesterError(Exception):
+    """Ошибки, возникающие при работе тестера"""
     def __init__(self, value):
         self._value = value
 
@@ -745,7 +795,7 @@ def main():
     parser.add_argument(
         '-i',
         '--input',
-        default='input.txt',
+        default='grammars/input.txt',
         help='path to file with a grammar',
         type=str,
         metavar=''
@@ -755,12 +805,12 @@ def main():
 
     lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
     stream = CommonTokenStream(lexer)
-    print_tokens(stream)
+    # print_tokens(stream)
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree)
     tester = Tester(ast_parser)
-    ast_parser.print_abstract_ast()
+    # ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
     main()
