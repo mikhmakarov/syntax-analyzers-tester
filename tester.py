@@ -636,7 +636,8 @@ class Tester(object):
     """
     def __init__(self, parser):
         self._parser = parser
-        self._terminals = parser.get_terminals()
+        self._end_symbol = Symbol(Symbol.TYPE_TERMINAL, '$')
+        self._terminals = parser.get_terminals() + [self._end_symbol]
         self._non_terminals = parser.get_non_terminals()
         self._rules = parser.get_bnf_rules()
         # Для нетерминалов
@@ -644,6 +645,7 @@ class Tester(object):
         self._FOLLOW = {}
 
         self.calculate_first_for_non_terminals()
+        self.calculate_follow_for_non_terminals()
         pass
 
     # Считает множество FIRST для цепочки символов u
@@ -658,10 +660,13 @@ class Tester(object):
         if self._parser.is_non_terminal(u[0].get_image()):
             first = self._FIRST[str(u[0])]
 
-            if not ASTParser.contains_epsilon(first):
+            if len(u) == 1:
                 return first
             else:
-                return (first - {self._parser.get_epsilon()}) | self.calculate_first(u[1:])
+                if not ASTParser.contains_epsilon(first):
+                    return first
+                else:
+                    return (first - {self._parser.get_epsilon()}) | self.calculate_first(u[1:])
             
         if len(u) == 1 and ASTParser.contains_epsilon(u):
             return {self._parser.get_epsilon()}
@@ -682,8 +687,44 @@ class Tester(object):
 
             if not changed:
                 break
-            
-        
+
+    def calculate_follow_for_non_terminals(self):
+        for i, nt in enumerate(self._non_terminals):
+            self._FOLLOW[str(nt)] = set()
+            if i == 0:
+                self._FOLLOW[str(nt)].add(self._end_symbol)
+
+        for r in self._rules:
+            rhs = r.get_rhs()
+            if len(rhs) > 2:
+                for i, Y in enumerate(rhs[1:-1]):
+                    if self._parser.is_non_terminal(Y.get_image()):
+                        self._FOLLOW[str(Y)] |= self.calculate_first(rhs[i + 2:]) - {self._parser.get_epsilon()}
+
+        while True:
+            changed = False
+
+            for r in self._rules:
+                X = r.get_lhs()
+                rhs = r.get_rhs()
+                if len(rhs) > 1:
+                    for i, Y in enumerate(rhs[1:]):
+                        if self._parser.is_non_terminal(Y.get_image()):
+                            old_length = len(self._FOLLOW[str(Y)])
+                            if i != len(rhs[1:]) - 1:
+                                first = self.calculate_first(rhs[i + 2:])
+                                if ASTParser.contains_epsilon(first):
+                                    self._FOLLOW[str(Y)] |= self._FOLLOW[str(X)]
+                            else:
+                                self._FOLLOW[str(Y)] |= self._FOLLOW[str(X)]
+
+                            if len(self._FOLLOW[str(Y)]) > old_length:
+                                changed = True
+
+            if not changed:
+                break
+
+
 class ParserError(Exception):
     """Ошибки, возникающие при работе парсера"""
     def __init__(self, value):
