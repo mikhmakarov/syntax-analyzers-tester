@@ -643,9 +643,15 @@ class Tester(object):
         # Для нетерминалов
         self._FIRST = {}
         self._FOLLOW = {}
+        # Каждый элемент массив символов, которые не могут идти за нетерминалом
+        self._inappropriate_symbols = {}
 
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
+
+        tmp = set(self._terminals)
+        for nt in self._non_terminals:
+            self._inappropriate_symbols[str(nt)] = tmp - self._FIRST[str(nt)]
 
         # таблица предсказывающего анализатора представляет собой словарь словарей,
         # где первый ключ нетерминал, второй - терминал
