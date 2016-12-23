@@ -629,6 +629,33 @@ class ASTParser(object):
         return False
 
 
+class State(object):
+    """
+    Состояние вычислительной среды
+    """
+    def __init__(self, prefix, stack, to_open, next_symbol=None):
+        # префикс сгенерированной цепочки
+        self.prefix = prefix
+        # магазин
+        self.stack = stack
+        # следующий входной символ (нужен, если to_open == False)
+        self.next_symbol = next_symbol
+        # В закрытое или открытое состояние переходим
+        self.to_open = to_open
+
+    def get_last_symbol_from_stack(self):
+        return self.stack[len(self.stack) - 1]
+
+    def remove_last_symbol_from_stack(self):
+        self.stack.pop()
+
+    # раскрыть правило на вершине стека по таблице и терминалу
+    def open_last_rule(self, table):
+        symbols = table[str(self.get_last_symbol_from_stack())][str(self.next_symbol)]
+        self.stack.pop()
+        self.stack.extend(reversed(list(symbols)))
+
+
 class Tester(object):
     """
     Получает на вход абстрактное AST (в виде объекта класса ASTParser), строит множества FIRST и FOLLOW,
@@ -645,6 +672,12 @@ class Tester(object):
         self._FOLLOW = {}
         # Каждый элемент массив символов, которые не могут идти за нетерминалом
         self._inappropriate_symbols = {}
+        # Стек состояний вычислительной среды
+        self._states_stack = []
+        # Стек символов
+        self._symbols_stack = []
+        # Текущая выходная цепочка
+        self._current_sequence = ''
 
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
@@ -770,6 +803,41 @@ class Tester(object):
                     str_repr = 'ERROR'
 
                 print '(%s, %s) %s' % (nt, t, str_repr)
+
+    def create_tests(self):
+        self._states_stack = [State('', [self._non_terminals[0]], True)]
+
+        while len(self._states_stack) > 0:
+            current_state = self._states_stack.pop()
+            if current_state.to_open:
+                self.perform_open_actions(current_state)
+            else:
+                self.perform_close_actions(current_state)
+
+    # Открытое состояние
+    def perform_open_actions(self, state):
+        current_symb = state.get_last_symbol_from_stack()
+        if current_symb.is_terminal():
+            state.remove_last_symbol_from_stack()
+            state.prefix += current_symb.get_image()
+            self.perform_open_actions(state)
+        else:
+            for a in self._FIRST[str(current_symb)]:
+                if not a.is_epsilon():
+                    self._states_stack.append(State(state.prefix, state.stack[:], False, a))
+                else:
+                    self._states_stack.append(State(state.prefix, state.stack[:], True))
+
+    # Закрытое состояние
+    def perform_close_actions(self, state):
+        current_symb = state.get_last_symbol_from_stack()
+        if current_symb.is_terminal():
+            state.remove_last_symbol_from_stack()
+            state.prefix += current_symb.get_image()
+            self.perform_open_actions(state)
+        else:
+            state.open_last_rule(self._table)
+            self.perform_close_actions(state)
 
 
 class ParserError(Exception):
