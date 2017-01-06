@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import antlr4
+import json
 from antlr4 import *
 
 from antlr_files.InputGrammarLexer import InputGrammarLexer
@@ -212,7 +213,7 @@ class Rule(object):
 
 class ASTParser(object):
     """Выделяет терминалы, нетерминалы, правила из входной грамматики"""
-    def __init__(self, tree):
+    def __init__(self, tree, path_to_replacement):
         self._terminals = []
         self._non_terminals = []
         # создаем объект для eps, чтобы потом использовать его для всех эпсилон в грамматике
@@ -230,6 +231,12 @@ class ASTParser(object):
         self.transform_ebnf_to_bnf()
         # Удаляем бесполезные символы
         self.delete_useless_symbols()
+
+        with open(path_to_replacement) as idents:
+            # Словарь используемый для замены идентификаторов на заданные значения
+            self._idents = json.load(idents)
+
+        print(self._idents)
 
     def get_terminals(self):
         return self._terminals
@@ -981,6 +988,15 @@ def main():
         metavar=''
     )
 
+    parser.add_argument(
+        '-r',
+        '--replacement',
+        default='idents.json',
+        help='path to file with replacements for idents',
+        type=str,
+        metavar=''
+    )
+
     args = parser.parse_args()
 
     lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
@@ -988,7 +1004,7 @@ def main():
     # print_tokens(stream)
     parser = InputGrammarParser(stream)
     tree = parser.sample()
-    ast_parser = ASTParser(tree)
+    ast_parser = ASTParser(tree, args.replacement)
     tester = Tester(ast_parser)
     # ast_parser.print_abstract_ast()
 
