@@ -646,8 +646,8 @@ class State(object):
     """
     def __init__(self, prefix, stack, to_open, next_symbol=None):
         # префикс сгенерированной цепочки
-        self.prefix = prefix
         # магазин
+        self.prefix = prefix
         self.stack = stack
         # следующий входной символ (нужен, если to_open == False)
         self.next_symbol = next_symbol
@@ -675,6 +675,7 @@ class Tester(object):
     def __init__(self, parser):
         self._parser = parser
         self._end_symbol = Symbol(Symbol.TYPE_TERMINAL, '$')
+        self._eps = parser.get_epsilon()
         self._terminals = parser.get_terminals() + [self._end_symbol]
         self._non_terminals = parser.get_non_terminals()
         self._rules = parser.get_bnf_rules()
@@ -707,7 +708,8 @@ class Tester(object):
         # Кратчайшие цепочкиЮ выводимые из нетерминалов
         self._shortest_sequences = {}
         self.calculate_shortest_sequence()
-        self.print_table()
+
+        self.create_tests()
 
     # Вычисляет кратчайшие цепочки для всех нетрминалов
     def calculate_shortest_sequence(self):
@@ -852,6 +854,7 @@ class Tester(object):
             for t in self._terminals:
                 self._table[str(nt)][str(t)] = []
                 self._visited[str(nt)][str(t)] = None
+            self._visited[str(nt)][str(self._eps)] = None
 
         for r in self._rules:
             X = r.get_lhs()
@@ -883,7 +886,7 @@ class Tester(object):
                 print '(%s, %s) %s' % (nt, t, str_repr)
 
     def create_tests(self):
-        self._states_stack = [State('', [self._non_terminals[0]], True)]
+        self._states_stack = [State('', [self._end_symbol, self._non_terminals[0]], True)]
 
         while len(self._states_stack) > 0:
             current_state = self._states_stack.pop()
@@ -897,18 +900,32 @@ class Tester(object):
         current_symb = state.get_last_symbol_from_stack()
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
-            state.prefix += current_symb.get_image()
-            self.perform_open_actions(state)
+            if current_symb != self._end_symbol:
+                state.prefix += current_symb.get_image()
+                self.perform_open_actions(state)
+            else:
+                # TODO выводить результат в файл
+                print(state.prefix)
         else:
+            all_visited = True
             for a in self._FIRST[str(current_symb)]:
                 if not a.is_epsilon():
-                    if self._visited[str(current_symb)][str(a)] is not None:
+                    if self._visited[str(current_symb)][str(a)] is None:
+                        all_visited = False
+                        self._visited[str(current_symb)][str(a)] = True
                         self._states_stack.append(State(state.prefix, state.stack[:], False, a))
-                    else:
-                        # Генерируем кратчайшую цепочку для нетерминала
-                        pass
                 else:
-                    self._states_stack.append(State(state.prefix, state.stack[:], True))
+                    if self._visited[str(current_symb)][str(a)] is None:
+                        all_visited = False
+                        self._visited[str(current_symb)][str(a)] = True
+                        self._states_stack.append(State(state.prefix, state.stack[:-1], True))
+
+            if all_visited:
+                state.remove_last_symbol_from_stack()
+                for sym in self._shortest_sequences[str(current_symb)]:
+                    if not sym.is_epsilon():
+                        state.prefix += sym.get_image()
+                self.perform_open_actions(state)
 
     # Закрытое состояние
     def perform_close_actions(self, state):
@@ -920,7 +937,7 @@ class Tester(object):
                 self.perform_open_actions(state)
             else:
                 # TODO выводить результат в файл
-                pass
+                print(state.prefix)
         else:
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
