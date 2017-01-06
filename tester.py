@@ -886,14 +886,7 @@ class Tester(object):
                 print '(%s, %s) %s' % (nt, t, str_repr)
 
     def create_tests(self):
-        self._states_stack = [State('', [self._end_symbol, self._non_terminals[0]], True)]
-
-        while len(self._states_stack) > 0:
-            current_state = self._states_stack.pop()
-            if current_state.to_open:
-                self.perform_open_actions(current_state)
-            else:
-                self.perform_close_actions(current_state)
+        self.perform_open_actions(State('', [self._end_symbol, self._non_terminals[0]], True))
 
     # Открытое состояние
     def perform_open_actions(self, state):
@@ -908,17 +901,27 @@ class Tester(object):
                 print(state.prefix)
         else:
             all_visited = True
-            for a in self._FIRST[str(current_symb)]:
+
+            # Эпсилоны идут в конце, чтобы получить тесты максимальной длины
+            def compare_function(x, y):
+                if x.is_epsilon():
+                    return -1
+                elif y.is_epsilon():
+                    return 1
+                else:
+                    return cmp(x, y)
+
+            for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
                 if not a.is_epsilon():
                     if self._visited[str(current_symb)][str(a)] is None:
                         all_visited = False
                         self._visited[str(current_symb)][str(a)] = True
-                        self._states_stack.append(State(state.prefix, state.stack[:], False, a))
+                        self.perform_close_actions(State(state.prefix, state.stack[:], False, a))
                 else:
                     if self._visited[str(current_symb)][str(a)] is None:
                         all_visited = False
                         self._visited[str(current_symb)][str(a)] = True
-                        self._states_stack.append(State(state.prefix, state.stack[:-1], True))
+                        self.perform_open_actions(State(state.prefix, state.stack[:-1], True))
 
             if all_visited:
                 state.remove_last_symbol_from_stack()
