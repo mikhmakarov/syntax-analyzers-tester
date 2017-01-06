@@ -223,6 +223,11 @@ class ASTParser(object):
         self._bnf_rules = []
         self._tree = tree
         self._header, self._main = list(self._tree.getChildren())
+
+        with open(path_to_replacement) as idents:
+            # Словарь используемый для замены идентификаторов на заданные значения
+            self._idents = json.load(idents)
+
         # Выделяем терминалы и нетерминалы
         self.handle_header()
         # Выделяем правила
@@ -231,12 +236,6 @@ class ASTParser(object):
         self.transform_ebnf_to_bnf()
         # Удаляем бесполезные символы
         self.delete_useless_symbols()
-
-        with open(path_to_replacement) as idents:
-            # Словарь используемый для замены идентификаторов на заданные значения
-            self._idents = json.load(idents)
-
-        print(self._idents)
 
     def get_terminals(self):
         return self._terminals
@@ -265,7 +264,11 @@ class ASTParser(object):
                 terminal_index = i
                 break
             else:
-                self._non_terminals.append(Symbol(Symbol.TYPE_NON_TERMINAL, items[i].getText()))
+                # Заменяем нетерминалы, указанные в файле на терминалы
+                if items[i].getText() in self._idents:
+                    self._terminals.append(Symbol(Symbol.TYPE_TERMINAL, self._idents[items[i].getText()]))
+                else:
+                    self._non_terminals.append(Symbol(Symbol.TYPE_NON_TERMINAL, items[i].getText()))
 
         # Идем по header'у, пропуская токен "terminal" и запятые и сохраняя терминалы
         for i in range(terminal_index + 1, len(items), 2):
@@ -276,21 +279,24 @@ class ASTParser(object):
         for r in rules:
             items = list(r.getChildren())
             lhs = items[0]
-            if not self.is_terminal_non_terminal_eps(lhs.getText()):
-                raise ParserError('Symbol \'%s\' was not defined' % lhs.getText())
-            else:
-                if self.is_non_terminal(lhs.getText()):
-                    lhs = self.get_non_terminal(lhs.getText())
+
+            # Отбрасываем те нетерминалы, которые указаны в файле
+            if lhs.getText() not in self._idents:
+                if not self.is_terminal_non_terminal_eps(lhs.getText()):
+                    raise ParserError('Symbol \'%s\' was not defined' % lhs.getText())
                 else:
-                    raise ParserError('Symbol in the left side of a rule should be non terminal, got terminal \'%s\''
-                                      % lhs.getText())
+                    if self.is_non_terminal(lhs.getText()):
+                        lhs = self.get_non_terminal(lhs.getText())
+                    else:
+                        raise ParserError('Symbol in the left side of a rule should be non terminal,'
+                                          ' got terminal \'%s\'' % lhs.getText())
 
-            rhs = []
-            # Отбрасываем символы ::= и ;
-            for symbol in items[2:-1]:
-                rhs.append(self.create_ebnf_structure(symbol))
+                rhs = []
+                # Отбрасываем символы ::= и ;
+                for symbol in items[2:-1]:
+                    rhs.append(self.create_ebnf_structure(symbol))
 
-            self._rules.append(Rule(lhs, rhs))
+                self._rules.append(Rule(lhs, rhs))
 
     # Принимает на вход узел antlr и возвращает экземпляр класса EBNFStructure
     def create_ebnf_structure(self, node):
@@ -300,22 +306,32 @@ class ASTParser(object):
         # IDENT+
         if node_type == EBNFStructure.TYPE_IDENTS:
             for child in children:
-                if self.is_terminal(child.getText()):
-                    descendants.append(self.get_terminal(child.getText()))
-                elif self.is_non_terminal(child.getText()):
-                    descendants.append(self.get_non_terminal(child.getText()))
-                elif self.is_epsilon(child.getText()):
+                image = child.getText()
+                # Если нашли идентификатор из файла, то заменяем его на соответствующее значение
+                if image in self._idents:
+                    image = self._idents[image]
+
+                if self.is_terminal(image):
+                    descendants.append(self.get_terminal(image))
+                elif self.is_non_terminal(image):
+                    descendants.append(self.get_non_terminal(image))
+                elif self.is_epsilon(image):
                     descendants.append(self._eps)
 
         # item (OP_OR item)+
         if node_type == EBNFStructure.TYPE_OR:
             # пропускаем |
             for i in range(0, len(children), 2):
+                image = children[i].getText()
+                # Если нашли идентификатор из файла, то заменяем его на соответствующее значение
+                if image in self._idents:
+                    image = self._idents[image]
+
                 if ASTParser.is_antlr_terminal_node(children[i]):
-                    if self.is_terminal(children[i].getText()):
-                        descendants.append(self.get_terminal(children[i].getText()))
-                    elif self.is_non_terminal(children[i].getText()):
-                        descendants.append(self.get_non_terminal(children[i].getText()))
+                    if self.is_terminal(image):
+                        descendants.append(self.get_terminal(image))
+                    elif self.is_non_terminal(image):
+                        descendants.append(self.get_non_terminal(image))
                 else:
                     descendants.append(self.create_ebnf_structure(children[i]))
 
@@ -392,33 +408,36 @@ class ASTParser(object):
         quest = False
 
         for child in children:
+            image = child.getText()
+            if image in self._idents:
+                image = self._idents[image]
 
             if (ASTParser.is_antlr_terminal_node(child)
-                and not self.is_terminal_non_terminal_eps(child.getText())
-                    and not Symbol.is_special_symbol(child.getText())):
-                raise ParserError('Symbol \'%s\' was not defined' % child.getText())
+                and not self.is_terminal_non_terminal_eps(image)
+                    and not Symbol.is_special_symbol(image)):
+                raise ParserError('Symbol \'%s\' was not defined' % image)
 
             if not (ASTParser.is_antlr_terminal_node(child) and
-                    self.is_terminal_non_terminal_eps(child.getText())):
+                    self.is_terminal_non_terminal_eps(image)):
                 all_terminals = False
 
-            if ASTParser.is_antlr_terminal_node(child) and child.getText() == '|':
+            if ASTParser.is_antlr_terminal_node(child) and image == '|':
                 alternative = True
                 break
 
-            if ASTParser.is_antlr_terminal_node(child) and child.getText() == '(':
+            if ASTParser.is_antlr_terminal_node(child) and image == '(':
                 parens = True
                 break
 
-            if ASTParser.is_antlr_terminal_node(child) and child.getText() == '*':
+            if ASTParser.is_antlr_terminal_node(child) and image == '*':
                 mul = True
                 break
 
-            if ASTParser.is_antlr_terminal_node(child) and child.getText() == '+':
+            if ASTParser.is_antlr_terminal_node(child) and image == '+':
                 plus = True
                 break
 
-            if ASTParser.is_antlr_terminal_node(child) and child.getText() == '?':
+            if ASTParser.is_antlr_terminal_node(child) and image == '?':
                 quest = True
                 break
 
