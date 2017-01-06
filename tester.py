@@ -78,6 +78,17 @@ class Symbol(object):
     def is_special_symbol(symbol):
         return symbol in Symbol.SPECIAL_SYMBOLS
 
+    # Возвращает True, если все элементы массива - терминалы или eps
+    @staticmethod
+    def all_terminals_or_epsilon(array):
+        result = True
+        for sym in array:
+            if not (sym.is_terminal() or sym.is_epsilon()):
+                result = False
+                break
+
+        return result
+
 
 class EBNFStructure(object):
     """
@@ -689,9 +700,74 @@ class Tester(object):
         # таблица предсказывающего анализатора представляет собой словарь словарей,
         # где первый ключ нетерминал, второй - терминал
         self._table = {}
+        # Используется для проверки критерия покрытия всех пар
+        self._visited = {}
         self.build_table()
 
+        # Кратчайшие цепочкиЮ выводимые из нетерминалов
+        self._shortest_sequences = {}
+        self.calculate_shortest_sequence()
         self.print_table()
+
+    # Вычисляет кратчайшие цепочки для всех нетрминалов
+    def calculate_shortest_sequence(self):
+        # Все правые части правил содержат только терминалы
+        all_terminals = False
+        # Длина рассматриваемой цепочки терминалов
+        length = 0
+        rules = self._rules
+
+        while not all_terminals:
+            new_rules = []
+            changed = False
+
+            for rule in rules:
+                lhs = rule.get_lhs()
+                rhs = rule.get_rhs()
+                # В правой части правила содержится только eps
+                only_epsilon = length == 0 and len(rhs) == 1 and rhs[0].is_epsilon()
+                # В правой части правила содержится ровно length терминалов и больше ничего
+                length_k = length == len(rhs) and Symbol.all_terminals_or_epsilon(rhs)
+
+                if only_epsilon or length_k:
+                    for other_rule in rules:
+                        if other_rule != rule:
+                            other_rhs = other_rule.get_rhs()
+                            other_lhs = other_rule.get_lhs()
+                            new_rhs = []
+                            for symb in other_rhs:
+                                if not (symb.is_non_terminal() and str(symb) == str(lhs)):
+                                    new_rhs.append(symb)
+                                else:
+                                    changed = True
+                                    if length_k:
+                                        new_rhs += rhs
+
+                            new_rules.append(Rule(other_lhs, new_rhs))
+                        else:
+                            new_rules.append(rule)
+
+                if changed:
+                    rules = new_rules
+                    break
+                else:
+                    new_rules = []
+            else:
+                length += 1
+
+            all_terminals = True
+            for rule in rules:
+                if not Symbol.all_terminals_or_epsilon(rule.get_rhs()):
+                    all_terminals = False
+                    break
+
+        for rule in rules:
+            lhs = rule.get_lhs()
+            rhs = rule.get_rhs()
+            if str(lhs) not in self._shortest_sequences:
+                self._shortest_sequences[str(lhs)] = rhs
+            elif len(rhs) < len(self._shortest_sequences[str(lhs)]):
+                self._shortest_sequences[str(lhs)] = rhs
 
     # Считает множество FIRST для цепочки символов u
     def calculate_first(self, u):
@@ -772,8 +848,10 @@ class Tester(object):
     def build_table(self):
         for nt in self._non_terminals:
             self._table[str(nt)] = {}
+            self._visited[str(nt)] = {}
             for t in self._terminals:
                 self._table[str(nt)][str(t)] = []
+                self._visited[str(nt)][str(t)] = None
 
         for r in self._rules:
             X = r.get_lhs()
@@ -824,7 +902,11 @@ class Tester(object):
         else:
             for a in self._FIRST[str(current_symb)]:
                 if not a.is_epsilon():
-                    self._states_stack.append(State(state.prefix, state.stack[:], False, a))
+                    if self._visited[str(current_symb)][str(a)] is not None:
+                        self._states_stack.append(State(state.prefix, state.stack[:], False, a))
+                    else:
+                        # Генерируем кратчайшую цепочку для нетерминала
+                        pass
                 else:
                     self._states_stack.append(State(state.prefix, state.stack[:], True))
 
@@ -833,8 +915,12 @@ class Tester(object):
         current_symb = state.get_last_symbol_from_stack()
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
-            state.prefix += current_symb.get_image()
-            self.perform_open_actions(state)
+            if current_symb != self._end_symbol:
+                state.prefix += current_symb.get_image()
+                self.perform_open_actions(state)
+            else:
+                # TODO выводить результат в файл
+                pass
         else:
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
