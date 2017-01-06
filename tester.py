@@ -670,15 +670,13 @@ class State(object):
     """
     Состояние вычислительной среды
     """
-    def __init__(self, prefix, stack, to_open, next_symbol=None):
+    def __init__(self, prefix, stack, next_symbol=None):
         # префикс сгенерированной цепочки
         # магазин
         self.prefix = prefix
         self.stack = stack
         # следующий входной символ (нужен, если to_open == False)
         self.next_symbol = next_symbol
-        # В закрытое или открытое состояние переходим
-        self.to_open = to_open
 
     def get_last_symbol_from_stack(self):
         return self.stack[len(self.stack) - 1]
@@ -912,7 +910,7 @@ class Tester(object):
                 print '(%s, %s) %s' % (nt, t, str_repr)
 
     def create_tests(self):
-        self.perform_open_actions(State('', [self._end_symbol, self._non_terminals[0]], True))
+        self.perform_open_actions(State('', [self._end_symbol, self._non_terminals[0]]))
 
     # Открытое состояние
     def perform_open_actions(self, state):
@@ -942,12 +940,12 @@ class Tester(object):
                     if self._visited[str(current_symb)][str(a)] is None:
                         all_visited = False
                         self._visited[str(current_symb)][str(a)] = True
-                        self.perform_close_actions(State(state.prefix, state.stack[:], False, a))
+                        self.perform_close_actions(State(state.prefix, state.stack[:], a))
                 else:
                     if self._visited[str(current_symb)][str(a)] is None:
                         all_visited = False
                         self._visited[str(current_symb)][str(a)] = True
-                        self.perform_open_actions(State(state.prefix, state.stack[:-1], True))
+                        self.perform_open_actions(State(state.prefix, state.stack[:-1]))
 
             if all_visited:
                 state.remove_last_symbol_from_stack()
