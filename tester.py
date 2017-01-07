@@ -762,16 +762,18 @@ class Tester(object):
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
 
-        tmp = set(self._terminals)
-        for nt in self._non_terminals:
-            self._inappropriate_symbols[str(nt)] = tmp - self._FIRST[str(nt)]
-
         # таблица предсказывающего анализатора представляет собой словарь словарей,
         # где первый ключ нетерминал, второй - терминал
         self._table = {}
         # Используется для проверки критерия покрытия всех пар
         self._visited = {}
         self.build_table()
+
+        for nt in self._non_terminals:
+            self._inappropriate_symbols[str(nt)] = set()
+            for t in self._terminals:
+                if len(self._table[str(nt)][str(t)]) == 0:
+                    self._inappropriate_symbols[str(nt)].add(t)
 
         # Кратчайшие цепочкиЮ выводимые из нетерминалов
         self._shortest_sequences = {}
@@ -965,7 +967,7 @@ class Tester(object):
                 state.prefix += current_symb.get_image()
                 self.perform_open_actions(state)
             else:
-                self.write_to_file(True, state.prefix)
+                self.write_to_file(not state.negative, state.prefix)
         else:
             all_visited = True
 
@@ -978,19 +980,38 @@ class Tester(object):
                 else:
                     return cmp(x, y)
 
-            for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
-                if not a.is_epsilon():
-                    if self._visited[str(current_symb)][str(a)] is None:
-                        all_visited = False
-                        self._visited[str(current_symb)][str(a)] = True
-                        self.perform_close_actions(State(state.prefix, state.stack[:], a))
+            if not state.negative:
+                correct_symb = None
+                for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
+                    if not a.is_epsilon():
+                        correct_symb = a
+                        break
                 else:
-                    if self._visited[str(current_symb)][str(a)] is None:
-                        all_visited = False
-                        self._visited[str(current_symb)][str(a)] = True
-                        self.perform_open_actions(State(state.prefix, state.stack[:-1]))
+                    raise TesterError('No symbols except epsilon in FIRST for %s' % str(current_symb))
 
-            if all_visited:
+                for b in self._inappropriate_symbols[str(current_symb)]:
+                    if self._visited[str(current_symb)][str(b)] is None:
+                        self._visited[str(current_symb)][str(b)] = True
+                        negative_state = State(state.prefix, state.stack[:], correct_symb, State.NEGATIVE_INSERT_STATE)
+                        if b != self._end_symbol:
+                            negative_state.prefix += b.get_image()
+                            self.perform_close_actions(negative_state)
+                        else:
+                            self.write_to_file(not negative_state.negative, state.prefix)
+
+                for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
+                    if not a.is_epsilon():
+                        if self._visited[str(current_symb)][str(a)] is None:
+                            all_visited = False
+                            self._visited[str(current_symb)][str(a)] = True
+                            self.perform_close_actions(State(state.prefix, state.stack[:], a))
+                    else:
+                        if self._visited[str(current_symb)][str(a)] is None:
+                            all_visited = False
+                            self._visited[str(current_symb)][str(a)] = True
+                            self.perform_open_actions(State(state.prefix, state.stack[:-1]))
+
+            if all_visited or state.negative:
                 state.remove_last_symbol_from_stack()
                 for sym in self._shortest_sequences[str(current_symb)]:
                     if not sym.is_epsilon():
@@ -1006,17 +1027,17 @@ class Tester(object):
                 state.prefix += current_symb.get_image()
                 self.perform_open_actions(state)
             else:
-                self.write_to_file(True, state.prefix)
+                self.write_to_file(not state.negative, state.prefix)
         else:
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
 
     def write_to_file(self, positive, info):
         if positive:
-            path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive)
+            path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive) + '.txt'
             self._unique_id_positive += 1
         else:
-            path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative)
+            path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative) + '.txt'
             self._unique_id_negative += 1
 
         with open(path_to_write, 'a') as output:
