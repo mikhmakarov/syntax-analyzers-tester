@@ -3,6 +3,7 @@ import argparse
 import antlr4
 import json
 import os
+import re
 from antlr4 import *
 
 from antlr_files.InputGrammarLexer import InputGrammarLexer
@@ -46,6 +47,10 @@ class Symbol(object):
 
     def get_image(self):
         return self._image
+
+    # image без кавычек
+    def get_formatted_image(self):
+        return re.sub('\'', '', self._image)
 
     def is_terminal(self):
         return self._type == Symbol.TYPE_TERMINAL
@@ -1024,7 +1029,7 @@ class Tester(object):
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
             if current_symb != self._end_symbol:
-                state.prefix += current_symb.get_image()
+                state.prefix += current_symb.get_formatted_image()
                 self.perform_open_actions(state)
             else:
                 self.write_to_file(not state.negative, state.prefix)
@@ -1054,7 +1059,7 @@ class Tester(object):
                         self._visited[str(current_symb)][str(b)] = True
                         negative_state = State(state.prefix, state.stack[:], correct_symb, State.NEGATIVE_INSERT_STATE)
                         if b != self._end_symbol:
-                            negative_state.prefix += b.get_image()
+                            negative_state.prefix += b.get_formatted_image()
                             self.perform_close_actions(negative_state)
                         else:
                             self.write_to_file(not negative_state.negative, state.prefix)
@@ -1075,7 +1080,7 @@ class Tester(object):
                 state.remove_last_symbol_from_stack()
                 for sym in self._shortest_sequences[str(current_symb)]:
                     if not sym.is_epsilon():
-                        state.prefix += sym.get_image()
+                        state.prefix += sym.get_formatted_image()
                 self.perform_open_actions(state)
 
     # Закрытое состояние
@@ -1084,7 +1089,7 @@ class Tester(object):
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
             if current_symb != self._end_symbol:
-                state.prefix += current_symb.get_image()
+                state.prefix += current_symb.get_formatted_image()
                 self.perform_open_actions(state)
             else:
                 self.write_to_file(not state.negative, state.prefix)
