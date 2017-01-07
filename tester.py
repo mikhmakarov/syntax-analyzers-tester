@@ -724,6 +724,11 @@ class Tester(object):
         self._path_to_positive = self._path_to_tests + '/positive'
         # Путь к негативным тестам
         self._path_to_negative = self._path_to_tests + '/negative'
+        # Используется для имени файла с позитивным тестом
+        self._unique_id_positive = 0
+        # Используется для имени файла с негативным тестом
+        self._unique_id_negative = 0
+
         self.prepare_tests_directory()
 
         self.calculate_first_for_non_terminals()
@@ -932,8 +937,7 @@ class Tester(object):
                 state.prefix += current_symb.get_image()
                 self.perform_open_actions(state)
             else:
-                # TODO выводить результат в файл
-                print(state.prefix)
+                self.write_to_file(True, state.prefix)
         else:
             all_visited = True
 
@@ -974,11 +978,21 @@ class Tester(object):
                 state.prefix += current_symb.get_image()
                 self.perform_open_actions(state)
             else:
-                # TODO выводить результат в файл
-                print(state.prefix)
+                self.write_to_file(True, state.prefix)
         else:
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
+
+    def write_to_file(self, positive, info):
+        if positive:
+            path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive)
+            self._unique_id_positive += 1
+        else:
+            path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative)
+            self._unique_id_negative += 1
+
+        with open(path_to_write, 'a') as output:
+            output.write(info)
 
     # Создаем нужные папки, очищаем от старых тестов
     def prepare_tests_directory(self):
@@ -1003,11 +1017,6 @@ class Tester(object):
                     os.unlink(file_path)
             except Exception as e:
                 print(e)
-
-    @staticmethod
-    def write_to_stdout(path, info):
-        with open(path, 'a') as output:
-            output.write(info)
 
 
 class ParserError(Exception):
