@@ -1,5 +1,5 @@
 non-terminal E, E1, T, T1, F, n;
-terminal '+', '*', '(', ')';
+terminal '+', '*', '(', ')', a, b, c;
 
 E ::= T E1;
 E1 ::= '+' T E1 | eps;

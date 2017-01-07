@@ -40,6 +40,15 @@ class InputGrammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by InputGrammarParser#complex_item.
+    def enterComplex_item(self, ctx):
+        pass
+
+    # Exit a parse tree produced by InputGrammarParser#complex_item.
+    def exitComplex_item(self, ctx):
+        pass
+
+
     # Enter a parse tree produced by InputGrammarParser#item.
     def enterItem(self, ctx):
         pass

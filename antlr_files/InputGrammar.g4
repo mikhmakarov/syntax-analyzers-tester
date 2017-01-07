@@ -41,11 +41,15 @@ main
     ;
 
 grammar_rule
-    : IDENT OP_EQ item+ OP_SC
+    : IDENT OP_EQ complex_item OP_SC
+    ;
+
+complex_item
+    : item+ | item+ (OP_OR item+)+
     ;
 
 item
-    : (IDENT | EPS)+ | item (OP_OR item)+ | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
+    : (IDENT | EPS)+ | OP_LP item (OP_OR item)+ OP_RP | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
     ;
 
 KW_NT
@@ -97,7 +101,7 @@ EPS
     ;
 
 IDENT
-   : [a-zA-Z1-9/]+ | '\'' [a-zA-Z1-9/'"()\+\-\*]+ '\''
+   : [a-zA-Z1-9/]+ | '\'' [,{}:\[\]a-zA-Z1-9/'"()\+\-\*]+ '\''
    ;
 
 WS

@@ -110,6 +110,11 @@ class EBNFStructure(object):
     TYPE_PARENS = 4
     # IDENTS+
     TYPE_IDENTS = 5
+
+    # complex_item
+    TYPE_COMPLEX_ITEM_ITEMS = 6
+    TYPE_COMPLEX_ITEM_OR = 7
+
     TYPES = [TYPE_MUL, TYPE_PLUS, TYPE_QUEST, TYPE_OR, TYPE_PARENS, TYPE_IDENTS]
 
     def __init__(self, structure_type, children):
@@ -308,12 +313,67 @@ class ASTParser(object):
                         raise ParserError('Symbol in the left side of a rule should be non terminal,'
                                           ' got terminal \'%s\'' % lhs.getText())
 
-                rhs = []
-                # Отбрасываем символы ::= и ;
-                for symbol in items[2:-1]:
-                    rhs.append(self.create_ebnf_structure(symbol))
+                # Отбрасываем символы ::= и ; (complex_item имеет индекс 2)
+                rhs = self.handle_complex_item(items[2])
 
                 self._rules.append(Rule(lhs, rhs))
+
+    # Обработка нетерминала complex_item из грамматики
+    def handle_complex_item(self, node):
+        children = list(node.getChildren())
+        node_type = self.get_complex_item_type(children)
+
+        result = []
+        if node_type == EBNFStructure.TYPE_COMPLEX_ITEM_ITEMS:
+            for child in children:
+                result.append(self.create_ebnf_structure(child))
+        else:
+            result.append(self.handle_complex_item_or_rec(children))
+
+        return result
+
+    # Рекурсивная обработка случая item+ (OP_OR item+)+
+    def handle_complex_item_or_rec(self, children):
+        indx = -1
+        descendants = []
+
+        for i in range(len(children)):
+            image = children[i].getText()
+            if ASTParser.is_antlr_terminal_node(children[i]) and image == '|':
+                indx = i
+                break
+
+        if indx == -1:
+            for child in children:
+                descendants.append(self.create_ebnf_structure(child))
+
+            # Представляем набор items+ как (items+)
+            return EBNFStructure(EBNFStructure.TYPE_PARENS, descendants)
+        else:
+            # Слева от |
+            lhs = []
+            for i in range(0, indx):
+                lhs.append(self.create_ebnf_structure(children[i]))
+
+            # Представляем набор items+ как (items+)
+            lhs_node = [EBNFStructure(EBNFStructure.TYPE_PARENS, lhs)]
+            return EBNFStructure(EBNFStructure.TYPE_OR, lhs_node
+                                 + [self.handle_complex_item_or_rec(children[indx + 1:])])
+
+    # Получает тип complex_item: item+ или item+ (OP_OR item+)+
+    def get_complex_item_type(self, children):
+        alternative = False
+
+        for child in children:
+            image = child.getText()
+            if ASTParser.is_antlr_terminal_node(child) and image == '|':
+                alternative = True
+                break
+
+        if alternative:
+            return EBNFStructure.TYPE_COMPLEX_ITEM_OR
+        else:
+            return EBNFStructure.TYPE_COMPLEX_ITEM_ITEMS
 
     # Принимает на вход узел antlr и возвращает экземпляр класса EBNFStructure
     def create_ebnf_structure(self, node):
@@ -340,8 +400,8 @@ class ASTParser(object):
 
         # item (OP_OR item)+
         if node_type == EBNFStructure.TYPE_OR:
-            # пропускаем |
-            for i in range(0, len(children), 2):
+            # пропускаем (, |, )
+            for i in range(1, len(children) - 1, 2):
                 image = children[i].getText()
                 # Если нашли идентификатор из файла, то заменяем его на соответствующее значение
                 if image in self._idents:
