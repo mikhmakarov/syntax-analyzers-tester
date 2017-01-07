@@ -2,6 +2,7 @@
 import argparse
 import antlr4
 import json
+import os
 from antlr4 import *
 
 from antlr_files.InputGrammarLexer import InputGrammarLexer
@@ -272,6 +273,9 @@ class ASTParser(object):
 
         # Идем по header'у, пропуская токен "terminal" и запятые и сохраняя терминалы
         for i in range(terminal_index + 1, len(items), 2):
+            # Если символ, который надо заменить и так терминал, то удаляем его из словаря
+            if items[i].getText() in self._idents:
+                del self._idents[items[i].getText()]
             self._terminals.append(Symbol(Symbol.TYPE_TERMINAL, items[i].getText()))
 
     def handle_main(self):
@@ -696,7 +700,7 @@ class Tester(object):
     Получает на вход абстрактное AST (в виде объекта класса ASTParser), строит множества FIRST и FOLLOW,
     таблицу разбора, порождает набор позитивных и негативных тестов
     """
-    def __init__(self, parser):
+    def __init__(self, parser, path_to_tests):
         self._parser = parser
         self._end_symbol = Symbol(Symbol.TYPE_TERMINAL, '$')
         self._eps = parser.get_epsilon()
@@ -714,6 +718,13 @@ class Tester(object):
         self._symbols_stack = []
         # Текущая выходная цепочка
         self._current_sequence = ''
+        # Путь к файлам тестов
+        self._path_to_tests = path_to_tests + '/tests'
+        # Путь к позитивным тестам
+        self._path_to_positive = self._path_to_tests + '/positive'
+        # Путь к негативным тестам
+        self._path_to_negative = self._path_to_tests + '/negative'
+        self.prepare_tests_directory()
 
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
@@ -969,6 +980,35 @@ class Tester(object):
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
 
+    # Создаем нужные папки, очищаем от старых тестов
+    def prepare_tests_directory(self):
+        if not os.path.exists(self._path_to_tests):
+            os.makedirs(self._path_to_tests)
+
+        if not os.path.exists(self._path_to_positive):
+            os.makedirs(self._path_to_positive)
+
+        if not os.path.exists(self._path_to_negative):
+            os.makedirs(self._path_to_negative)
+
+        Tester.remove_files_from_directory(self._path_to_positive)
+        Tester.remove_files_from_directory(self._path_to_negative)
+
+    @staticmethod
+    def remove_files_from_directory(path):
+        for f in os.listdir(path):
+            file_path = os.path.join(path, f)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+            except Exception as e:
+                print(e)
+
+    @staticmethod
+    def write_to_stdout(path, info):
+        with open(path, 'a') as output:
+            output.write(info)
+
 
 class ParserError(Exception):
     """Ошибки, возникающие при работе парсера"""
@@ -1014,6 +1054,15 @@ def main():
         metavar=''
     )
 
+    parser.add_argument(
+        '-t',
+        '--tests',
+        default='.',
+        help='path where to write tests',
+        type=str,
+        metavar=''
+    )
+
     args = parser.parse_args()
 
     lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
@@ -1022,7 +1071,7 @@ def main():
     parser = InputGrammarParser(stream)
     tree = parser.sample()
     ast_parser = ASTParser(tree, args.replacement)
-    tester = Tester(ast_parser)
+    tester = Tester(ast_parser, args.tests)
     # ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
