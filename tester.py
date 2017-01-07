@@ -219,6 +219,8 @@ class ASTParser(object):
         self._non_terminals = []
         # создаем объект для eps, чтобы потом использовать его для всех эпсилон в грамматике
         self._eps = Symbol(Symbol.TYPE_EPSILON, Symbol.TOKEN_EPSILON)
+        # для того, чтобы отсеять неиспользуемые терминалы
+        self._used_terminals = {}
         # правила РБНФ
         self._rules = []
         self._bnf_rules = []
@@ -237,6 +239,14 @@ class ASTParser(object):
         self.transform_ebnf_to_bnf()
         # Удаляем бесполезные символы
         self.delete_useless_symbols()
+
+        to_delete = []
+        for i, t in enumerate(self._terminals):
+            if not self._used_terminals[str(t)]:
+                to_delete.append(i)
+
+        for i in reversed(to_delete):
+            del self._terminals[i]
 
     def get_terminals(self):
         return self._terminals
@@ -278,6 +288,9 @@ class ASTParser(object):
                 del self._idents[items[i].getText()]
             self._terminals.append(Symbol(Symbol.TYPE_TERMINAL, items[i].getText()))
 
+        for t in self._terminals:
+            self._used_terminals[str(t)] = False
+
     def handle_main(self):
         rules = list(self._main.getChildren())
         for r in rules:
@@ -316,9 +329,12 @@ class ASTParser(object):
                     image = self._idents[image]
 
                 if self.is_terminal(image):
-                    descendants.append(self.get_terminal(image))
+                    term = self.get_terminal(image)
+                    descendants.append(term)
+                    self._used_terminals[str(term)] = True
                 elif self.is_non_terminal(image):
-                    descendants.append(self.get_non_terminal(image))
+                    non_term = self.get_non_terminal(image)
+                    descendants.append(non_term)
                 elif self.is_epsilon(image):
                     descendants.append(self._eps)
 
@@ -674,13 +690,25 @@ class State(object):
     """
     Состояние вычислительной среды
     """
-    def __init__(self, prefix, stack, next_symbol=None):
+
+    POSITIVE_STATE = 'positive'
+    NEGATIVE_INSERT_STATE = 'negative_insert'
+    NEGATIVE_REPLACE_STATE = 'negative_replace'
+
+    def __init__(self, prefix, stack, next_symbol=None, state_type=POSITIVE_STATE):
         # префикс сгенерированной цепочки
-        # магазин
         self.prefix = prefix
+        # магазин
         self.stack = stack
         # следующий входной символ (нужен, если to_open == False)
         self.next_symbol = next_symbol
+        # тип состояния
+        self.type = state_type
+        # Является ли тест негативным
+        self.negative = False
+
+        if state_type == State.NEGATIVE_INSERT_STATE or state_type == State.NEGATIVE_REPLACE_STATE:
+            self.negative = True
 
     def get_last_symbol_from_stack(self):
         return self.stack[len(self.stack) - 1]
