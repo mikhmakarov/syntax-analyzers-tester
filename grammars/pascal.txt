@@ -1,0 +1,27 @@
+non-terminal program, functionDeclaration, formalParameterList, resultType, typeIdentifier, identifier,
+formalParameterList, formalParameterSection, parameterGroup, identifierList, signedNumber, signedReal, signedInteger,
+unsignedNumber, unsignedReal, unsignedInteger, sign, directive, programHeading, block;
+terminal 'ident', ':', ';', '(', ')', ',', 'char', 'boolean', 'string', 'real', 'integer', '123.3', '33', '+', '-', '.',
+'directive', 'program', 'unit';
+
+program ::= programHeading block '.';
+programHeading ::= 'program' identifier ('(' identifierList ')')? ';' | 'unit' identifier ';';
+block ::= signedNumber;
+
+identifier ::= 'ident';
+directive ::= 'directive';
+signedNumber ::= sign? unsignedNumber;
+signedReal ::= sign? unsignedReal;
+signedInteger ::= sign? unsignedInteger;
+sign ::= '+' | '-';
+unsignedNumber ::= unsignedInteger | unsignedReal;
+unsignedReal ::= '123.3';
+unsignedInteger ::= '33';
+
+functionDeclaration ::= 'ident' (formalParameterList)? ':' resultType ';';
+resultType ::= typeIdentifier;
+typeIdentifier ::= identifier | 'char' | 'boolean' | 'string' | 'real' | 'integer';
+formalParameterList ::= '(' formalParameterSection (';' formalParameterSection)* ')';
+formalParameterSection ::= parameterGroup;
+parameterGroup ::= identifierList ':' typeIdentifier;
+identifierList ::= identifier (',' identifier)*;

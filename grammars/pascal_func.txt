@@ -1,0 +1,12 @@
+non-terminal functionDeclaration, formalParameterList, resultType, typeIdentifier, identifier,
+formalParameterList, formalParameterSection, parameterGroup, identifierList;
+terminal 'ident', ':', ';', '(', ')', ',', 'char', 'boolean', 'string', 'real', 'integer';
+
+functionDeclaration ::= 'ident' (formalParameterList)? ':' resultType ';';
+resultType ::= typeIdentifier;
+typeIdentifier ::= identifier | 'char' | 'boolean' | 'string' | 'real' | 'integer';
+identifier ::= 'ident';
+formalParameterList ::= '(' formalParameterSection (';' formalParameterSection)* ')';
+formalParameterSection ::= parameterGroup;
+parameterGroup ::= identifierList ':' typeIdentifier;
+identifierList ::= identifier (',' identifier)*;
