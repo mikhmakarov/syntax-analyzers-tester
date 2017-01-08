@@ -788,7 +788,10 @@ class State(object):
     def open_last_rule(self, table):
         symbols = table[str(self.get_last_symbol_from_stack())][str(self.next_symbol)]
         self.stack.pop()
-        self.stack.extend(reversed(list(symbols)))
+
+        # Если в ячейке eps, то просто снимаем нетерминал со стека
+        if not (len(symbols) == 1 and symbols[0].is_epsilon()):
+            self.stack.extend(reversed(list(symbols)))
 
 
 class Tester(object):
@@ -840,13 +843,13 @@ class Tester(object):
         self.build_table()
 
         for nt in self._non_terminals:
-            self._inappropriate_symbols[str(nt)] = set()
-            self._appropriate_symbols[str(nt)] = set()
+            self._inappropriate_symbols[str(nt)] = []
+            self._appropriate_symbols[str(nt)] = []
             for t in self._terminals:
                 if len(self._table[str(nt)][str(t)]) == 0:
-                    self._inappropriate_symbols[str(nt)].add(t)
+                    self._inappropriate_symbols[str(nt)].append(t)
                 else:
-                    self._appropriate_symbols[str(nt)].add(t)
+                    self._appropriate_symbols[str(nt)].append(t)
 
         # Кратчайшие цепочки выводимые из нетерминалов
         self._shortest_sequences = {}
@@ -1055,7 +1058,7 @@ class Tester(object):
 
             if not state.negative:
                 correct_symb = None
-                for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
+                for a in self._appropriate_symbols[str(current_symb)]:
                     if not a.is_epsilon():
                         correct_symb = a
                         break
@@ -1073,17 +1076,11 @@ class Tester(object):
                         else:
                             self.write_to_file(not negative_state.negative, negative_state.prefix)
 
-                for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
-                    if not a.is_epsilon():
-                        if self._visited[str(current_symb)][str(a)] is None:
+                for a in self._appropriate_symbols[str(current_symb)]:
+                    if self._visited[str(current_symb)][str(a)] is None:
                             all_visited = False
                             self._visited[str(current_symb)][str(a)] = True
                             self.perform_close_actions(State(state.prefix, state.stack[:], a))
-                    else:
-                        if self._visited[str(current_symb)][str(a)] is None:
-                            all_visited = False
-                            self._visited[str(current_symb)][str(a)] = True
-                            self.perform_open_actions(State(state.prefix, state.stack[:-1]))
 
             if all_visited or state.negative:
                 state.remove_last_symbol_from_stack()
