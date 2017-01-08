@@ -775,6 +775,9 @@ class State(object):
         if state_type == State.NEGATIVE_INSERT_STATE or state_type == State.NEGATIVE_REPLACE_STATE:
             self.negative = True
 
+        # Один из нетерминалов был раскрыт как eps => не можем гарантировать негативный тест
+        self.epsilon_opening = False
+
     def get_last_symbol_from_stack(self):
         return self.stack[len(self.stack) - 1]
 
@@ -803,8 +806,10 @@ class Tester(object):
         # Для нетерминалов
         self._FIRST = {}
         self._FOLLOW = {}
-        # Каждый элемент массив символов, которые не могут идти за нетерминалом
+        # Множество символов, которые не могут идти за нетерминалом
         self._inappropriate_symbols = {}
+        # Множество символов, которые могут идти за терминалом
+        self._appropriate_symbols = {}
         # Стек состояний вычислительной среды
         self._states_stack = []
         # Стек символов
@@ -836,11 +841,14 @@ class Tester(object):
 
         for nt in self._non_terminals:
             self._inappropriate_symbols[str(nt)] = set()
+            self._appropriate_symbols[str(nt)] = set()
             for t in self._terminals:
                 if len(self._table[str(nt)][str(t)]) == 0:
                     self._inappropriate_symbols[str(nt)].add(t)
+                else:
+                    self._appropriate_symbols[str(nt)].add(t)
 
-        # Кратчайшие цепочкиЮ выводимые из нетерминалов
+        # Кратчайшие цепочки выводимые из нетерминалов
         self._shortest_sequences = {}
         self.calculate_shortest_sequence()
 
@@ -1057,12 +1065,13 @@ class Tester(object):
                 for b in self._inappropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(b)] is None:
                         self._visited[str(current_symb)][str(b)] = True
-                        negative_state = State(state.prefix, state.stack[:], correct_symb, State.NEGATIVE_INSERT_STATE)
+                        negative_state = State(state.prefix, state.stack[:], correct_symb,
+                                               State.NEGATIVE_INSERT_STATE)
                         if b != self._end_symbol:
                             negative_state.prefix += b.get_formatted_image()
                             self.perform_close_actions(negative_state)
                         else:
-                            self.write_to_file(not negative_state.negative, state.prefix)
+                            self.write_to_file(not negative_state.negative, negative_state.prefix)
 
                 for a in sorted(self._FIRST[str(current_symb)], cmp=compare_function):
                     if not a.is_epsilon():
