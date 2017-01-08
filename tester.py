@@ -48,9 +48,9 @@ class Symbol(object):
     def get_image(self):
         return self._image
 
-    # image без кавычек
+    # image без кавычек с пробелом в конце
     def get_formatted_image(self):
-        return re.sub('\'', '', self._image)
+        return re.sub('\'', '', self._image) + ' '
 
     def is_terminal(self):
         return self._type == Symbol.TYPE_TERMINAL
