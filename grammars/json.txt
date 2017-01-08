@@ -1,8 +1,8 @@
 non-terminal json, object, array, pair, value;
 terminal '{', ',', '}', STRING, NUMBER, ':', '[', ']', 'true', 'false', 'null';
 
-object ::= '{' pair (',' pair)* '}' | '{' '}';
+object ::= '{' pair (',' pair)* '}';
 json ::= object | array;
 pair ::= STRING ':' value ;
-array ::= '[' value (',' value)* ']' |   '[' ']';
+array ::= '[' value (',' value)* ']';
 value ::= STRING |   NUMBER |   object |   array |   'true' |   'false' |   'null';
