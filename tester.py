@@ -510,9 +510,9 @@ class ASTParser(object):
                 alternative = True
                 break
 
+            # Не делаем break, потому что альтернатива тоже со скобками
             if ASTParser.is_antlr_terminal_node(child) and image == '(':
                 parens = True
-                break
 
             if ASTParser.is_antlr_terminal_node(child) and image == '*':
                 mul = True
@@ -557,6 +557,7 @@ class ASTParser(object):
                         if element.get_type() == EBNFStructure.TYPE_IDENTS:
                             for ident in element.get_children():
                                 new_rule_rhs.append(ident)
+
                         # x -> ... y* ... => x_0 -> ... x_1 ...
                         # x_1 -> eps
                         # x_1 -> y x_1
@@ -591,8 +592,10 @@ class ASTParser(object):
                             new_lhs = Symbol(Symbol.TYPE_NON_TERMINAL, lhs.get_image())
                             self._non_terminals.append(new_lhs)
                             new_rule_rhs.append(new_lhs)
-                            to_append.append(Rule(new_lhs, [element.get_children()[0]]))
-                            to_append.append(Rule(new_lhs, [element.get_children()[1]]))
+                            for chd in element.get_children():
+                                to_append.append(Rule(new_lhs, [chd]))
+                            # to_append.append(Rule(new_lhs, [element.get_children()[0]]))
+                            # to_append.append(Rule(new_lhs, [element.get_children()[1]]))
                         # Удаляем скобки
                         elif element.get_type() == EBNFStructure.TYPE_PARENS:
                             new_rule_rhs.extend(element.get_children())
