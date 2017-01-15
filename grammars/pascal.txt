@@ -1,14 +1,66 @@
-non-terminal program, functionDeclaration, formalParameterList, resultType, typeIdentifier, identifier,
+non-terminal program, formalParameterList, resultType, typeIdentifier, identifier,
 formalParameterList, formalParameterSection, parameterGroup, identifierList, signedNumber, signedReal, signedInteger,
-unsignedNumber, unsignedReal, unsignedInteger, sign, directive, programHeading, block;
+unsignedNumber, unsignedReal, unsignedInteger, sign, directive, programHeading, block, compoundStatement, statements,
+statement, simpleStatement, structuredStatement, assignmentStatement, expression, simpleExpression, term, signedFactor,
+factor, variableDeclarationPart, variableDeclaration, identifierList, type, constantDefinitionPart, constantDefinition,
+constant, string, procedureStatement, parameterList, actualParameter, func_ident, procedureAndFunctionDeclarationPart,
+procedureOrFunctionDeclaration, functionDeclaration, procedureDeclaration, proc_ident, conditionalStatement,
+ifStatement, caseStatement, caseListElement, constList, repetetiveStatement, whileStatement, repeatStatement,
+forStatement, forList;
+
 terminal 'ident', ':', ';', '(', ')', ',', 'char', 'boolean', 'string', 'real', 'integer', '123.3', '33', '+', '-', '.',
-'directive', 'program', 'unit';
+'directive', 'program', 'unit', 'begin', 'end', ':=', '==', '<>', '<', '<=', '>=', '>', 'or', '*', '/', 'div', 'mod',
+'and', 'var', 'const', ''string'', '=', 'func', 'proc', 'procedure', 'if', 'then', 'else', 'case', 'of', 'while', 'do',
+'repeat', 'until', 'for', 'do', 'to', 'downto';
 
 program ::= programHeading block '.';
 programHeading ::= 'program' identifier ('(' identifierList ')')? ';' | 'unit' identifier ';';
-block ::= signedNumber;
+
+block ::= (variableDeclarationPart | constantDefinitionPart | procedureAndFunctionDeclarationPart)* compoundStatement;
+compoundStatement ::= 'begin' statements 'end';
+statements ::= statement (';' statement)*;
+statement ::= simpleStatement | structuredStatement;
+simpleStatement ::= assignmentStatement | procedureStatement;
+assignmentStatement ::= 'ident' ':=' expression;
+expression ::= simpleExpression (('==' | '<>' | '<' | '<=' | '>=' | '>') simpleExpression)*;
+simpleExpression ::= term (('+' | '-' | 'or') term)*;
+term ::= signedFactor (('*' | '/' | 'div' | 'mod' | 'and') signedFactor)*;
+signedFactor ::= sign? factor;
+factor ::= 'ident' | '(' expression ')';
+variableDeclarationPart ::= 'var' (variableDeclaration ';')+;
+variableDeclaration ::= identifierList ':' type;
+type ::= typeIdentifier;
+constantDefinitionPart ::= 'const' (constantDefinition ';')+;
+constantDefinition ::= identifier '=' constant;
+constant ::= sign? unsignedNumber | string;
+procedureStatement ::= func_ident '(' parameterList ')';
+parameterList ::= actualParameter (',' actualParameter)*;
+actualParameter ::= expression;
+procedureAndFunctionDeclarationPart ::= procedureOrFunctionDeclaration ';';
+procedureOrFunctionDeclaration ::= procedureDeclaration | functionDeclaration;
+procedureDeclaration ::= 'procedure' proc_ident (formalParameterList)? ';' block;
+functionDeclaration ::= func_ident (formalParameterList)? ':' resultType ';' block;
+resultType ::= typeIdentifier;
+typeIdentifier ::= 'char' | 'boolean' | 'string' | 'real' | 'integer';
+formalParameterList ::= '(' formalParameterSection (';' formalParameterSection)* ')';
+formalParameterSection ::= parameterGroup;
+parameterGroup ::= identifierList ':' typeIdentifier;
+identifierList ::= identifier (',' identifier)*;
+structuredStatement ::= conditionalStatement | repetetiveStatement;
+conditionalStatement ::= ifStatement | caseStatement;
+ifStatement ::= 'if' expression 'then' statement ('else' statement)?;
+caseStatement ::= 'case' expression 'of' caseListElement (';' caseListElement)* 'end';
+caseListElement ::= constList ':' statement;
+constList ::= constant (',' constant)*;
+repetetiveStatement ::= whileStatement | repeatStatement | forStatement;
+whileStatement ::= 'while' expression 'do' statement;
+repeatStatement ::= 'repeat' statements 'until' expression;
+forStatement ::= 'for' identifier ':=' forList 'do' statement;
+forList ::= expression ('to' | 'downto') expression;
 
 identifier ::= 'ident';
+func_ident ::= 'func';
+proc_ident ::= 'proc';
 directive ::= 'directive';
 signedNumber ::= sign? unsignedNumber;
 signedReal ::= sign? unsignedReal;
@@ -17,11 +69,4 @@ sign ::= '+' | '-';
 unsignedNumber ::= unsignedInteger | unsignedReal;
 unsignedReal ::= '123.3';
 unsignedInteger ::= '33';
-
-functionDeclaration ::= 'ident' (formalParameterList)? ':' resultType ';';
-resultType ::= typeIdentifier;
-typeIdentifier ::= identifier | 'char' | 'boolean' | 'string' | 'real' | 'integer';
-formalParameterList ::= '(' formalParameterSection (';' formalParameterSection)* ')';
-formalParameterSection ::= parameterGroup;
-parameterGroup ::= identifierList ':' typeIdentifier;
-identifierList ::= identifier (',' identifier)*;
+string ::= ''string'';
