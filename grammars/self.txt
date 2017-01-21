@@ -1,0 +1,13 @@
+non-terminal sample, header, main, grammar_rule, complex_item, item, item_with_bracket,  item_with_bracket_or,
+item_with_bracket_items;
+terminal 'non-terminal', 'terminal', 'A', ',', ';', '::=', 'eps', '(', ')', '|', '*', '+', '?';
+
+sample ::= header main;
+header ::= 'non-terminal' 'A' (',' 'A')* ';' 'terminal' 'A' (',' 'A')* ';';
+main ::= grammar_rule+;
+grammar_rule ::= 'A' '::=' complex_item ';';
+complex_item ::= item+ ('|' item+)*;
+item ::= ('A' | 'eps') ('*' | '+' | '?')? | item_with_bracket ('*' | '+' | '?')?;
+item_with_bracket ::= '(' item (item_with_bracket_or | item_with_bracket_items) ')';
+item_with_bracket_or ::= ('|' item)+;
+item_with_bracket_items ::= item*;

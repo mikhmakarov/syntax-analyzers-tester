@@ -4,10 +4,20 @@ import antlr4
 import json
 import os
 import re
-from antlr4 import *
+import sys
 
+from antlr4 import *
 from antlr_files.InputGrammarLexer import InputGrammarLexer
 from antlr_files.InputGrammarParser import InputGrammarParser
+from antlr4.error.ErrorListener import ErrorListener
+
+
+class CustomErrorListener(ErrorListener):
+    def __init__(self):
+        super(CustomErrorListener, self).__init__()
+
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        raise ParserError("Antrl Error")
 
 
 class Symbol(object):
@@ -427,7 +437,7 @@ class ASTParser(object):
             for i in range(0, len(children) - 1):
                 descendants.append(self.create_ebnf_structure(children[i]))
 
-        # OP_LP item+ OP_RP
+            # OP_LP item+ OP_RP
         if node_type == EBNFStructure.TYPE_PARENS:
             # пропускаем ( и )
             for i in range(1, len(children) - 1):
@@ -1195,15 +1205,33 @@ def main():
         metavar=''
     )
 
+    parser.add_argument(
+        '--grammar-check',
+        default=False,
+        action='store_true',
+        help='perform only parsing'
+    )
+
     args = parser.parse_args()
 
     lexer = InputGrammarLexer(FileStream(args.input, encoding='utf-8'))
     stream = CommonTokenStream(lexer)
     # print_tokens(stream)
     parser = InputGrammarParser(stream)
-    tree = parser.sample()
-    ast_parser = ASTParser(tree, args.replacement)
-    tester = Tester(ast_parser, args.tests)
+    parser._listeners = [CustomErrorListener()]
+
+    if args.grammar_check:
+        f = open(os.devnull, 'w')
+        sys.stdout = f
+
+    try:
+        tree = parser.sample()
+        ast_parser = ASTParser(tree, args.replacement)
+    except ParserError:
+        sys.exit(1)
+
+    if not args.grammar_check:
+        tester = Tester(ast_parser, args.tests)
     # ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
