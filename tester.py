@@ -60,7 +60,14 @@ class Symbol(object):
 
     # image без кавычек с пробелом в конце
     def get_formatted_image(self):
-        return re.sub('\'', '', self._image) + ' '
+        res = self._image
+        if res[0] == '\'':
+            res = res[1:]
+
+        if res[-1] == '\'':
+            res = res[:-1]
+
+        return res + ' '
 
     def is_terminal(self):
         return self._type == Symbol.TYPE_TERMINAL
