@@ -784,6 +784,10 @@ class State(object):
         self.type = state_type
         # Является ли тест негативным
         self.negative = False
+        # Последний нетерминал было раскрыто как eps
+        self.last_eps = False
+        # Тот самый последний нетерминал
+        self.last_non_terminal = None
 
         if state_type == State.NEGATIVE_INSERT_STATE or state_type == State.NEGATIVE_REPLACE_STATE:
             self.negative = True
@@ -794,16 +798,28 @@ class State(object):
     def get_last_symbol_from_stack(self):
         return self.stack[len(self.stack) - 1]
 
+    def get_last_non_terminal_eps(self):
+        return self.last_non_terminal
+
+    def is_last_eps(self):
+        return self.last_eps
+
     def remove_last_symbol_from_stack(self):
         self.stack.pop()
 
     # раскрыть правило на вершине стека по таблице и терминалу
     def open_last_rule(self, table):
-        symbols = table[str(self.get_last_symbol_from_stack())][str(self.next_symbol)]
+        last_symbol = self.get_last_symbol_from_stack()
+        symbols = table[str(last_symbol)][str(self.next_symbol)]
         self.stack.pop()
 
-        # Если в ячейке eps, то просто снимаем нетерминал со стека
-        if not (len(symbols) == 1 and symbols[0].is_epsilon()):
+        # Если в ячейке eps, то просто снимаем нетерминал со стека (и запоминаем, что раскрыли как eps)
+        if len(symbols) == 1 and symbols[0].is_epsilon():
+            self.last_eps = True
+            self.last_non_terminal = last_symbol
+        else:
+            self.last_eps = False
+            self.last_non_terminal = None
             self.stack.extend(reversed(list(symbols)))
 
 
@@ -842,6 +858,7 @@ class Tester(object):
         self._unique_id_positive = 0
         # Используется для имени файла с негативным тестом
         self._unique_id_negative = 0
+        self._negative_count = 0
 
         self.prepare_tests_directory()
 
@@ -1080,14 +1097,20 @@ class Tester(object):
 
                 for b in self._inappropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(b)] is None:
-                        self._visited[str(current_symb)][str(b)] = True
-                        negative_state = State(state.prefix, state.stack[:], correct_symb,
-                                               State.NEGATIVE_INSERT_STATE)
-                        if b != self._end_symbol:
-                            negative_state.prefix += b.get_formatted_image()
-                            self.perform_close_actions(negative_state)
-                        else:
-                            self.write_to_file(not negative_state.negative, negative_state.prefix)
+                        # Последний символ был раскрыт как эпсилон, надо проверить, не является ли b допустимым
+                        # символом для предыдущего нетерминала
+                        if state.is_last_eps():
+                            last_non_terminal = state.get_last_non_terminal_eps()
+                            # Можем порождать негативный тест, т.к. b не является допустимым для last_non_terminal
+                            if len(self._table[str(last_non_terminal)][str(b)]) == 0:
+                                self._visited[str(current_symb)][str(b)] = True
+                                negative_state = State(state.prefix, state.stack[:], correct_symb,
+                                                       State.NEGATIVE_INSERT_STATE)
+                                if b != self._end_symbol:
+                                    negative_state.prefix += b.get_formatted_image()
+                                    self.perform_close_actions(negative_state)
+                                else:
+                                    self.write_to_file(not negative_state.negative, negative_state.prefix)
 
                 for a in self._appropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(a)] is None:
@@ -1121,6 +1144,7 @@ class Tester(object):
             path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive) + '.txt'
             self._unique_id_positive += 1
         else:
+            self._negative_count += 1
             path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative) + '.txt'
             self._unique_id_negative += 1
 
