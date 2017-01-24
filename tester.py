@@ -949,10 +949,12 @@ class Tester(object):
         for rule in rules:
             lhs = rule.get_lhs()
             rhs = rule.get_rhs()
-            if str(lhs) not in self._shortest_sequences:
-                self._shortest_sequences[str(lhs)] = rhs
-            elif len(rhs) < len(self._shortest_sequences[str(lhs)]):
-                self._shortest_sequences[str(lhs)] = rhs
+            # Не берем левые части, состоящие только из эпсилон
+            if not (len(rhs) == 1 and rhs[0].is_epsilon()):
+                if str(lhs) not in self._shortest_sequences:
+                    self._shortest_sequences[str(lhs)] = rhs
+                elif len(rhs) < len(self._shortest_sequences[str(lhs)]):
+                    self._shortest_sequences[str(lhs)] = rhs
 
     # Считает множество FIRST для цепочки символов u
     def calculate_first(self, u):
@@ -1104,26 +1106,25 @@ class Tester(object):
 
                 for b in self._inappropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(b)] is None:
-                        # Последний символ был раскрыт как эпсилон, надо проверить, не является ли b допустимым
-                        # символом для предыдущего нетерминала
-                        if state.is_last_eps():
-                            last_non_terminal = state.get_last_non_terminal_eps()
-                            # Можем порождать негативный тест, т.к. b не является допустимым для last_non_terminal
-                            if len(self._table[str(last_non_terminal)][str(b)]) == 0:
-                                self._visited[str(current_symb)][str(b)] = True
-                                negative_state = State(state.prefix, state.stack[:], correct_symb,
-                                                       State.NEGATIVE_INSERT_STATE)
-                                if b != self._end_symbol:
-                                    negative_state.prefix += b.get_formatted_image()
-                                    self.perform_close_actions(negative_state)
-                                else:
-                                    self.write_to_file(not negative_state.negative, negative_state.prefix)
+                        if self._negative_count == 109:
+                            pass
+                        self._negative_count += 1
+                        self._visited[str(current_symb)][str(b)] = True
+                        negative_state = State(state.prefix, state.stack[:], correct_symb,
+                                               State.NEGATIVE_INSERT_STATE)
+                        if b != self._end_symbol:
+                            negative_state.prefix += b.get_formatted_image()
+                            self.perform_close_actions(negative_state)
+                        else:
+                            self.write_to_file(not negative_state.negative, negative_state.prefix)
 
                 for a in self._appropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(a)] is None:
-                            all_visited = False
-                            self._visited[str(current_symb)][str(a)] = True
-                            self.perform_close_actions(State(state.prefix, state.stack[:], a))
+                        if a.get_formatted_image() == 'eps ':
+                            pass
+                        all_visited = False
+                        self._visited[str(current_symb)][str(a)] = True
+                        self.perform_close_actions(State(state.prefix, state.stack[:], a))
 
             if all_visited or state.negative:
                 state.remove_last_symbol_from_stack()
@@ -1151,7 +1152,6 @@ class Tester(object):
             path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive) + '.txt'
             self._unique_id_positive += 1
         else:
-            self._negative_count += 1
             path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative) + '.txt'
             self._unique_id_negative += 1
 
