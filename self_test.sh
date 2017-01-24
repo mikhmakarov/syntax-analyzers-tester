@@ -1,5 +1,7 @@
 #!/bin/bash
 
+python ./tester.py -i grammars/self.txt
+
 for entry in "tests/positive"/*
 do
     python tester.py -i "$entry" --grammar-check

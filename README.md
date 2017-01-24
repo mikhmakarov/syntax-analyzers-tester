@@ -10,16 +10,16 @@
 
 Команда для запуска парсера (по умолчанию грамматика считывается из
 файла "input.txt"):  
-`python parser.py`
+`python tester.py`
 
 Для того, чтобы указать путь до входной грамматики нужно использовать
 ключ -i (по умолчанию grammars/input.txt):  
-`python parser.py -i grammars/pascal.txt`
+`python tester.py -i grammars/pascal.txt`
 
 После завершения работы программы в текущей директории создается папка
 tests с тестами. Чтобы записать тесты в другую папку, нужно использовать
 ключ -t:  
-`python parser.py -t ./output`
+`python tester.py -t ./output`
 
 Ключ --grammar-check позволяет протестировать лексер/парсер 
 (т.е. порождение тестов не производится).
