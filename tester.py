@@ -13,11 +13,12 @@ from antlr4.error.ErrorListener import ErrorListener
 
 
 class CustomErrorListener(ErrorListener):
-    def __init__(self):
+    def __init__(self, grammar_check):
+        self._grammar_check = grammar_check
         super(CustomErrorListener, self).__init__()
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise ParserError("Antrl Error")
+        raise ParserError('(%s, %s) %s' % (line, column, msg))
 
 
 class Symbol(object):
@@ -1249,17 +1250,19 @@ def main():
     stream = CommonTokenStream(lexer)
     # print_tokens(stream)
     parser = InputGrammarParser(stream)
-    parser._listeners = [CustomErrorListener()]
+    parser._listeners = [CustomErrorListener(args.grammar_check)]
 
     if args.grammar_check:
         f = open(os.devnull, 'w')
         sys.stdout = f
-
     try:
         tree = parser.sample()
         ast_parser = ASTParser(tree, args.replacement)
-    except ParserError:
-        sys.exit(1)
+    except ParserError as e:
+        if args.grammar_check:
+            sys.exit(1)
+        else:
+            raise e
 
     if not args.grammar_check:
         tester = Tester(ast_parser, args.tests)
