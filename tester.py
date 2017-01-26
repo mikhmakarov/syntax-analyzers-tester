@@ -1003,32 +1003,32 @@ class Tester(object):
             if i == 0:
                 self._FOLLOW[str(nt)].add(self._end_symbol)
 
+        # X -> uYv
         for r in self._rules:
             rhs = r.get_rhs()
-            if len(rhs) > 2:
-                for i, Y in enumerate(rhs[1:-1]):
-                    if self._parser.is_non_terminal(Y.get_image()):
-                        self._FOLLOW[str(Y)] |= self.calculate_first(rhs[i + 2:]) - {self._parser.get_epsilon()}
+            for i, Y in enumerate(rhs[:-1]):
+                if self._parser.is_non_terminal(Y.get_image()):
+                    self._FOLLOW[str(Y)] |= self.calculate_first(rhs[i + 1:]) - {self._parser.get_epsilon()}
 
         while True:
             changed = False
 
+            # X -> uY or X -> uYv, FIRST(V) содержит eps
             for r in self._rules:
                 X = r.get_lhs()
                 rhs = r.get_rhs()
-                if len(rhs) > 1:
-                    for i, Y in enumerate(rhs[1:]):
-                        if self._parser.is_non_terminal(Y.get_image()):
-                            old_length = len(self._FOLLOW[str(Y)])
-                            if i != len(rhs[1:]) - 1:
-                                first = self.calculate_first(rhs[i + 2:])
-                                if ASTParser.contains_epsilon(first):
-                                    self._FOLLOW[str(Y)] |= self._FOLLOW[str(X)]
-                            else:
+                for i, Y in enumerate(rhs[:]):
+                    if self._parser.is_non_terminal(Y.get_image()):
+                        old_length = len(self._FOLLOW[str(Y)])
+                        if i != len(rhs[:]) - 1:
+                            first = self.calculate_first(rhs[i + 1:])
+                            if ASTParser.contains_epsilon(first):
                                 self._FOLLOW[str(Y)] |= self._FOLLOW[str(X)]
+                        else:
+                            self._FOLLOW[str(Y)] |= self._FOLLOW[str(X)]
 
-                            if len(self._FOLLOW[str(Y)]) > old_length:
-                                changed = True
+                        if len(self._FOLLOW[str(Y)]) > old_length:
+                            changed = True
 
             if not changed:
                 break
@@ -1107,9 +1107,6 @@ class Tester(object):
 
                 for b in self._inappropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(b)] is None:
-                        if self._negative_count == 109:
-                            pass
-                        self._negative_count += 1
                         self._visited[str(current_symb)][str(b)] = True
                         negative_state = State(state.prefix, state.stack[:], correct_symb,
                                                State.NEGATIVE_INSERT_STATE)
@@ -1121,8 +1118,6 @@ class Tester(object):
 
                 for a in self._appropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(a)] is None:
-                        if a.get_formatted_image() == 'eps ':
-                            pass
                         all_visited = False
                         self._visited[str(current_symb)][str(a)] = True
                         self.perform_close_actions(State(state.prefix, state.stack[:], a))
