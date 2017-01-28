@@ -59,6 +59,9 @@ class Symbol(object):
     def get_image(self):
         return self._image
 
+    def get_formatted_image_without_space(self):
+        return self.get_formatted_image()[:-1]
+
     # image без кавычек с пробелом в конце
     def get_formatted_image(self):
         res = self._image
@@ -109,6 +112,17 @@ class Symbol(object):
         result = True
         for sym in array:
             if not (sym.is_terminal() or sym.is_epsilon()):
+                result = False
+                break
+
+        return result
+
+    # Возвращает True, если все элементы массива - терминалы
+    @staticmethod
+    def all_terminals(array):
+        result = True
+        for sym in array:
+            if not (sym.is_terminal()):
                 result = False
                 break
 
@@ -792,10 +806,8 @@ class State(object):
         self.type = state_type
         # Является ли тест негативным
         self.negative = False
-        # Последний нетерминал было раскрыто как eps
-        self.last_eps = False
-        # Тот самый последний нетерминал
-        self.last_non_terminal = None
+        # Для раскрытия последнего нетерминала использовалась кратчайшая цепочка
+        self._inappropriate_symbols = False
 
         if state_type == State.NEGATIVE_INSERT_STATE or state_type == State.NEGATIVE_REPLACE_STATE:
             self.negative = True
@@ -805,12 +817,6 @@ class State(object):
 
     def get_last_symbol_from_stack(self):
         return self.stack[len(self.stack) - 1]
-
-    def get_last_non_terminal_eps(self):
-        return self.last_non_terminal
-
-    def is_last_eps(self):
-        return self.last_eps
 
     def remove_last_symbol_from_stack(self):
         self.stack.pop()
@@ -836,6 +842,10 @@ class Tester(object):
     Получает на вход абстрактное AST (в виде объекта класса ASTParser), строит множества FIRST и FOLLOW,
     таблицу разбора, порождает набор позитивных и негативных тестов
     """
+
+    INCORRECT_TEST = 1
+    CORRECT_TEST = 0
+
     def __init__(self, parser, path_to_tests):
         self._parser = parser
         self._end_symbol = Symbol(Symbol.TYPE_TERMINAL, '$')
@@ -891,6 +901,7 @@ class Tester(object):
 
         # Кратчайшие цепочки выводимые из нетерминалов
         self._shortest_sequences = {}
+
         self.calculate_shortest_sequence()
 
         self.create_tests()
@@ -907,13 +918,16 @@ class Tester(object):
             new_rules = []
             changed = False
 
+            if length == 1:
+                pass
+
             for rule in rules:
                 lhs = rule.get_lhs()
                 rhs = rule.get_rhs()
                 # В правой части правила содержится только eps
                 only_epsilon = length == 0 and len(rhs) == 1 and rhs[0].is_epsilon()
                 # В правой части правила содержится ровно length терминалов и больше ничего
-                length_k = length == len(rhs) and Symbol.all_terminals_or_epsilon(rhs)
+                length_k = length == len(rhs) and Symbol.all_terminals(rhs)
 
                 if only_epsilon or length_k:
                     for other_rule in rules:
@@ -921,7 +935,7 @@ class Tester(object):
                             other_rhs = other_rule.get_rhs()
                             other_lhs = other_rule.get_lhs()
                             new_rhs = []
-                            for symb in other_rhs:
+                            for i, symb in enumerate(other_rhs):
                                 if not (symb.is_non_terminal() and str(symb) == str(lhs)):
                                     new_rhs.append(symb)
                                 else:
@@ -950,7 +964,7 @@ class Tester(object):
         for rule in rules:
             lhs = rule.get_lhs()
             rhs = rule.get_rhs()
-            # Не берем левые части, состоящие только из эпсилон
+            # Не берем правые части, состоящие только из эпсилон
             if not (len(rhs) == 1 and rhs[0].is_epsilon()):
                 if str(lhs) not in self._shortest_sequences:
                     self._shortest_sequences[str(lhs)] = rhs
@@ -1107,6 +1121,9 @@ class Tester(object):
 
                 for b in self._inappropriate_symbols[str(current_symb)]:
                     if self._visited[str(current_symb)][str(b)] is None:
+                        if self._negative_count == 109:
+                            pass
+                        self._negative_count += 1
                         self._visited[str(current_symb)][str(b)] = True
                         negative_state = State(state.prefix, state.stack[:], correct_symb,
                                                State.NEGATIVE_INSERT_STATE)
@@ -1143,13 +1160,67 @@ class Tester(object):
             state.open_last_rule(self._table)
             self.perform_close_actions(state)
 
+    def get_terminal_by_image(self, image):
+        for t in self._terminals:
+            if t.get_formatted_image_without_space() == image:
+                return t
+
+        raise TesterError('Can\'t find terminal by image %s' % image)
+
+    # Проверка, является ли негативный тест действительно негативным
+    def validate_test(self, seq):
+        stack = [self._end_symbol, self._non_terminals[0]]
+        terms = [] if seq == '' else [s for s in seq.split(' ') if s != '']
+        terms += [self._end_symbol]
+        a = terms[0]
+        i = 1
+
+        if self._unique_id_negative == 108:
+            pass
+
+        while True:
+            X = stack[len(stack) - 1]
+
+            if X == self._end_symbol:
+                if X == self._end_symbol and a == self._end_symbol:
+                    return Tester.CORRECT_TEST
+                else:
+                    return Tester.INCORRECT_TEST
+
+            if X.is_terminal():
+                if X.get_formatted_image_without_space() == a:
+                    stack.pop()
+                    a = terms[i]
+                    i += 1
+                else:
+                    return Tester.INCORRECT_TEST
+            else:
+                if a != self._end_symbol:
+                    t = self.get_terminal_by_image(a)
+                else:
+                    t = self._end_symbol
+
+                symbs = self._table[str(X)][str(t)]
+                if len(symbs) > 0:
+                    stack.pop()
+                    # Просто снимаем нетерминал со стека, если в ячейке eps
+                    if not (len(symbs) == 1 and symbs[0].is_epsilon()):
+                        stack += reversed(symbs)
+                else:
+                    return Tester.INCORRECT_TEST
+
     def write_to_file(self, positive, info):
         if positive:
             path_to_write = self._path_to_positive + '/positive' + str(self._unique_id_positive) + '.txt'
             self._unique_id_positive += 1
         else:
-            path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative) + '.txt'
-            self._unique_id_negative += 1
+            valid = self.validate_test(info) == Tester.CORRECT_TEST
+
+            if not valid:
+                path_to_write = self._path_to_negative + '/negative' + str(self._unique_id_negative) + '.txt'
+                self._unique_id_negative += 1
+            else:
+                return
 
         with open(path_to_write, 'a') as output:
             output.write(info)
