@@ -49,7 +49,7 @@ complex_item
     ;
 
 item
-    : (IDENT | EPS) | OP_LP item (OP_OR item)+ OP_RP | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
+    : (IDENT | EPS) | OP_LP item (OP_OR item+)+ OP_RP | OP_LP item+ OP_RP | item (OP_MUL | OP_PLUS | OP_QUEST)
     ;
 
 KW_NT
