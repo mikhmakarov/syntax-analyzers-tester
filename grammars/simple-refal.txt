@@ -15,7 +15,7 @@ Body ::= '{' Sentence* '}';
 Sentence ::= Pattern '=' Result ';';
 Pattern ::= PatternTerm*;
 PatternTerm ::= Atom | '(' Pattern ')' | '[' 'Name' Pattern ']' | 'e.Var' ('^')?;
-Atom ::= ('#')? 'Name' | ''chars'' '123';
+Atom ::= ('#')? 'Name' | ''chars'' | '123';
 Result ::= ResultTerm*;
-ResultTerm ::= Atom | '(' Result ')' | '[' 'Name' Result ']' | Body
+ResultTerm ::= Atom | '(' Result ')' | '[' 'Name' Result ']' | 'e.Var' | Body
   | '<' Result '>';
