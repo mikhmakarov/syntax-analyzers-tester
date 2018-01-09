@@ -837,6 +837,12 @@ class State(object):
             self.last_non_terminal = None
             self.stack.extend(reversed(list(symbols)))
 
+    def append_symbol(self, symbol):
+        self.prefix += symbol.get_formatted_image()
+        last_line_len = len(self.prefix) - self.prefix.rfind('\n')
+        if last_line_len > 60:
+            self.prefix = self.prefix[:-1] + '\n'
+
 
 class Tester(object):
     """
@@ -1095,7 +1101,7 @@ class Tester(object):
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
             if current_symb != self._end_symbol:
-                state.prefix += current_symb.get_formatted_image()
+                state.append_symbol(current_symb)
                 self.perform_open_actions(state)
             else:
                 self.write_to_file(not state.negative, state.prefix)
@@ -1129,7 +1135,7 @@ class Tester(object):
                         negative_state = State(state.prefix, state.stack[:], correct_symb,
                                                State.NEGATIVE_INSERT_STATE)
                         if b != self._end_symbol:
-                            negative_state.prefix += b.get_formatted_image()
+                            negative_state.append_symbol(b)
                             self.perform_close_actions(negative_state)
                         else:
                             self.write_to_file(not negative_state.negative, negative_state.prefix)
@@ -1144,7 +1150,7 @@ class Tester(object):
                 state.remove_last_symbol_from_stack()
                 for sym in self._shortest_sequences[str(current_symb)]:
                     if not sym.is_epsilon():
-                        state.prefix += sym.get_formatted_image()
+                        state.append_symbol(sym)
                 self.perform_open_actions(state)
 
     # Закрытое состояние
@@ -1153,7 +1159,7 @@ class Tester(object):
         if current_symb.is_terminal():
             state.remove_last_symbol_from_stack()
             if current_symb != self._end_symbol:
-                state.prefix += current_symb.get_formatted_image()
+                state.append_symbol(current_symb)
                 self.perform_open_actions(state)
             else:
                 self.write_to_file(not state.negative, state.prefix)
@@ -1171,7 +1177,9 @@ class Tester(object):
     # Проверка, является ли негативный тест действительно негативным
     def validate_test(self, seq):
         stack = [self._end_symbol, self._non_terminals[0]]
-        terms = [] if seq == '' else [s for s in seq.split(' ') if s != '']
+        terms = [] if seq == '' else [s for l in seq.split('\n')
+                                        for s in l.split(' ')
+                                        if s != '']
         terms += [self._end_symbol]
         a = terms[0]
         i = 1
