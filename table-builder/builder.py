@@ -91,6 +91,14 @@ class Symbol(object):
         elif self._type == Symbol.TYPE_EPSILON:
             return self._image
 
+    def toJSON(self):
+        if self._type == Symbol.TYPE_TERMINAL:
+            return self.get_formatted_image_without_space()
+        elif self._type == Symbol.TYPE_NON_TERMINAL:
+            return '{0}_{1}'.format(self._image, self._version)
+        elif self._type == Symbol.TYPE_EPSILON:
+            return self._image
+
     def __eq__(self, other):
         return str(self) == str(other)
 
@@ -895,23 +903,12 @@ class Tester(object):
         self._table = {}
         # Используется для проверки критерия покрытия всех пар
         self._visited = {}
-        self.build_table()
 
-        for nt in self._non_terminals:
-            self._inappropriate_symbols[str(nt)] = []
-            self._appropriate_symbols[str(nt)] = []
-            for t in self._terminals:
-                if len(self._table[str(nt)][str(t)]) == 0:
-                    self._inappropriate_symbols[str(nt)].append(t)
-                else:
-                    self._appropriate_symbols[str(nt)].append(t)
+        #self.build_table()
 
-        # Кратчайшие цепочки выводимые из нетерминалов
-        self._shortest_sequences = {}
+        #print self.print_table();
 
-        self.calculate_shortest_sequence()
-
-        self.create_tests()
+        print self.generate_json_table()
 
     # Вычисляет кратчайшие цепочки для всех нетрминалов
     def calculate_shortest_sequence(self):
@@ -1080,6 +1077,51 @@ class Tester(object):
                         raise TesterError('Cell for %s %s is not empty' % (str(X), str(b)))
                     self._table[str(X)][str(b)] += u
 
+    def generate_json_table(self):
+
+        info = {}
+
+        self._json_table = {}
+
+        info["terminals"] = list(map(lambda x: x.toJSON(), self._terminals))
+        info["axiom"] = self._non_terminals[0].toJSON()
+
+        info["first"] = {}
+        info["follow"] = {}
+
+        for nt in self._non_terminals:
+            self._json_table[nt.toJSON()] = {}
+
+            for t in self._terminals:
+                self._json_table[nt.toJSON()][t.toJSON()] = None
+
+            info["first"][nt.toJSON()] = list(map(lambda x: x.toJSON(), self._FIRST[str(nt)]))
+            info["follow"][nt.toJSON()] = list(map(lambda x: x.toJSON(), self._FOLLOW[str(nt)]))
+
+        for r in self._rules:
+            X = r.get_lhs()
+            u = r.get_rhs()
+            first = self.calculate_first(u)
+
+            u_without_epsilon = filter(lambda x: not x.is_epsilon(), u)
+            
+            for a in first:
+                if not a.is_epsilon():
+                    self._json_table[X.toJSON()][a.toJSON()] = list(map(lambda x: x.toJSON(), u_without_epsilon))
+
+            if ASTParser.contains_epsilon(first):
+                for b in self._FOLLOW[str(X)]:
+                    self._json_table[X.toJSON()][b.toJSON()] = list(map(lambda x: x.toJSON(), u_without_epsilon))
+
+        for nt, line in self._json_table.iteritems():
+            for t, val in line.iteritems():
+                if val == None:
+                    self._json_table[nt][t] = None
+
+        info["table"] = self._json_table
+
+        return json.dumps(info)
+
     def print_table(self):
         for nt, line in self._table.iteritems():
             for t, val in line.iteritems():
@@ -1091,6 +1133,7 @@ class Tester(object):
                     str_repr = 'ERROR'
 
                 print '(%s, %s) %s' % (nt, t, str_repr)
+        
 
     def create_tests(self):
         self.perform_open_actions(State('', [self._end_symbol, self._non_terminals[0]]))
@@ -1297,7 +1340,7 @@ def main():
     parser.add_argument(
         '-r',
         '--replacement',
-        default='idents.json',
+        default='../table-builder/idents.json',
         help='path to file with replacements for idents',
         type=str,
         metavar=''
@@ -1341,7 +1384,6 @@ def main():
 
     if not args.grammar_check:
         tester = Tester(ast_parser, args.tests)
-    # ast_parser.print_abstract_ast()
 
 if __name__ == '__main__':
     main()

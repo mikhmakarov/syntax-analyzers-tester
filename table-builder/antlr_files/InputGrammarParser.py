@@ -12,40 +12,38 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write(u"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3")
-        buf.write(u"\20h\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write(u"\20b\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write(u"\3\2\3\2\3\2\3\3\3\3\3\3\3\3\7\3\26\n\3\f\3\16\3\31\13")
         buf.write(u"\3\3\3\3\3\3\3\3\3\3\3\7\3 \n\3\f\3\16\3#\13\3\3\3\3")
         buf.write(u"\3\3\4\6\4(\n\4\r\4\16\4)\3\5\3\5\3\5\3\5\3\5\3\6\6\6")
-        buf.write(u"\62\n\6\r\6\16\6\63\3\6\6\6\67\n\6\r\6\16\68\3\6\3\6")
-        buf.write(u"\6\6=\n\6\r\6\16\6>\6\6A\n\6\r\6\16\6B\5\6E\n\6\3\7\3")
-        buf.write(u"\7\3\7\3\7\3\7\3\7\6\7M\n\7\r\7\16\7N\6\7Q\n\7\r\7\16")
-        buf.write(u"\7R\3\7\3\7\3\7\3\7\6\7Y\n\7\r\7\16\7Z\3\7\3\7\5\7_\n")
-        buf.write(u"\7\3\7\3\7\7\7c\n\7\f\7\16\7f\13\7\3\7\2\3\f\b\2\4\6")
-        buf.write(u"\b\n\f\2\4\3\2\16\17\3\2\t\13o\2\16\3\2\2\2\4\21\3\2")
-        buf.write(u"\2\2\6\'\3\2\2\2\b+\3\2\2\2\nD\3\2\2\2\f^\3\2\2\2\16")
-        buf.write(u"\17\5\4\3\2\17\20\5\6\4\2\20\3\3\2\2\2\21\22\7\3\2\2")
-        buf.write(u"\22\27\7\17\2\2\23\24\7\b\2\2\24\26\7\17\2\2\25\23\3")
-        buf.write(u"\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\32")
-        buf.write(u"\3\2\2\2\31\27\3\2\2\2\32\33\7\7\2\2\33\34\7\4\2\2\34")
-        buf.write(u"!\7\17\2\2\35\36\7\b\2\2\36 \7\17\2\2\37\35\3\2\2\2 ")
-        buf.write(u"#\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2")
-        buf.write(u"$%\7\7\2\2%\5\3\2\2\2&(\5\b\5\2\'&\3\2\2\2()\3\2\2\2")
-        buf.write(u")\'\3\2\2\2)*\3\2\2\2*\7\3\2\2\2+,\7\17\2\2,-\7\5\2\2")
-        buf.write(u"-.\5\n\6\2./\7\7\2\2/\t\3\2\2\2\60\62\5\f\7\2\61\60\3")
-        buf.write(u"\2\2\2\62\63\3\2\2\2\63\61\3\2\2\2\63\64\3\2\2\2\64E")
-        buf.write(u"\3\2\2\2\65\67\5\f\7\2\66\65\3\2\2\2\678\3\2\2\28\66")
-        buf.write(u"\3\2\2\289\3\2\2\29@\3\2\2\2:<\7\6\2\2;=\5\f\7\2<;\3")
-        buf.write(u"\2\2\2=>\3\2\2\2><\3\2\2\2>?\3\2\2\2?A\3\2\2\2@:\3\2")
-        buf.write(u"\2\2AB\3\2\2\2B@\3\2\2\2BC\3\2\2\2CE\3\2\2\2D\61\3\2")
-        buf.write(u"\2\2D\66\3\2\2\2E\13\3\2\2\2FG\b\7\1\2G_\t\2\2\2HI\7")
-        buf.write(u"\f\2\2IP\5\f\7\2JL\7\6\2\2KM\5\f\7\2LK\3\2\2\2MN\3\2")
-        buf.write(u"\2\2NL\3\2\2\2NO\3\2\2\2OQ\3\2\2\2PJ\3\2\2\2QR\3\2\2")
-        buf.write(u"\2RP\3\2\2\2RS\3\2\2\2ST\3\2\2\2TU\7\r\2\2U_\3\2\2\2")
-        buf.write(u"VX\7\f\2\2WY\5\f\7\2XW\3\2\2\2YZ\3\2\2\2ZX\3\2\2\2Z[")
-        buf.write(u"\3\2\2\2[\\\3\2\2\2\\]\7\r\2\2]_\3\2\2\2^F\3\2\2\2^H")
-        buf.write(u"\3\2\2\2^V\3\2\2\2_d\3\2\2\2`a\f\3\2\2ac\t\3\2\2b`\3")
-        buf.write(u"\2\2\2cf\3\2\2\2db\3\2\2\2de\3\2\2\2e\r\3\2\2\2fd\3\2")
-        buf.write(u"\2\2\17\27!)\638>BDNRZ^d")
+        buf.write(u"\62\n\6\r\6\16\6\63\3\6\3\6\6\68\n\6\r\6\16\69\7\6<\n")
+        buf.write(u"\6\f\6\16\6?\13\6\3\7\3\7\3\7\3\7\3\7\3\7\6\7G\n\7\r")
+        buf.write(u"\7\16\7H\6\7K\n\7\r\7\16\7L\3\7\3\7\3\7\3\7\6\7S\n\7")
+        buf.write(u"\r\7\16\7T\3\7\3\7\5\7Y\n\7\3\7\3\7\7\7]\n\7\f\7\16\7")
+        buf.write(u"`\13\7\3\7\2\3\f\b\2\4\6\b\n\f\2\4\3\2\16\17\3\2\t\13")
+        buf.write(u"g\2\16\3\2\2\2\4\21\3\2\2\2\6\'\3\2\2\2\b+\3\2\2\2\n")
+        buf.write(u"\61\3\2\2\2\fX\3\2\2\2\16\17\5\4\3\2\17\20\5\6\4\2\20")
+        buf.write(u"\3\3\2\2\2\21\22\7\3\2\2\22\27\7\17\2\2\23\24\7\b\2\2")
+        buf.write(u"\24\26\7\17\2\2\25\23\3\2\2\2\26\31\3\2\2\2\27\25\3\2")
+        buf.write(u"\2\2\27\30\3\2\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\33")
+        buf.write(u"\7\7\2\2\33\34\7\4\2\2\34!\7\17\2\2\35\36\7\b\2\2\36")
+        buf.write(u" \7\17\2\2\37\35\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2")
+        buf.write(u"\2\2\"$\3\2\2\2#!\3\2\2\2$%\7\7\2\2%\5\3\2\2\2&(\5\b")
+        buf.write(u"\5\2\'&\3\2\2\2()\3\2\2\2)\'\3\2\2\2)*\3\2\2\2*\7\3\2")
+        buf.write(u"\2\2+,\7\17\2\2,-\7\5\2\2-.\5\n\6\2./\7\7\2\2/\t\3\2")
+        buf.write(u"\2\2\60\62\5\f\7\2\61\60\3\2\2\2\62\63\3\2\2\2\63\61")
+        buf.write(u"\3\2\2\2\63\64\3\2\2\2\64=\3\2\2\2\65\67\7\6\2\2\668")
+        buf.write(u"\5\f\7\2\67\66\3\2\2\289\3\2\2\29\67\3\2\2\29:\3\2\2")
+        buf.write(u"\2:<\3\2\2\2;\65\3\2\2\2<?\3\2\2\2=;\3\2\2\2=>\3\2\2")
+        buf.write(u"\2>\13\3\2\2\2?=\3\2\2\2@A\b\7\1\2AY\t\2\2\2BC\7\f\2")
+        buf.write(u"\2CJ\5\f\7\2DF\7\6\2\2EG\5\f\7\2FE\3\2\2\2GH\3\2\2\2")
+        buf.write(u"HF\3\2\2\2HI\3\2\2\2IK\3\2\2\2JD\3\2\2\2KL\3\2\2\2LJ")
+        buf.write(u"\3\2\2\2LM\3\2\2\2MN\3\2\2\2NO\7\r\2\2OY\3\2\2\2PR\7")
+        buf.write(u"\f\2\2QS\5\f\7\2RQ\3\2\2\2ST\3\2\2\2TR\3\2\2\2TU\3\2")
+        buf.write(u"\2\2UV\3\2\2\2VW\7\r\2\2WY\3\2\2\2X@\3\2\2\2XB\3\2\2")
+        buf.write(u"\2XP\3\2\2\2Y^\3\2\2\2Z[\f\3\2\2[]\t\3\2\2\\Z\3\2\2\2")
+        buf.write(u"]`\3\2\2\2^\\\3\2\2\2^_\3\2\2\2_\r\3\2\2\2`^\3\2\2\2")
+        buf.write(u"\r\27!)\639=HLTX^")
         return buf.getvalue()
 
 
@@ -390,64 +388,40 @@ class InputGrammarParser ( Parser ):
         self.enterRule(localctx, 8, self.RULE_complex_item)
         self._la = 0 # Token type
         try:
-            self.state = 66
-            la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
-            if la_ == 1:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 47 
+            self.enterOuterAlt(localctx, 1)
+            self.state = 47 
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while True:
+                self.state = 46
+                self.item(0)
+                self.state = 49 
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
+                    break
+
+            self.state = 59
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while _la==InputGrammarParser.OP_OR:
+                self.state = 51
+                self.match(InputGrammarParser.OP_OR)
+                self.state = 53 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 46
+                    self.state = 52
                     self.item(0)
-                    self.state = 49 
+                    self.state = 55 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
                         break
 
-                pass
-
-            elif la_ == 2:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 52 
+                self.state = 61
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while True:
-                    self.state = 51
-                    self.item(0)
-                    self.state = 54 
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
-                        break
-
-                self.state = 62 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                while True:
-                    self.state = 56
-                    self.match(InputGrammarParser.OP_OR)
-                    self.state = 58 
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
-                    while True:
-                        self.state = 57
-                        self.item(0)
-                        self.state = 60 
-                        self._errHandler.sync(self)
-                        _la = self._input.LA(1)
-                        if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
-                            break
-
-                    self.state = 64 
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
-                    if not (_la==InputGrammarParser.OP_OR):
-                        break
-
-                pass
-
 
         except RecognitionException as re:
             localctx.exception = re
@@ -520,10 +494,10 @@ class InputGrammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 92
-            la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
+            self.state = 86
+            la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
             if la_ == 1:
-                self.state = 69
+                self.state = 63
                 _la = self._input.LA(1)
                 if not(_la==InputGrammarParser.EPS or _la==InputGrammarParser.IDENT):
                     self._errHandler.recoverInline(self)
@@ -532,62 +506,62 @@ class InputGrammarParser ( Parser ):
                 pass
 
             elif la_ == 2:
-                self.state = 70
+                self.state = 64
                 self.match(InputGrammarParser.OP_LP)
-                self.state = 71
+                self.state = 65
                 self.item(0)
-                self.state = 78 
+                self.state = 72 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 72
+                    self.state = 66
                     self.match(InputGrammarParser.OP_OR)
-                    self.state = 74 
+                    self.state = 68 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     while True:
-                        self.state = 73
+                        self.state = 67
                         self.item(0)
-                        self.state = 76 
+                        self.state = 70 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
                         if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
                             break
 
-                    self.state = 80 
+                    self.state = 74 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (_la==InputGrammarParser.OP_OR):
                         break
 
-                self.state = 82
+                self.state = 76
                 self.match(InputGrammarParser.OP_RP)
                 pass
 
             elif la_ == 3:
-                self.state = 84
+                self.state = 78
                 self.match(InputGrammarParser.OP_LP)
-                self.state = 86 
+                self.state = 80 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 85
+                    self.state = 79
                     self.item(0)
-                    self.state = 88 
+                    self.state = 82 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_LP) | (1 << InputGrammarParser.EPS) | (1 << InputGrammarParser.IDENT))) != 0)):
                         break
 
-                self.state = 90
+                self.state = 84
                 self.match(InputGrammarParser.OP_RP)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 98
+            self.state = 92
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,10,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
@@ -595,19 +569,19 @@ class InputGrammarParser ( Parser ):
                     _prevctx = localctx
                     localctx = InputGrammarParser.ItemContext(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_item)
-                    self.state = 94
+                    self.state = 88
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
-                    self.state = 95
+                    self.state = 89
                     _la = self._input.LA(1)
                     if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputGrammarParser.OP_MUL) | (1 << InputGrammarParser.OP_PLUS) | (1 << InputGrammarParser.OP_QUEST))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self.consume() 
-                self.state = 100
+                self.state = 94
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,10,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re

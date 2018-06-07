@@ -45,7 +45,7 @@ grammar_rule
     ;
 
 complex_item
-    : item+ | item+ (OP_OR item+)+
+    : item+ (OP_OR item+)*
     ;
 
 item
