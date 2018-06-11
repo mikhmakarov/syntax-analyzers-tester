@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b770be90-240c-47f0-84a2-1d977f40ea0c" name="Default" comment="" />
+    <list default="true" id="b770be90-240c-47f0-84a2-1d977f40ea0c" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\arith.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\arith_bnf.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\grammar.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\input.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\json.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\pascal.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\pascal_func.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\self.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\simple-refal.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\useless.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\grammars\useless2.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\sergey\Desktop\supercompilation\table-builder\tester.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/table-builder/antlr_files/InputGrammar.g4" afterPath="$PROJECT_DIR$/table-builder/antlr_files/InputGrammar.g4" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/table-builder/antlr_files/InputGrammarParser.py" afterPath="$PROJECT_DIR$/table-builder/antlr_files/InputGrammarParser.py" />
+    </list>
     <ignored path="ДИПЛОМ.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,8 +42,8 @@
       <file leaf-file-name="buildGraph.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graph-builder/buildGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15669206">
-              <caret line="295" column="74" selection-start-line="295" selection-start-column="74" selection-end-line="295" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.40914038">
+              <caret line="260" column="9" selection-start-line="260" selection-start-column="9" selection-end-line="260" selection-end-column="9" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -46,11 +61,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simple.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/graph-builder/grammars/simple.txt">
+      <file leaf-file-name="output.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graph-builder/output.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="21" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="21" />
+              <caret line="756" column="2" selection-start-line="756" selection-start-column="2" selection-end-line="756" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="oper.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graph-builder/grammars/oper.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,7 +98,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/table-builder" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -108,10 +133,10 @@
         <option value="$PROJECT_DIR$/graph-builder/graphs/table-operators.dot" />
         <option value="$PROJECT_DIR$/table-builder/builder.py" />
         <option value="$PROJECT_DIR$/graph-builder/grammars/simple.txt" />
-        <option value="$PROJECT_DIR$/graph-builder/output.txt" />
         <option value="$PROJECT_DIR$/graph-builder/output.dot" />
-        <option value="$PROJECT_DIR$/graph-builder/buildGraph.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/graph-builder/buildGraph.js" />
+        <option value="$PROJECT_DIR$/graph-builder/output.txt" />
       </list>
     </option>
   </component>
@@ -152,8 +177,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,8 +209,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="graph-builder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grammars" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,19 +245,18 @@
     <property name="recentsLimit" value="5" />
     <property name="JavaScriptLanguageLevel" value="ES6" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\supercompilation\super\grammars" />
-      <recent name="D:\ДИПЛОМ\super" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\supercompilation\graph-builder\graphs" />
       <recent name="D:\supercompilation\super\tables" />
       <recent name="D:\supercompilation\доклад" />
       <recent name="D:\supercompilation\super" />
       <recent name="D:\supercompilation\table-builder" />
-      <recent name="D:\supercompilation" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\supercompilation\super\grammars" />
+      <recent name="D:\ДИПЛОМ\super" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -229,14 +271,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.buildGraph.js">
     <configuration default="false" name="buildConfigurationsGraph.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="$PROJECT_DIR$/table-builder/buildConfigurationsGraph.js" working-dir="$PROJECT_DIR$/super">
       <method />
     </configuration>
-    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+    <configuration default="false" name="buildGraph.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="buildGraph.js" working-dir="$PROJECT_DIR$/graph-builder">
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
@@ -244,13 +286,6 @@
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="JsTestDriver-test-runner" factoryName="JsTestDriver">
-      <setting name="configLocationType" value="CONFIG_FILE" />
-      <setting name="settingsFile" value="" />
-      <setting name="serverType" value="INTERNAL" />
-      <setting name="preferredDebugBrowser" value="Chrome" />
       <method />
     </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
@@ -282,9 +317,15 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Node.js.buildConfigurationsGraph.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.buildGraph.js" />
     </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.buildGraph.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
@@ -312,17 +353,21 @@
       <workItem from="1528295398347" duration="13000" />
       <workItem from="1528295422298" duration="3877000" />
       <workItem from="1528364762780" duration="9768000" />
+      <workItem from="1528403666552" duration="8542000" />
+      <workItem from="1528414363999" duration="2054000" />
+      <workItem from="1528416941345" duration="1522000" />
+      <workItem from="1528451375297" duration="2807000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113413000" />
+    <option name="totallyTimeSpent" value="128338000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24947916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -369,6 +414,40 @@
     <entry file="file://$PROJECT_DIR$/graph-builder/buildGraph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="790" column="18" selection-start-line="790" selection-start-column="18" selection-end-line="790" selection-end-column="18" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/output.dot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="38" selection-start-column="34" selection-end-line="39" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/output.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/grammars/oper.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/buildGraph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
@@ -388,7 +467,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="4" column="21" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -406,7 +484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -481,13 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph-builder/grammars/oper.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graph-builder/grammars/pascal.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -530,10 +600,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph-builder/grammars/simple.txt">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/grammars/simple.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10446137">
           <caret line="4" column="21" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph-builder/grammars/oper.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -546,18 +630,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/graph-builder/output.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="756" column="2" selection-start-line="756" selection-start-column="2" selection-end-line="756" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/graph-builder/buildGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15669206">
-          <caret line="295" column="74" selection-start-line="295" selection-start-column="74" selection-end-line="295" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.40914038">
+          <caret line="260" column="9" selection-start-line="260" selection-start-column="9" selection-end-line="260" selection-end-column="9" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

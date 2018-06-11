@@ -1,0 +1,15 @@
+digraph {
+    rankdir=LR;
+    size="8,5";
+    node [shape = circle, color = black];
+    "E" -> "TE'" -> "FT'E'" -> "(E)T'E'"
+
+    "(E)T'E'" -> "E)T'E'" [label = "("]
+    "FT'E'" -> "nTE'"
+    "nTE'" -> "TE'" [label = "n"]
+
+    "E)T'E'" -> "TE')T'E'"
+
+    node [shape = point, color = black];
+    "TE')T'E'" -> ""
+}

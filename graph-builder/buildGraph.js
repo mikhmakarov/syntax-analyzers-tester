@@ -97,13 +97,6 @@ class LetNode extends Node {
     }
 }
 
-// Вершина, переход в которую осуществляется
-// после выявления синтаксической ошибки (без восстановления)
-class ErrorNode extends Node {
-    toString() {
-        return `ERROR NODE`;
-    }
-}
 
 function addRecoverRules(grammar) {
     let terminalToRuleMap = {};
@@ -117,7 +110,7 @@ function addRecoverRules(grammar) {
     // Добавление фиктивных правил для терминалов
     // добавление переходов в таблицы разбора и восстановления
     grammar.terminals.forEach((term, i) => {
-        let ruleName = 'TERM_' + i;
+        let ruleName = '<' + term + '>';
 
         terminalToRuleMap[term] = ruleName;
         terminalRules.push(ruleName);
@@ -160,7 +153,7 @@ function addRecoverRules(grammar) {
 
                     if (a === '$') {
                         grammar.recover[N][a] = [];
-                    } else if (grammar.follow[N].includes(a)) {
+                    } else if (!grammar.follow[N].includes(a)) {
                         grammar.recover[N][a] = [a, N];
 
                         // Иначе добавляем правило N -> eps
@@ -245,12 +238,10 @@ function getNextState(stack, term) {
 
         let rule = stack.pop();
 
-        if (error) break;
-
         // Если текущий символ - терминал,
         // тогда в случае его несовпадения с ожидаемым - ошибка
         if (grammar.terminals.indexOf(rule) !== -1) {
-            error = rule !== term;
+            error = error || rule !== term;
             hasTerminal = true;
             break;
         } else {
@@ -271,7 +262,7 @@ function getNextState(stack, term) {
 
     } while (stack.length);
 
-    return {stack, error, hasTerminal};
+    return {stack, hasTerminal, error};
 }
 
 function getStateIsEmpty(stack) {
@@ -299,7 +290,7 @@ function visitAllTransitions(parentConf, configStack) {
                 // (пропускаем транзитные переходы)
                 let {stack, hasTerminal, error} = getNextState(parentConf.state.slice(), term);
 
-                if (!hasTerminal && !error) {
+                if (!hasTerminal) {
                     return true;
                 }
 
@@ -356,10 +347,10 @@ function visitAllTransitions(parentConf, configStack) {
                         equalConf = findEqualState(stack.slice(0, relation.partition[0])); // B
 
                         let newConf = equalConf || new ConfigurationNode(stack.slice(0, relation.partition[0]), letNode);
-                        newConf.isFinal = isFinalNode;
+                        newConf.isFinal = newConf.isFinal || isFinalNode;
 
                         letNode.upperNode = relation.configuration;
-                        relation.configuration.isFinal = isFinalNode;
+                        relation.configuration.isFinal = relation.configuration.isFinal || isFinalNode;
 
                         letNode.lowerNode = newConf;
 
@@ -399,7 +390,7 @@ function visitAllTransitions(parentConf, configStack) {
                         // Подключаем вершину к родительской
                         parentConf.transitions[term].node = letNode;
                         parentConf.transitions[term].error = error;
-                        parentConf.transitions[term].isFinal = isFinalNode;
+                        parentConf.transitions[term].isFinal = parentConf.transitions[term].isFinal || isFinalNode;
 
                         return true;
 
@@ -437,8 +428,8 @@ function visitAllTransitions(parentConf, configStack) {
                         letNode.upperNode = firstConf;
                         letNode.lowerNode = secondConf;
 
-                        firstConf.isFinal = isFinalNode;
-                        secondConf.isFinal = isFinalNode;
+                        firstConf.isFinal = firstConf.isFinal || isFinalNode;
+                        secondConf.isFinal = secondConf.isFinal || isFinalNode;
 
                         // Поскольку потомки родительской конфигурации удалены,
                         // Остается только две созданных конфигурации (в случае их уникальности) в let-вершине для добавления в очередь
@@ -480,8 +471,7 @@ function visitAllTransitions(parentConf, configStack) {
 
                 let newConf = new ConfigurationNode(stack, parentConf);
 
-                newConf.isFinal = isFinalNode;
-
+                newConf.isFinal = newConf.isFinal || isFinalNode;
                 parentConf.transitions[term].node = newConf;
                 parentConf.transitions[term].error = error;
 
@@ -633,10 +623,10 @@ function visitAndRemove(node, queue) {
         // а значит необходимо запустить процесс удаления для всех
         // её потомков, также учитывая возможные циклы
     } else if (node instanceof ConfigurationNode) {
-        log('remove config: ', node.toString());
+        log('remove config: ', node.id);
         Object.keys(node.transitions).forEach(term => {
             // Если ветви не образует цикл
-            if (!node.transitions[term].toEqualState) {
+            if (node.transitions[term] && !node.transitions[term].toEqualState) {
                 visitAndRemove(node.transitions[term].node, queue);
             }
         });
@@ -648,6 +638,16 @@ function visitAndRemove(node, queue) {
     if (nodeIndex !== -1) {
         nodes.splice(nodes.indexOf(node), 1);
     }
+
+    nodes.forEach(anotherNode => {
+       if (anotherNode instanceof ConfigurationNode) {
+           for (let t in anotherNode.transitions) {
+               if (anotherNode.transitions[t].node == node) {
+                   anotherNode.transitions[t] = new Transition(t);
+               }
+           }
+       }
+    });
 
     // Удаляем вершину из очереди
     let queueIndex = queue.indexOf(node);
@@ -661,10 +661,10 @@ function transformToDOT(nodes) {
 
     let confNodes = nodes
             .filter(n => n instanceof ConfigurationNode && !n.isFinal)
-            .map(n => `${n.id} [label="${'[' + n.state.slice().reverse() + ']'}"]`),
+            .map(n => `${n.id} [label="${n.id} - ${'[' + n.state.slice().reverse() + ']'}"]`),
         finalNodes = nodes
             .filter(n => n instanceof ConfigurationNode && n.isFinal)
-            .map(n => `${n.id} [label="${'[' + n.state.slice().reverse() + ']'}"]`),
+            .map(n => `${n.id} [label="${n.id} - ${'[' + n.state.slice().reverse() + ']'}"]`),
         letNodes = nodes
             .filter(n => n instanceof LetNode)
             .map(n => `${n.id} [label="let: ${'[' + n.state.slice().reverse() + ']'}"]`);
@@ -786,6 +786,63 @@ function loadTableFromFile(callback) {
 }
 
 
+function generatePositiveTests(currentNode, stack = [], terminals = []) {
+
+    while (true) {
+        currentNode.visited = true;
+        console.log('current: ', currentNode.toString(), stack.map(n => n.toString()));
+
+        if (currentNode.isFinal) {
+            console.log('this is final node');
+            if (!stack.length) {
+                console.log('GENERATED: ', terminals);
+                return true;
+            } else {
+                currentNode = stack.pop();
+
+                console.log('get next config from stack: ', currentNode.toString());
+
+                if (!currentNode.visited) {
+                    generatePositiveTests(currentNode, stack.slice(), terminals)
+                }
+            }
+        } else {
+            if (currentNode instanceof ConfigurationNode) {
+
+                console.log('this is config node');
+
+                for (let t in currentNode.transitions) {
+                    let transition = currentNode.transitions[t];
+
+                    if (transition.node && !transition.error && !transition.node.visited) {
+                        console.log('generate for: ', transition.term);
+                        currentNode = transition.node;
+                        terminals.push(t);
+
+                        generatePositiveTests(transition.node, stack.slice(), terminals.concat([t]));
+                    }
+                }
+            } else if (currentNode instanceof LetNode) {
+
+                console.log('this is let node');
+
+                stack.push(currentNode.lowerNode);
+
+                if (!currentNode.upperNode.visited) {
+                    generatePositiveTests(currentNode.upperNode, stack.slice(), terminals);
+                }
+            }
+        }
+
+        currentNode = stack.pop();
+    }
+}
+
+function generateNegativeTests(graph) {
+
+}
+
+
 //
 // Вызов процедуры генерации/загрузки таблицы разбора
 // и построение графа конфигураций на основе загруженной таблицы
@@ -804,6 +861,10 @@ let cb = (grammarInfo) => {
     let graph = buildConfigurationGraph();
 
     console.log(transformToDOT(nodes, graph));
+
+    //generatePositiveTests(graph);
+
+    
 };
 
 switch (inputType.trim().toLowerCase()) {
