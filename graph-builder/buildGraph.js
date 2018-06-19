@@ -18,9 +18,8 @@ const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn;
 
-const inputType = process.argv[2] || 'grammar';
-const inputPath = process.argv[3] || '';
-const verbose = process.argv[4] || false;
+const inputPath = process.argv[2] || '';
+const verbose = process.argv[3] || false;
 
 var grammar = {
     table: {},
@@ -56,7 +55,8 @@ class Transition {
     }
 
     toString() {
-        return `by "${this.term}" to [${this.node ? this.node.id : 'null'} (${this.error ? 'error' : 'normal'})`
+        return `by "${this.term}" to (${this.node ? this.node.id : 'null'}) ` +
+            `(${this.error ? 'error' : 'normal'}, ${this.visited ? 'visited' : 'not visited'})`
     }
 }
 
@@ -68,24 +68,25 @@ class ConfigurationNode extends Node {
         this.transitions = {};
 
         this.hasAllTransitions = true;
-
-        grammar.terminals.filter(t => t !== '$').forEach(term => this.transitions[term] = new Transition(term));
     }
 
-    findTransitionTerminal(child) {
+    findTransitionTerminals(child) {
+
+        let res = [];
+
         for (let t in this.transitions) {
             if (this.transitions[t].node === child) {
-                return t;
+                res.push(t);
             }
         }
 
-        return null;
+        return res;
     }
 
-    toString() {
-        return `CONFIGURATION: [${this.state.slice().reverse().join(', ')}] ` +
+    toString(showTransitions) {
+        return `CONFIGURATION (${this.id}): [${this.state.slice().reverse().join(', ')}] ` +
             `from [${this.ancestor.state.slice().reverse().join(', ')}]\n` +
-                `transitions:\n` + Object.keys(this.transitions).map(t => '-- ' + this.transitions[t].toString()).join("\n")
+            (showTransitions ? (`transitions:\n` + Object.keys(this.transitions).map(t => '-- ' + this.transitions[t].toString()).join("\n")) : ``);
     }
 }
 
@@ -101,7 +102,7 @@ class LetNode extends Node {
     }
 
     toString() {
-        return `LET NODE for:\n` + this.upperNode.toString() + '\n' + this.lowerNode.toString();
+        return `LET NODE (${this.id}) for:\n` + this.upperNode.toString() + '\n' + this.lowerNode.toString();
     }
 }
 
@@ -219,7 +220,7 @@ function buildConfigurationGraph() {
         // и начинаем обработку всех возможных переходов из него
         let node = stack.pop();
 
-        log('---------------\n', 'CURRENT NODE:', node.toString());
+        log('---------------\n', `CURRENT NODE: ${node.toString()}`);
 
         // Выполняем переход по таблице разбора для каждого терминала
         // c целью создания/обобщения новых конфигураций.
@@ -246,7 +247,7 @@ function getNextState(stack, term) {
         // Если текущий символ - терминал,
         // тогда в случае его несовпадения с ожидаемым - ошибка
         if (grammar.terminals.indexOf(rule) !== -1) {
-            error = error || rule !== term;
+            error = error || (rule !== term);
             hasTerminal = true;
             break;
         } else {
@@ -271,7 +272,7 @@ function getNextState(stack, term) {
 }
 
 function getStateIsEmpty(stack) {
-    log('IS FINAL NODE: ', stack);
+    log('IS FINAL NODE: ', stack.slice().reverse());
 
     let res = stack.every(r => (r in grammar.first) && grammar.first[r].includes("eps"));
 
@@ -316,22 +317,19 @@ function visitAllTransitions(parentConf, configStack) {
             // Проверяем стек на соответствие существующей конфигурации
             // или отношению Турчина
 
-            log('=> CURRENT STACK BY TERMINAL ' + term + ': ' + stack);
+            log('=> CURRENT STACK BY TERMINAL ' + term + ': ' + stack.slice().reverse());
             log('=> ERROR: ' + error);
 
             // Ищем полностью совпадающую конфигурацию
-            let equalConf = findEqualState(stack);
+            let equalConf = findEqualState(stack),
+                equalLetNode = null;
 
             if (equalConf) {
-                log('-- CREATED CYCLE: ' + stack);
+                log('-- CREATED CYCLE: ' + stack.slice().reverse());
                 log('-- FROM: ' + parentConf.toString());
                 log('-- TO: ' + equalConf.toString());
                 log('-- by terminal: ' + term);
-
-                parentConf.transitions[term].node = equalConf;
-                parentConf.transitions[term].toEqualState = true;
-                parentConf.transitions[term].error = error;
-
+                parentConf.transitions[term] = new Transition(term, equalConf, true, error);
                 return true;
             }
 
@@ -346,7 +344,7 @@ function visitAllTransitions(parentConf, configStack) {
                 // а другая развивается независимо
                 if (relation.partition.length == 1) {
 
-                    log('CREATED LET-NODE FOR A => A|B: ' + relation.configuration.state + ' => ' + stack);
+                    log('CREATED LET-NODE FOR A => A|B: ' + relation.configuration.state.slice().reverse() + ' => ' + stack.slice().reverse());
 
                     // ВНИМАНИЕ!!!
                     // Выполняется поиск эквивалентной вершины после разделения стеков!!!
@@ -370,12 +368,11 @@ function visitAllTransitions(parentConf, configStack) {
 
                         // Выполняем поиск эквивалентной let-вершины
                         // и, в случае нахождения используем её
-                        let equalLetNode = findEqualLetNode(letNode);
+                        equalLetNode = findEqualLetNode(letNode);
 
                         if (equalLetNode) {
 
                             letNode = equalLetNode;
-                            parentConf.transitions[term].toEqualState = true;
 
                             log('-- equal let-node found');
 
@@ -383,22 +380,21 @@ function visitAllTransitions(parentConf, configStack) {
                             // а также добавляем её в очередь и список вершин
                         } else if (!equalLetNode) {
                             nodes.push(letNode);
-                            nodesToVisit.push(letNode);
+                            //nodesToVisit.push(letNode);
                         }
 
                         // Иначе - используем новую let-вершину,
                         // не забывая добавить нерассмотренную конфигурацию и саму let-вершину в списки
                     } else {
+                        log('ADD NEW LOWER CONFIG: ', newConf.toString());
                         log('-- created new let-node and config');
-                        log('-- from ' + parentConf.state + ' by ' + term);
+                        log('-- from ' + parentConf.toString() + ' by ' + term);
                         nodes.push(newConf, letNode);
-                        nodesToVisit.push(newConf, letNode);
+                        nodesToVisit.push(newConf /*, letNode*/);
                     }
 
                     // Подключаем вершину к родительской
-                    parentConf.transitions[term].node = letNode;
-                    parentConf.transitions[term].error = error;
-                    parentConf.transitions[term].isFinal = parentConf.transitions[term].isFinal || isFinalNode;
+                    parentConf.transitions[term] = new Transition(term, letNode, equalLetNode !== null, error);
 
                     return true;
 
@@ -407,18 +403,19 @@ function visitAllTransitions(parentConf, configStack) {
                     // из которой исходят две дуги к новым независимым конфигурациям
                 } else {
 
-                    log('CREATED LET-NODE FOR A|C => A|B|C: ' + relation.configuration.state + ' => ' + stack);
+                    log('CREATED LET-NODE FOR A|C => A|B|C: ' + relation.configuration.state.slice().reverse() + ' => ' + stack.slice().reverse());
 
                     let ancestorConf = relation.configuration.ancestor;
 
                     // Производим замену найденной конфигурации на let-вершину,
                     // предварительно удалив все вершины подграфа из списка вершин и очереди.
 
-                    let transitionTerm = ancestorConf.findTransitionTerminal(relation.configuration);
+                    let transitionTerminals = ancestorConf.findTransitionTerminals(relation.configuration),
+                        transitionTerm = transitionTerminals[0];
 
                     // Запуск удаления подграфа
 
-                    log('# REMOVE CONFIGURATION: ', relation.configuration);
+                    log('# REMOVE CONFIGURATION: ', relation.configuration.toString(true), transitionTerm);
                     removeNodes(ancestorConf, transitionTerm, configStack);
 
                     // Инициализация нового let-узла
@@ -448,25 +445,48 @@ function visitAllTransitions(parentConf, configStack) {
                     if (firstEqualConfig && secondEqualConfig) {
                         // Выполняем поиск эквивалентной let-вершины
                         // и, в случае нахождения используем её
-                        let equalLetNode = findEqualLetNode(letNode);
+                        equalLetNode = findEqualLetNode(letNode);
 
                         if (equalLetNode) {
 
                             letNode = equalLetNode;
-                            ancestorConf.transitions[transitionTerm].toEqualState = true;
 
                             // Иначе - используем только что созданную let-вершину
                             // а также добавляем нерассмотренные вершины в очередь и список вершин
                         } else if (!equalLetNode) {
                             nodes.push(letNode);
-                            nodesToVisit.push(letNode);
+                            //nodesToVisit.push(letNode);
                         }
                     } else {
-                        nodes.push(firstConf, secondConf, letNode);
-                        nodesToVisit.push(firstConf, secondConf, letNode);
+                        if (!firstEqualConfig) {
+                            nodes.push(firstConf);
+                            nodesToVisit.push(firstConf)
+                        }
+                        if (!secondEqualConfig) {
+                            nodes.push(secondConf);
+                            nodesToVisit.push(secondConf);
+                        }
+
+                        nodes.push(letNode);
                     }
 
-                    ancestorConf.transitions[transitionTerm].node = letNode;
+                    nodes.forEach(anotherNode => {
+                        if (anotherNode instanceof ConfigurationNode) {
+                            for (let t in anotherNode.transitions) {
+                                if (anotherNode.transitions[t].node == relation.configuration) {
+                                    anotherNode.transitions[t].node = letNode;
+                                }
+                            }
+                        }
+                    });
+
+                    if (!firstEqualConfig) {
+                        log('ADD NEW UPPER CONFIG: ', firstConf.toString(true));
+                    }
+
+                    if (!secondEqualConfig) {
+                        log('ADD NEW LOWER CONFIG: ', secondConf.toString(true));
+                    }
 
                     // Прекращаем цикл по терминалам, поскольку родительской вершины уже не существует
                     return false;
@@ -480,8 +500,7 @@ function visitAllTransitions(parentConf, configStack) {
             let newConf = new ConfigurationNode(stack, parentConf);
 
             newConf.isFinal = newConf.isFinal || isFinalNode;
-            parentConf.transitions[term].node = newConf;
-            parentConf.transitions[term].error = error;
+            parentConf.transitions[term] = new Transition(term, newConf, false, error);
 
             nodes.push(newConf);
             nodesToVisit.push(newConf);
@@ -556,7 +575,7 @@ function findStateRelation(stack, parentConfig) {
                 matchIndex++;
             }
 
-            log('>   COMPARE: ', stack, parentStack, matchIndex);
+            log('>   COMPARE: ', stack.slice().reverse(), parentStack.slice().reverse(), matchIndex);
 
             // Если такой префикс непуст,
             // то "двойственное" отношение Турчина имеет место,
@@ -617,15 +636,22 @@ function visitAndRemove(node, queue) {
     // Если тип узла - let-вершина,
     // то запускаем процесс удаления по двум её потомкам,
     // учитывая при этом возможность возникновения циклов
+
     if (node instanceof LetNode) {
         log('remove let node: ', node.toString());
         // Если ветви не образует цикл
-        if (node.upperNode.parent == node) {
+        if (!node.upperNode.ancestor == node) {
+            log('and upper node: ', node.upperNode.toString());
             visitAndRemove(node.upperNode, queue);
+        } else {
+            log('upper node has not been removed:', node.upperNode.toString());
         }
 
-        if (node.lowerNode.parent == node) {
+        if (node.lowerNode.ancestor == node) {
+            log('and lower node: ', node.lowerNode.toString());
             visitAndRemove(node.lowerNode, queue);
+        } else {
+            log('lower node has not been removed:', node.lowerNode.toString());
         }
 
         // Иначе вершина конфигурационная,
@@ -636,6 +662,7 @@ function visitAndRemove(node, queue) {
         Object.keys(node.transitions).forEach(term => {
             // Если ветви не образует цикл
             if (node.transitions[term] && !node.transitions[term].toEqualState) {
+                log('remove transition by ', term, (node.transitions[term].node || "null").toString());
                 visitAndRemove(node.transitions[term].node, queue);
             }
         });
@@ -648,20 +675,11 @@ function visitAndRemove(node, queue) {
         nodes.splice(nodes.indexOf(node), 1);
     }
 
-    nodes.forEach(anotherNode => {
-        if (anotherNode instanceof ConfigurationNode) {
-            for (let t in anotherNode.transitions) {
-                if (anotherNode.transitions[t].node == node) {
-                    anotherNode.transitions[t] = new Transition(t);
-                }
-            }
-        }
-    });
-
     // Удаляем вершину из очереди
     let queueIndex = queue.indexOf(node);
 
     if (queueIndex !== -1) {
+        log(`remove from queue: `, queue[queueIndex].toString())
         queue.splice(queueIndex, 1);
     }
 }
@@ -827,7 +845,7 @@ function generateAllPositiveTests(graph) {
             currentStep = getNextPositiveStep(currentStep);
         }
 
-        console.log('NEW TEST: ', currentStep.result.join(' '));
+        console.log('NEW TEST: ', currentStep.result.join(' '), '\n----------------------------');
         //console.log(isAllPositiveEdgesVisited());
         //console.log(isAllFinalNodesProcessed());
     }
@@ -857,10 +875,21 @@ function getNextPositiveStep(prevStepInfo) {
         if (!isAllPositiveEdgesVisited()) {
             let nextNodePath = findNotVisitedPath(node, result, terminated);
 
-            return nextNodePath ? nextNodePath : findClosestPathToFinalNode(node, result, terminated);
+            if (nextNodePath) return nextNodePath;
         }
 
-        return findClosestPathToFinalNode(node, result, terminated);
+        // Иначе мы оказываемся в некоторой вершине
+        // Достраиваем тест до ближайшей финальной
+
+        log('FIND FINAL!!!!!!!');
+        let closestFinalPath = prevStepInfo;
+
+        do  {
+            closestFinalPath = findClosestPathToFinalNode(closestFinalPath.node, closestFinalPath.result, closestFinalPath.terminated);
+            log('FINAL NODE: ', closestFinalPath.node.toString(true))
+        } while ((!isAllPositiveChildrenVisited(closestFinalPath.node)));
+
+        return closestFinalPath;
 
     // Если текущая вершина - let-узел:
     } else if (node instanceof LetNode) {
@@ -894,12 +923,10 @@ function findNotVisitedPath(startNode, result, terminated) {
     while (!target && queue.length) {
         let { node, transitions } = queue.shift();
 
-        log('pop: ', node.toString());
+        log('pop: ', node.toString(true));
 
         if (node instanceof ConfigurationNode) {
-            Object.keys(node.transitions).filter(t => !node.transitions[t].error).forEach(t => {
-
-                log(target ? target.node.toString() : null);
+            Object.keys(node.transitions).filter(t => !node.transitions[t].error).some(t => {
 
                 if (!target) {
 
@@ -917,12 +944,14 @@ function findNotVisitedPath(startNode, result, terminated) {
                             transitions: transitions.concat(node.transitions[t])
                         };
 
+                        return true;
+
                     // Просматриваем фиктивные ребра
                     } else if (t === "") {
 
                         log('(check epsilon transitions)');
 
-                        node.transitions[""].some(epsilonTransition => {
+                        return node.transitions[""].some(epsilonTransition => {
                             if (!epsilonTransition.visited) {
 
                                 epsilonTransition.visited = true;
@@ -944,13 +973,23 @@ function findNotVisitedPath(startNode, result, terminated) {
                             node: node.transitions[t].node,
                             transitions: transitions.concat(node.transitions[t])
                         });
+
+                        return false;
                     }
                 }
             });
         } else if (node instanceof LetNode) {
             //throw new Error('Not handled let node in find path');
+
+            log('pushed lower and upper nodes');
+
             queue.push({
                 node: node.upperNode,
+                transitions: transitions
+            });
+
+            queue.push({
+                node: node.lowerNode,
                 transitions: transitions
             });
         }
@@ -959,6 +998,20 @@ function findNotVisitedPath(startNode, result, terminated) {
     if (!target) {
         return null;
     }
+
+    // Добавление пройденных виртуальных переходов
+    // target.transitions.filter(t => t.node instanceof LetNode).forEach(t => {
+    //     let epsilonTransition = new Transition(null, t.node.lowerNode);
+    //     epsilonTransition.visited = false;
+    //
+    //     getFinalNodes().forEach(n => {
+    //
+    //         if (!("" in n.transitions)) {
+    //             n.transitions[""] = [];
+    //         }
+    //         n.transitions[""].push(epsilonTransition);
+    //     });
+    // });
 
     return {
         node: target.node,
@@ -979,10 +1032,10 @@ function findClosestPathToFinalNode(startNode, result, terminated) {
     while (true) {
         let { node, transitions } = queue.shift();
 
-        log('pop: ', node.toString());
+        log('pop: ', node.toString(true));
 
         if (node instanceof ConfigurationNode) {
-            Object.keys(node.transitions).filter(t => !node.transitions[t].error).forEach(t => {
+            Object.keys(node.transitions).filter(t => !node.transitions[t].error).some(t => {
                 if (!final) {
 
                     log('check transition by ', t);
@@ -997,12 +1050,14 @@ function findClosestPathToFinalNode(startNode, result, terminated) {
                             transitions: transitions.concat(node.transitions[t])
                         };
 
+                        return true;
+
                         // Просматриваем фиктивные ребра
                     } else if (t === "") {
 
-                        log('(check epsilon transitions)');
+                        log('(check epsilon transitions)', node.transitions[""]);
 
-                        node.transitions[""].some(epsilonTransition => {
+                        return node.transitions[""].some(epsilonTransition => {
                             if (epsilonTransition.node.isFinal) {
 
                                 final = {
@@ -1010,6 +1065,12 @@ function findClosestPathToFinalNode(startNode, result, terminated) {
                                     transitions: transitions.concat(epsilonTransition)
                                 };
                                 return true;
+                            } else {
+                                log('is not final, push: ', epsilonTransition.node.toString());
+                                queue.push({
+                                    node: epsilonTransition.node,
+                                    transitions: transitions.concat(epsilonTransition)
+                                });
                             }
 
                             return false;
@@ -1022,21 +1083,40 @@ function findClosestPathToFinalNode(startNode, result, terminated) {
                             node: node.transitions[t].node,
                             transitions: transitions.concat(node.transitions[t])
                         });
+
+                        return false;
                     }
                 }
             });
         } else if (node instanceof LetNode) {
 
             queue.push({
-                node: node.lowerNode,
+                node: node.upperNode,
                 transitions: transitions
             });
 
-            //throw new Error('Not handled let node in find final node');
+            queue.push({
+                node: node.lowerNode,
+                transitions: transitions
+            });
         }
 
         if (final) break;
     }
+
+    // Добавление виртуальных переходов
+    // final.transitions.filter(t => t.node instanceof LetNode).forEach(t => {
+    //     let epsilonTransition = new Transition(null, t.node.lowerNode);
+    //     epsilonTransition.visited = false;
+    //
+    //     getFinalNodes().forEach(n => {
+    //
+    //         if (!("" in n.transitions)) {
+    //             n.transitions[""] = [];
+    //         }
+    //         n.transitions[""].push(epsilonTransition);
+    //     });
+    // });
 
     return {
         node: final.node,
@@ -1096,7 +1176,7 @@ let cb = (grammarInfo) => {
 
     addRecoverRules(grammarInfo);
 
-    log('with recover rules: ', JSON.stringify(grammarInfo, null, ' '));
+    //log('with recover rules: ', JSON.stringify(grammarInfo, null, ' '));
 
     grammar = grammarInfo;
 
@@ -1115,18 +1195,7 @@ let cb = (grammarInfo) => {
 
 };
 
-switch (inputType.trim().toLowerCase()) {
-    case 'grammar':
-        buildGrammarTable(cb);
-        break;
-
-    case 'table':
-        loadTableFromFile(cb);
-        break;
-
-    default:
-        throw new Error(`Указан неверный тип входного файла: ${inputType}.\nДопустимые типы: grammar, table`);
-}
+buildGrammarTable(cb);
 
 
 
