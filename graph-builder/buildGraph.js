@@ -410,13 +410,8 @@ function visitAllTransitions(parentConf, configStack) {
                     // Производим замену найденной конфигурации на let-вершину,
                     // предварительно удалив все вершины подграфа из списка вершин и очереди.
 
-                    let transitionTerminals = ancestorConf.findTransitionTerminals(relation.configuration),
-                        transitionTerm = transitionTerminals[0];
-
-                    // Запуск удаления подграфа
-
-                    log('# REMOVE CONFIGURATION: ', relation.configuration.toString(true), transitionTerm);
-                    removeNodes(ancestorConf, transitionTerm, configStack);
+                    log('# REMOVE CONFIGURATION: ', relation.configuration.toString(true));
+                    removeNodes(relation.configuration, configStack);
 
                     // Инициализация нового let-узла
                     let letNode = new LetNode(stack),
@@ -476,6 +471,12 @@ function visitAllTransitions(parentConf, configStack) {
                                 if (anotherNode.transitions[t].node == relation.configuration) {
                                     anotherNode.transitions[t].node = letNode;
                                 }
+                            }
+                        } else if (anotherNode instanceof LetNode) {
+                            if (anotherNode.lowerNode == relation.configuration) {
+                                anotherNode.lowerNode = letNode;
+                            } else if (anotherNode.upperNode == relation.configuration) {
+                                anotherNode.upperNode = letNode;
                             }
                         }
                     });
@@ -628,8 +629,8 @@ function findStateRelation(stack, parentConfig) {
     return null;
 }
 
-function removeNodes(config, term, queue) {
-    visitAndRemove(config.transitions[term].node, queue);
+function removeNodes(config, queue) {
+    visitAndRemove(config, queue);
 }
 
 function visitAndRemove(node, queue) {
@@ -718,7 +719,7 @@ function transformToDOT(nodes, showError) {
     nodes.forEach(node => {
         if (node instanceof ConfigurationNode) {
             edges.push(...Object.keys(node.transitions)
-                .filter(term => (showError || node.transitions[term].error == false) && node.transitions[term].node !== null )
+                .filter(term => (showError || node.transitions[term].error == false) && node.transitions[term].node !== null)
                 .map(term => {
 
                     if (node.transitions[term].error) {
@@ -830,30 +831,25 @@ function generateAllPositiveTests(graph) {
     // Обходим граф до тех пор, пока имеются непосещенные ребра или финальные вершины
     while (!(isAllPositiveEdgesVisited() && isAllFinalNodesProcessed())) {
 
-        // Инициализируем новый тест в начальной вершине
-        let currentStep = { node: graph, result: [], terminated: false };
-
-        // Удаляем установленные в предыдущих тестах фиктивные переходы
-        getFinalNodes().forEach(n => delete n.transitions[""]);
-
         console.log(transformToDOT(nodes, false));
+
+        // Инициализируем новый тест в начальной вершине
+        let state = {stack: [graph], result: []};
 
         // Выполняем проход по графу до тех пор,
         // пока не остановимся в финальном состоянии,
         // из которого нельзя попасть в непомеченные вершины
-        while (!currentStep.terminated) {
-            currentStep = getNextPositiveStep(currentStep);
+        while (state.stack.length) {
+            state = getNextPositiveState(state.stack, state.result);
         }
 
-        console.log('NEW TEST: ', currentStep.result.join(' '), '\n----------------------------');
-        //console.log(isAllPositiveEdgesVisited());
-        //console.log(isAllFinalNodesProcessed());
+        console.log('NEW TEST GENERATED: ', state.result.join(''), '\n----------------------------');
     }
 }
 
-function getNextPositiveStep(prevStepInfo) {
+function getNextPositiveState(stack, result) {
 
-    let {node, result, terminated } = prevStepInfo;
+    let node = stack[stack.length - 1];
 
     log('current node: ', node.toString());
     log('res: ', result.join(' '));
@@ -866,262 +862,188 @@ function getNextPositiveStep(prevStepInfo) {
         // завершаем проход для данного теста
         if (node.isFinal && isAllPositiveChildrenVisited(node)) {
             node.processed = true;
-            terminated = true;
-            return { node, result: result.filter(t => t !== null), terminated}
+
+            stack.pop();
+
+            return {stack, result};
         }
 
         // Иначе выполняем поиск ближайшего непомеченного ребра
         // и переходим по нему, учитывая промежуточный путь
         if (!isAllPositiveEdgesVisited()) {
-            let nextNodePath = findNotVisitedPath(node, result, terminated);
-
-            if (nextNodePath) return nextNodePath;
+            return findNotVisitedPath(stack, result);
         }
 
         // Иначе мы оказываемся в некоторой вершине
         // Достраиваем тест до ближайшей финальной
+        return findClosestPathToFinalNode(stack, result);
 
-        log('FIND FINAL!!!!!!!');
-        let closestFinalPath = prevStepInfo;
-
-        do  {
-            closestFinalPath = findClosestPathToFinalNode(closestFinalPath.node, closestFinalPath.result, closestFinalPath.terminated);
-            log('FINAL NODE: ', closestFinalPath.node.toString(true))
-        } while ((!isAllPositiveChildrenVisited(closestFinalPath.node)));
-
-        return closestFinalPath;
-
-    // Если текущая вершина - let-узел:
+        // Если текущая вершина - let-узел:
     } else if (node instanceof LetNode) {
-        // Переходим по верхнему узлу,
-        // добавляя к финальным вершинам фиктивный переход
-        // по нижнему узлу
+        // Добавляем нижнюю и верхнюю вершины в стек
+        stack.pop();
 
-        let epsilonTransition = new Transition(null, node.lowerNode);
-        epsilonTransition.visited = false;
+        stack.push(node.lowerNode, node.upperNode);
 
-        getFinalNodes().forEach(n => {
-
-            if (!("" in n.transitions)) {
-                n.transitions[""] = [];
-            }
-            n.transitions[""].push(epsilonTransition);
-        });
-
-        return { node: node.upperNode, result, terminated }
+        return {stack, result};
     }
 }
 
-function findNotVisitedPath(startNode, result, terminated) {
+function findNotVisitedPath(initialStack, initialResult) {
     let queue = [{
-            node: startNode,
-            transitions: []
-        }], target = null;
+        stack: initialStack.slice(),
+        result: initialResult.slice()
+    }];
 
-    log('find path from:', startNode.toString());
+    log('find path from:', initialStack[initialStack.length - 1].toString());
 
-    while (!target && queue.length) {
-        let { node, transitions } = queue.shift();
+    nodes.forEach(n => n.visited = false);
 
-        log('pop: ', node.toString(true));
+    // Пока непосещенное ребро не найдено
+    while (queue.length) {
+        let {stack, result} = queue.shift();
 
-        if (node instanceof ConfigurationNode) {
-            Object.keys(node.transitions).filter(t => !node.transitions[t].error).some(t => {
+        log('shift: ', stack.map(n => n.id));
 
-                if (!target) {
+        if (stack.length) {
+            let node = stack.pop();
 
-                    log('check transition by ', t);
-                    // Если ребро не посещено,
-                    // останавливаем поиск на нем
-                    if (t !== "" && !node.transitions[t].visited) {
+            if (!node.visited) {
 
-                        log('not visited, target found');
+                node.visited = true;
 
-                        node.transitions[t].visited = true;
+                if (node instanceof LetNode) {
 
-                        target = {
-                            node: node.transitions[t].node,
-                            transitions: transitions.concat(node.transitions[t])
-                        };
+                    log('visit let node, push:', node.lowerNode.toString(), node.upperNode.toString());
 
-                        return true;
+                    queue.push({
+                        stack: stack.concat([node.lowerNode, node.upperNode]),
+                        result: result.slice()
+                    });
+                } else {
 
-                    // Просматриваем фиктивные ребра
-                    } else if (t === "") {
+                    let targetTransition = null;
 
-                        log('(check epsilon transitions)');
+                    log('visit configuration: ', node.toString());
 
-                        return node.transitions[""].some(epsilonTransition => {
-                            if (!epsilonTransition.visited) {
-
-                                epsilonTransition.visited = true;
-
-                                target = {
-                                    node: epsilonTransition.node,
-                                    transitions: transitions.concat(epsilonTransition)
-                                };
-                                return true;
-                            }
-
-                            return false;
-                        });
-
-                    // В противном случае помещаем дочерний узел в очередь
-                    } else {
-                        log('visited, push: ', node.transitions[t].node.toString());
+                    if (node.isFinal) {
+                        console.log('find final node, push current stack: ', stack.map(n => n.id));
                         queue.push({
-                            node: node.transitions[t].node,
-                            transitions: transitions.concat(node.transitions[t])
+                            stack: stack.slice(),
+                            result: result.slice()
                         });
-
-                        return false;
                     }
-                }
-            });
-        } else if (node instanceof LetNode) {
-            //throw new Error('Not handled let node in find path');
 
-            log('pushed lower and upper nodes');
+                    Object.keys(node.transitions)
+                        .map(t => node.transitions[t])
+                        .filter(transition => !transition.error)
+                        .some(transition => {
+                            if (!transition.visited) {
+                                transition.visited = true;
 
-            queue.push({
-                node: node.upperNode,
-                transitions: transitions
-            });
+                                log('transition found: ', transition.toString());
 
-            queue.push({
-                node: node.lowerNode,
-                transitions: transitions
-            });
-        }
-    }
+                                targetTransition = transition;
 
-    if (!target) {
-        return null;
-    }
+                                stack.push(transition.node);
+                                result.push(transition.term);
 
-    // Добавление пройденных виртуальных переходов
-    // target.transitions.filter(t => t.node instanceof LetNode).forEach(t => {
-    //     let epsilonTransition = new Transition(null, t.node.lowerNode);
-    //     epsilonTransition.visited = false;
-    //
-    //     getFinalNodes().forEach(n => {
-    //
-    //         if (!("" in n.transitions)) {
-    //             n.transitions[""] = [];
-    //         }
-    //         n.transitions[""].push(epsilonTransition);
-    //     });
-    // });
-
-    return {
-        node: target.node,
-        result: result.concat(target.transitions.map(t => t.term)),
-        terminated: terminated
-    }
-
-}
-
-function findClosestPathToFinalNode(startNode, result, terminated) {
-    let queue = [{
-        node: startNode,
-        transitions: []
-    }], final = null;
-
-    log('find final node from:', startNode.toString());
-
-    while (true) {
-        let { node, transitions } = queue.shift();
-
-        log('pop: ', node.toString(true));
-
-        if (node instanceof ConfigurationNode) {
-            Object.keys(node.transitions).filter(t => !node.transitions[t].error).some(t => {
-                if (!final) {
-
-                    log('check transition by ', t);
-                    // Если ребро не посещено,
-                    // останавливаем поиск на нем
-                    if (t !== "" && node.transitions[t].node.isFinal) {
-
-                        log('final found');
-
-                        final = {
-                            node: node.transitions[t].node,
-                            transitions: transitions.concat(node.transitions[t])
-                        };
-
-                        return true;
-
-                        // Просматриваем фиктивные ребра
-                    } else if (t === "") {
-
-                        log('(check epsilon transitions)', node.transitions[""]);
-
-                        return node.transitions[""].some(epsilonTransition => {
-                            if (epsilonTransition.node.isFinal) {
-
-                                final = {
-                                    node: epsilonTransition.node,
-                                    transitions: transitions.concat(epsilonTransition)
-                                };
                                 return true;
                             } else {
-                                log('is not final, push: ', epsilonTransition.node.toString());
+                                log('push: ', transition.toString());
                                 queue.push({
-                                    node: epsilonTransition.node,
-                                    transitions: transitions.concat(epsilonTransition)
+                                    stack: stack.concat([transition.node]),
+                                    result: result.concat([transition.term])
                                 });
+
+                                return false;
                             }
-
-                            return false;
                         });
 
-                        // В противном случае помещаем дочерний узел в очередь
-                    } else {
-                        log('is not final, push: ', node.transitions[t].node.toString());
+                    if (targetTransition) {
+                        return {stack, result};
+                    } else if (node.isFinal && result.length > initialResult.length) {
                         queue.push({
-                            node: node.transitions[t].node,
-                            transitions: transitions.concat(node.transitions[t])
+                            stack: stack.slice(),
+                            result: result.slice()
                         });
-
-                        return false;
                     }
                 }
-            });
-        } else if (node instanceof LetNode) {
-
-            queue.push({
-                node: node.upperNode,
-                transitions: transitions
-            });
-
-            queue.push({
-                node: node.lowerNode,
-                transitions: transitions
-            });
+            }
         }
-
-        if (final) break;
     }
 
-    // Добавление виртуальных переходов
-    // final.transitions.filter(t => t.node instanceof LetNode).forEach(t => {
-    //     let epsilonTransition = new Transition(null, t.node.lowerNode);
-    //     epsilonTransition.visited = false;
-    //
-    //     getFinalNodes().forEach(n => {
-    //
-    //         if (!("" in n.transitions)) {
-    //             n.transitions[""] = [];
-    //         }
-    //         n.transitions[""].push(epsilonTransition);
-    //     });
-    // });
+    log('search failed, try to get first final node...');
+    return findClosestPathToFinalNode(initialStack, initialResult);
+}
 
-    return {
-        node: final.node,
-        result: result.concat(final.transitions.map(t => t.term)),
-        terminated: terminated
+function findClosestPathToFinalNode(initialStack, initialResult) {
+    let queue = [{
+        stack: initialStack.slice(),
+        result: initialResult.slice()
+    }];
+
+    log('find nearest final node from:', initialStack[initialStack.length - 1].toString());
+
+    nodes.forEach(n => n.visited = false);
+
+    // Пока непосещенное ребро не найдено
+    while (true) {
+        let {stack, result} = queue.shift();
+
+        if (stack.length) {
+            let node = stack.pop();
+
+
+            if (!node.visited) {
+
+                node.visited = true;
+
+                if (node instanceof LetNode) {
+
+                    queue.push({
+                        stack: stack.concat([node.lowerNode, node.upperNode]),
+                        result: result.slice()
+                    });
+                } else {
+
+                    let finalTransition = null;
+
+                    Object.keys(node.transitions)
+                        .map(t => node.transitions[t])
+                        .filter(transition => !transition.error)
+                        .some(transition => {
+                            if (transition.node.isFinal) {
+                                finalTransition = transition;
+
+                                stack.push(transition.node);
+                                result.push(transition.term);
+
+                                return true;
+                            } else {
+                                queue.push({
+                                    stack: stack.concat([transition.node]),
+                                    result: result.concat([transition.term])
+                                });
+
+                                return false;
+                            }
+                        });
+
+                    if (finalTransition) {
+                        return {stack, result};
+                    }
+                }
+            }
+
+            if (!queue.length && stack.length) {
+                queue.push({
+                    stack: stack.slice(),
+                    result: result.slice()
+                })
+            }
+
+        }
     }
 }
 
