@@ -1095,8 +1095,8 @@ class Tester(object):
             for t in self._terminals:
                 self._json_table[nt.toJSON()][t.toJSON()] = None
 
-            info["first"][nt.toJSON()] = list(map(lambda x: x.toJSON(), self._FIRST[str(nt)]))
-            info["follow"][nt.toJSON()] = list(map(lambda x: x.toJSON(), self._FOLLOW[str(nt)]))
+            info["first"][nt.toJSON()] = list(map(lambda x: None if x.is_epsilon() else x.toJSON(), self._FIRST[str(nt)]))
+            info["follow"][nt.toJSON()] = list(map(lambda x: None if x.is_epsilon() else x.toJSON(), self._FOLLOW[str(nt)]))
 
         for r in self._rules:
             X = r.get_lhs()

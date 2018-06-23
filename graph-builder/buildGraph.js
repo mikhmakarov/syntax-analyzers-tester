@@ -274,7 +274,7 @@ function getNextState(stack, term) {
 function getStateIsEmpty(stack) {
     log('IS FINAL NODE: ', stack.slice().reverse());
 
-    let res = stack.every(r => (r in grammar.first) && grammar.first[r].includes("eps"));
+    let res = stack.every(r => (r in grammar.first) && grammar.first[r].includes(null));
 
     log('     res:', res);
     return res
@@ -329,6 +329,9 @@ function visitAllTransitions(parentConf, configStack) {
                 log('-- FROM: ' + parentConf.toString());
                 log('-- TO: ' + equalConf.toString());
                 log('-- by terminal: ' + term);
+
+                equalConf.isFinal = equalConf.isFinal || isFinalNode;
+
                 parentConf.transitions[term] = new Transition(term, equalConf, true, error);
                 return true;
             }
@@ -695,7 +698,7 @@ function transformToDOT(nodes, showError) {
             .map(n => `${n.id} [label="${n.id} - ${'[' + n.state.slice().reverse() + ']'}"]`),
         letNodes = nodes
             .filter(n => n instanceof LetNode)
-            .map(n => `${n.id} [label="let: ${'[' + n.state.slice().reverse() + ']'}"]`);
+            .map(n => `${n.id} [label="${n.id} - ${'[' + n.state.slice().reverse() + ']'}"]`);
 
     var code = 'digraph {\nrankdir=LR;\nsize="8,5";\n';
 
@@ -705,7 +708,7 @@ function transformToDOT(nodes, showError) {
     }
 
     if (letNodes.length) {
-        code += 'node [shape = square];\n' +
+        code += 'node [shape = octagon];\n' +
             letNodes.join(';\n') + ';\n';
     }
 
@@ -839,6 +842,10 @@ function generateAllPositiveTests(graph) {
         // Выполняем проход по графу до тех пор,
         // пока не остановимся в финальном состоянии,
         // из которого нельзя попасть в непомеченные вершины
+
+        // Проход выполняется пошагово
+        // Каждое следующее состояние - переход по непосещенному ребру,
+        // либо переход в финальную вершину
         while (state.stack.length) {
             state = getNextPositiveState(state.stack, state.result);
         }
@@ -859,7 +866,8 @@ function getNextPositiveState(stack, result) {
 
         // Если текущая вершина - финальная и
         // из неё нет переходов по непомеченным ребрам,
-        // завершаем проход для данного теста
+        // снимаем текующую вершину на стеке и переходим
+        // в нижнюю вершину последней let-вершины
         if (node.isFinal && isAllPositiveChildrenVisited(node)) {
             node.processed = true;
 
@@ -908,31 +916,34 @@ function findNotVisitedPath(initialStack, initialResult) {
         if (stack.length) {
             let node = stack.pop();
 
-            if (!node.visited) {
+            if (node instanceof LetNode && !node.visited) {
 
                 node.visited = true;
 
-                if (node instanceof LetNode) {
+                log('visit let node, push:', node.lowerNode.toString(), node.upperNode.toString());
 
-                    log('visit let node, push:', node.lowerNode.toString(), node.upperNode.toString());
+                queue.push({
+                    stack: stack.concat([node.lowerNode, node.upperNode]),
+                    result: result.slice()
+                });
 
+                log('current stack: ', stack.concat([node.lowerNode, node.upperNode]).map(n => n.id));
+            } else if (node instanceof ConfigurationNode) {
+                log('visit configuration: ', node.toString());
+
+                if (node.isFinal) {
+                    console.log('find final node, push current stack: ', stack.map(n => n.id));
                     queue.push({
-                        stack: stack.concat([node.lowerNode, node.upperNode]),
+                        stack: stack.slice(),
                         result: result.slice()
                     });
-                } else {
+                }
+
+                if (!node.visited) {
+
+                    node.visited = true;
 
                     let targetTransition = null;
-
-                    log('visit configuration: ', node.toString());
-
-                    if (node.isFinal) {
-                        console.log('find final node, push current stack: ', stack.map(n => n.id));
-                        queue.push({
-                            stack: stack.slice(),
-                            result: result.slice()
-                        });
-                    }
 
                     Object.keys(node.transitions)
                         .map(t => node.transitions[t])
@@ -970,6 +981,7 @@ function findNotVisitedPath(initialStack, initialResult) {
                     }
                 }
             }
+
         }
     }
 
@@ -1014,6 +1026,9 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
                         .filter(transition => !transition.error)
                         .some(transition => {
                             if (transition.node.isFinal) {
+
+                                transition.visited = true;
+
                                 finalTransition = transition;
 
                                 stack.push(transition.node);
@@ -1098,7 +1113,7 @@ let cb = (grammarInfo) => {
 
     addRecoverRules(grammarInfo);
 
-    //log('with recover rules: ', JSON.stringify(grammarInfo, null, ' '));
+    log('with recover rules: ', JSON.stringify(grammarInfo, null, ' '));
 
     grammar = grammarInfo;
 

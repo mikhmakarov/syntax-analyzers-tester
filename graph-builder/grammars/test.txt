@@ -1,0 +1,7 @@
+non-terminal A , A ;
+
+terminal A , A ;
+
+A ::= A * + ? A ;
+
+A ::= eps eps ( A A A eps ( eps eps ) * + ? A * + ? ( ( A ( A ) eps ) A ) ( A | A A eps ( A * + ? ) ) ) | eps A ;
