@@ -730,7 +730,7 @@ function transformToDOT(nodes, showError) {
                     }
 
                     if (node.transitions[term].visited) {
-                        return `${node.id} -> ${node.transitions[term].node.id} [ label = "${term}", color = "green" ];`;
+                        return `${node.id} -> ${node.transitions[term].node.id} [ label = "${term}", color = "green", penwidth=3.5 ];`;
                     }
 
                     return `${node.id} -> ${node.transitions[term].node.id} [ label = "${term}", color = "black" ];`;
@@ -834,7 +834,7 @@ function generateAllPositiveTests(graph) {
     let tests = [];
 
     // Обходим граф до тех пор, пока имеются непосещенные ребра или финальные вершины
-    while (!(isAllPositiveEdgesVisited() && isAllFinalNodesProcessed())) {
+    while (!(isAllEdgesVisited(true) && isAllFinalNodesProcessed())) {
 
         log(transformToDOT(nodes, false));
 
@@ -883,7 +883,7 @@ function getNextPositiveState(stack, result) {
 
         // Иначе выполняем поиск ближайшего непомеченного ребра
         // и переходим по нему, учитывая промежуточный путь
-        if (!isAllPositiveEdgesVisited()) {
+        if (!isAllEdgesVisited(true)) {
             return findNotVisitedPath(stack, result);
         }
 
@@ -1055,15 +1055,12 @@ function getFinalNodes() {
     return nodes.filter(n => n instanceof ConfigurationNode && n.isFinal);
 }
 
-function isAllPositiveEdgesVisited() {
+function isAllEdgesVisited(isPositive) {
     return nodes
         .filter(n => n instanceof ConfigurationNode)
         .every(n => Object.keys(n.transitions)
-            .filter(t => t == "" || !n.transitions[t].error)
+            .filter(t => n.transitions[t].error !== isPositive)
             .every(t => {
-                if (t == "") {
-                    return n.transitions[""].every(e => e.visited == true)
-                }
                 return n.transitions[t].visited == true
             })
         );
@@ -1097,10 +1094,12 @@ function generateAllNegativeTests(graph) {
     nodes
         .filter(n => n instanceof ConfigurationNode)
         .forEach(n => {
-            if (n.isFinal) n.processed = false;
-
             Object.keys(n.transitions).forEach(t => n.transitions[t].visited = false);
         });
+
+    while (true) {
+        break;
+    }
 
     // TODO
 }
@@ -1129,6 +1128,8 @@ let cb = (grammarInfo) => {
     } catch (e) {
         console.log('Ошибка генерации позитивных тестов: ', e);
     }
+
+    log(transformToDOT(nodes, false));
 
     try {
         negative = generateAllNegativeTests(graph) || [];
@@ -1161,8 +1162,6 @@ let cb = (grammarInfo) => {
     } catch (e) {
         console.log('Ошибка при записи тестов в файл: ', e);
     }
-
-    console.log(transformToDOT(nodes, false));
 
 
 };

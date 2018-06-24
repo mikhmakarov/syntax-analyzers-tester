@@ -1,0 +1,5 @@
+non-terminal A ;
+terminal A ;
+A ::= ( A | ( A ) | A A eps ( A ) ) | A eps ( A ) |
+        A | eps |
+        ( ( A ) eps ( ( A ) ( ( A ) ) ( ( A ) | A | A | A | eps | ( A ) ) ) ) ;

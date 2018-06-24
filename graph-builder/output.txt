@@ -866,16 +866,16 @@ node [shape = octagon];
 2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
 node [shape = doublecircle];
 1 [label="1 - [T1_0,E1_0]"];
-0 -> 1 [ label = "x", color = "green",  = "empty" ];
+0 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
 0 -> 2 [ label = "(", color = "black" ];
-1 -> 4 [ label = "+", color = "green", arrowType = "empty" ];
-1 -> 5 [ label = "*", color = "green", arrowType = "empty" ];
+1 -> 4 [ label = "+", color = "green", penwidth=3.5 ];
+1 -> 5 [ label = "*", color = "green", penwidth=3.5 ];
 3 -> 1 [ label = ")", color = "black" ];
 2 -> 0 [label="up"];
 2 -> 3 [style=dotted, label="down"];
-4 -> 1 [ label = "x", color = "green", arrowType = "empty" ];
+4 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
 4 -> 2 [ label = "(", color = "black" ];
-5 -> 1 [ label = "x", color = "green", arrowType = "empty" ];
+5 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
 5 -> 2 [ label = "(", color = "black" ];
 }
 current node:  CONFIGURATION (0): [E_0] from []
@@ -1136,7 +1136,6 @@ current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 res:  ( x + ( x * ( x ) ) )
 NEW TEST:  ( x + ( x * ( x ) ) ) 
 ----------------------------
-EEXIST: file already exists, mkdir 'D:\supercompilation\graph-builder\tests\arith'
 digraph {
 rankdir=LR;
 size="8,5";
@@ -1149,15 +1148,15 @@ node [shape = octagon];
 2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
 node [shape = doublecircle];
 1 [label="1 - [T1_0,E1_0]"];
-0 -> 1 [ label = "x", color = "black" ];
-0 -> 2 [ label = "(", color = "black" ];
-1 -> 4 [ label = "+", color = "black" ];
-1 -> 5 [ label = "*", color = "black" ];
-3 -> 1 [ label = ")", color = "black" ];
+0 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
+0 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
+1 -> 4 [ label = "+", color = "green", penwidth=3.5 ];
+1 -> 5 [ label = "*", color = "green", penwidth=3.5 ];
+3 -> 1 [ label = ")", color = "green", penwidth=3.5 ];
 2 -> 0 [label="up"];
 2 -> 3 [style=dotted, label="down"];
-4 -> 1 [ label = "x", color = "black" ];
-4 -> 2 [ label = "(", color = "black" ];
-5 -> 1 [ label = "x", color = "black" ];
-5 -> 2 [ label = "(", color = "black" ];
+4 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
+4 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
+5 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
+5 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
 }
