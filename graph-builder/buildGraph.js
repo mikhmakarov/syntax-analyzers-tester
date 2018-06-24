@@ -834,7 +834,7 @@ function generateAllPositiveTests(graph) {
     // Обходим граф до тех пор, пока имеются непосещенные ребра или финальные вершины
     while (!(isAllPositiveEdgesVisited() && isAllFinalNodesProcessed())) {
 
-        console.log(transformToDOT(nodes, false));
+        log(transformToDOT(nodes, false));
 
         // Инициализируем новый тест в начальной вершине
         let state = {stack: [graph], result: []};
@@ -850,7 +850,7 @@ function generateAllPositiveTests(graph) {
             state = getNextPositiveState(state.stack, state.result);
         }
 
-        console.log('NEW TEST GENERATED: ', state.result.join(''), '\n----------------------------');
+        console.log('NEW TEST: ', state.result.join(' '), '\n----------------------------');
     }
 }
 
@@ -905,6 +905,7 @@ function findNotVisitedPath(initialStack, initialResult) {
 
     log('find path from:', initialStack[initialStack.length - 1].toString());
 
+    let visitedStacks = {};
     nodes.forEach(n => n.visited = false);
 
     // Пока непосещенное ребро не найдено
@@ -913,14 +914,16 @@ function findNotVisitedPath(initialStack, initialResult) {
 
         log('shift: ', stack.map(n => n.id));
 
-        if (stack.length) {
+        if (!(stack.map(n=>n.id).toString() in visitedStacks) && stack.length) {
+
+            visitedStacks[stack.map(n=>n.id).toString()] = true;
+
             let node = stack.pop();
 
             if (node instanceof LetNode && !node.visited) {
+                log('visit let node, push:', node.lowerNode.toString(), node.upperNode.toString());
 
                 node.visited = true;
-
-                log('visit let node, push:', node.lowerNode.toString(), node.upperNode.toString());
 
                 queue.push({
                     stack: stack.concat([node.lowerNode, node.upperNode]),
@@ -931,57 +934,46 @@ function findNotVisitedPath(initialStack, initialResult) {
             } else if (node instanceof ConfigurationNode) {
                 log('visit configuration: ', node.toString());
 
-                if (node.isFinal) {
-                    console.log('find final node, push current stack: ', stack.map(n => n.id));
+                let targetTransition = null;
+
+                Object.keys(node.transitions)
+                    .map(t => node.transitions[t])
+                    .filter(transition => !transition.error)
+                    .some(transition => {
+                        if (!transition.visited) {
+                            transition.visited = true;
+
+                            log('transition found: ', transition.toString());
+
+                            targetTransition = transition;
+
+                            stack.push(transition.node);
+                            result.push(transition.term);
+
+                            return true;
+                        } else {
+                            log('push: ', transition.toString());
+                            queue.push({
+                                stack: stack.concat([transition.node]),
+                                result: result.concat([transition.term])
+                            });
+
+                            return false;
+                        }
+                    });
+
+                if (targetTransition) {
+                    return {stack, result};
+                } else if (node.isFinal && result.length > initialResult.length) {
                     queue.push({
                         stack: stack.slice(),
                         result: result.slice()
                     });
                 }
-
-                if (!node.visited) {
-
-                    node.visited = true;
-
-                    let targetTransition = null;
-
-                    Object.keys(node.transitions)
-                        .map(t => node.transitions[t])
-                        .filter(transition => !transition.error)
-                        .some(transition => {
-                            if (!transition.visited) {
-                                transition.visited = true;
-
-                                log('transition found: ', transition.toString());
-
-                                targetTransition = transition;
-
-                                stack.push(transition.node);
-                                result.push(transition.term);
-
-                                return true;
-                            } else {
-                                log('push: ', transition.toString());
-                                queue.push({
-                                    stack: stack.concat([transition.node]),
-                                    result: result.concat([transition.term])
-                                });
-
-                                return false;
-                            }
-                        });
-
-                    if (targetTransition) {
-                        return {stack, result};
-                    } else if (node.isFinal && result.length > initialResult.length) {
-                        queue.push({
-                            stack: stack.slice(),
-                            result: result.slice()
-                        });
-                    }
-                }
             }
 
+        } else {
+            log('stack visited or empty!: ', stack.map(n => n.id));
         }
     }
 
@@ -997,57 +989,54 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
 
     log('find nearest final node from:', initialStack[initialStack.length - 1].toString());
 
+    let visitedStacks = {};
     nodes.forEach(n => n.visited = false);
 
     // Пока непосещенное ребро не найдено
     while (true) {
         let {stack, result} = queue.shift();
 
-        if (stack.length) {
+        if (!(stack.toString() in visitedStacks) && stack.length) {
             let node = stack.pop();
 
 
-            if (!node.visited) {
+            if (node instanceof LetNode && !node.visited) {
 
                 node.visited = true;
 
-                if (node instanceof LetNode) {
+                queue.push({
+                    stack: stack.concat([node.lowerNode, node.upperNode]),
+                    result: result.slice()
+                });
+            } else {
+                let finalTransition = null;
 
-                    queue.push({
-                        stack: stack.concat([node.lowerNode, node.upperNode]),
-                        result: result.slice()
+                Object.keys(node.transitions)
+                    .map(t => node.transitions[t])
+                    .filter(transition => !transition.error)
+                    .some(transition => {
+                        if (transition.node.isFinal) {
+
+                            transition.visited = true;
+
+                            finalTransition = transition;
+
+                            stack.push(transition.node);
+                            result.push(transition.term);
+
+                            return true;
+                        } else {
+                            queue.push({
+                                stack: stack.concat([transition.node]),
+                                result: result.concat([transition.term])
+                            });
+
+                            return false;
+                        }
                     });
-                } else {
 
-                    let finalTransition = null;
-
-                    Object.keys(node.transitions)
-                        .map(t => node.transitions[t])
-                        .filter(transition => !transition.error)
-                        .some(transition => {
-                            if (transition.node.isFinal) {
-
-                                transition.visited = true;
-
-                                finalTransition = transition;
-
-                                stack.push(transition.node);
-                                result.push(transition.term);
-
-                                return true;
-                            } else {
-                                queue.push({
-                                    stack: stack.concat([transition.node]),
-                                    result: result.concat([transition.term])
-                                });
-
-                                return false;
-                            }
-                        });
-
-                    if (finalTransition) {
-                        return {stack, result};
-                    }
+                if (finalTransition) {
+                    return {stack, result};
                 }
             }
 
@@ -1058,6 +1047,8 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
                 })
             }
 
+        } else {
+            log('stack visited or empty!: ', stack.map(n => n.id));
         }
     }
 }
