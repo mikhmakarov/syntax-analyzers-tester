@@ -831,6 +831,8 @@ function generateAllPositiveTests(graph) {
             Object.keys(n.transitions).forEach(t => n.transitions[t].visited = false);
         });
 
+    let tests = [];
+
     // Обходим граф до тех пор, пока имеются непосещенные ребра или финальные вершины
     while (!(isAllPositiveEdgesVisited() && isAllFinalNodesProcessed())) {
 
@@ -850,8 +852,11 @@ function generateAllPositiveTests(graph) {
             state = getNextPositiveState(state.stack, state.result);
         }
 
-        console.log('NEW TEST: ', state.result.join(' '), '\n----------------------------');
+        log('NEW TEST: ', state.result.join(' '), '\n----------------------------');
+        tests.push(state.result.join(' '));
     }
+
+    return tests;
 }
 
 function getNextPositiveState(stack, result) {
@@ -987,7 +992,7 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
         result: initialResult.slice()
     }];
 
-    log('find nearest final node from:', initialStack[initialStack.length - 1].toString());
+    log('find nearest final node from:', initialStack[initialStack.length - 1]);
 
     let visitedStacks = {};
     nodes.forEach(n => n.visited = false);
@@ -1008,7 +1013,7 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
                     stack: stack.concat([node.lowerNode, node.upperNode]),
                     result: result.slice()
                 });
-            } else {
+            } else if (node instanceof ConfigurationNode) {
                 let finalTransition = null;
 
                 Object.keys(node.transitions)
@@ -1038,13 +1043,6 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
                 if (finalTransition) {
                     return {stack, result};
                 }
-            }
-
-            if (!queue.length && stack.length) {
-                queue.push({
-                    stack: stack.slice(),
-                    result: result.slice()
-                })
             }
 
         } else {
@@ -1093,6 +1091,20 @@ function isAllFinalNodesProcessed() {
     return getFinalNodes().every(n => n.processed);
 }
 
+// Генерация негативных тестов
+function generateAllNegativeTests(graph) {
+    // Помечаем все ребра и вершины как непосещенные
+    nodes
+        .filter(n => n instanceof ConfigurationNode)
+        .forEach(n => {
+            if (n.isFinal) n.processed = false;
+
+            Object.keys(n.transitions).forEach(t => n.transitions[t].visited = false);
+        });
+
+    // TODO
+}
+
 //
 // Вызов процедуры генерации/загрузки таблицы разбора
 // и построение графа конфигураций на основе загруженной таблицы
@@ -1110,13 +1122,45 @@ let cb = (grammarInfo) => {
 
     let graph = buildConfigurationGraph();
 
-    generateAllPositiveTests(graph);
+    let positive = [], negative = [];
 
-    if (getFinalNodes().some(n => !n.processed)) {
-        throw new Error('Ошибка генерации позитивных тестов: финальные вершины не обработаны!');
+    try {
+        positive = generateAllPositiveTests(graph) || [];
+    } catch (e) {
+        console.log('Ошибка генерации позитивных тестов: ', e);
     }
 
-    getFinalNodes().forEach(n => delete n.transitions[""]);
+    try {
+        negative = generateAllNegativeTests(graph) || [];
+    } catch (e) {
+        console.log('Ошибка генерации негативных тестов: ', e);
+    }
+
+    let fName = path.parse(inputPath).name;
+
+    try {
+
+        fs.writeFileSync(`graphs/${fName}-positive.dot`, transformToDOT(nodes, false));
+        fs.writeFileSync(`graphs/${fName}-full.dot`, transformToDOT(nodes, true));
+
+        try {
+            fs.mkdirSync(`tests/${fName}`);
+            fs.mkdirSync(`tests/${fName}/positive`);
+            fs.mkdirSync(`tests/${fName}/negative`);
+        } catch (e) {
+            console.log(e.message);
+        }
+
+        positive.forEach((t, i) => {
+            fs.writeFileSync(`tests/${fName}/positive/${(i + 1)}.txt`, t);
+        });
+
+        negative.forEach((t, i) => {
+            fs.writeFileSync(`tests/${fName}/negative/${(i + 1)}.txt`, t);
+        });
+    } catch (e) {
+        console.log('Ошибка при записи тестов в файл: ', e);
+    }
 
     console.log(transformToDOT(nodes, false));
 

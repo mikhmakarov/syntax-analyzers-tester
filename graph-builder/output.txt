@@ -1,46 +1,43 @@
 with recover rules:  {
  "follow": {
-  "S_0": [
-   "$"
-  ],
   "E_0": [
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "T1_1": [
    "+",
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "F_0": [
    "+",
    "*",
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "F_1": [
    "+",
    "*",
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "T_0": [
+   "$",
    "+",
-   ")",
-   ";"
+   ")"
   ],
   "E1_0": [
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "T1_0": [
    "+",
-   ")",
-   ";"
+   "$",
+   ")"
   ],
   "E1_1": [
-   ")",
-   ";"
+   "$",
+   ")"
   ]
  },
  "terminals": [
@@ -49,25 +46,9 @@ with recover rules:  {
   "*",
   "(",
   ")",
-  ";",
   "$"
  ],
  "table": {
-  "S_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "E_0",
-    "<;>"
-   ],
-   "+": null,
-   "*": null,
-   "x": [
-    "E_0",
-    "<;>"
-   ],
-   ";": null
-  },
   "E_0": {
    "$": null,
    ")": null,
@@ -80,11 +61,10 @@ with recover rules:  {
    "x": [
     "T_0",
     "E1_0"
-   ],
-   ";": null
+   ]
   },
   "T1_1": {
-   "$": null,
+   "$": [],
    ")": [],
    "(": null,
    "+": [],
@@ -93,8 +73,7 @@ with recover rules:  {
     "F_0",
     "T1_0"
    ],
-   "x": null,
-   ";": []
+   "x": null
   },
   "F_0": {
    "$": null,
@@ -106,8 +85,7 @@ with recover rules:  {
    "*": null,
    "x": [
     "F_1"
-   ],
-   ";": null
+   ]
   },
   "F_1": {
    "$": null,
@@ -121,8 +99,7 @@ with recover rules:  {
    "*": null,
    "x": [
     "<x>"
-   ],
-   ";": null
+   ]
   },
   "T_0": {
    "$": null,
@@ -136,11 +113,12 @@ with recover rules:  {
    "x": [
     "F_0",
     "T1_0"
-   ],
-   ";": null
+   ]
   },
   "E1_0": {
-   "$": null,
+   "$": [
+    "E1_1"
+   ],
    ")": [
     "E1_1"
    ],
@@ -149,13 +127,12 @@ with recover rules:  {
     "E1_1"
    ],
    "*": null,
-   "x": null,
-   ";": [
-    "E1_1"
-   ]
+   "x": null
   },
   "T1_0": {
-   "$": null,
+   "$": [
+    "T1_1"
+   ],
    ")": [
     "T1_1"
    ],
@@ -166,13 +143,10 @@ with recover rules:  {
    "*": [
     "T1_1"
    ],
-   "x": null,
-   ";": [
-    "T1_1"
-   ]
+   "x": null
   },
   "E1_1": {
-   "$": null,
+   "$": [],
    ")": [],
    "(": null,
    "+": [
@@ -181,8 +155,7 @@ with recover rules:  {
     "E1_0"
    ],
    "*": null,
-   "x": null,
-   ";": []
+   "x": null
   },
   "<x>": {
    "x": [
@@ -192,7 +165,6 @@ with recover rules:  {
    "*": null,
    "(": null,
    ")": null,
-   ";": null,
    "$": null
   },
   "<+>": {
@@ -203,7 +175,6 @@ with recover rules:  {
    "*": null,
    "(": null,
    ")": null,
-   ";": null,
    "$": null
   },
   "<*>": {
@@ -214,7 +185,6 @@ with recover rules:  {
    ],
    "(": null,
    ")": null,
-   ";": null,
    "$": null
   },
   "<(>": {
@@ -225,7 +195,6 @@ with recover rules:  {
     "("
    ],
    ")": null,
-   ";": null,
    "$": null
   },
   "<)>": {
@@ -236,18 +205,6 @@ with recover rules:  {
    ")": [
     ")"
    ],
-   ";": null,
-   "$": null
-  },
-  "<;>": {
-   "x": null,
-   "+": null,
-   "*": null,
-   "(": null,
-   ")": null,
-   ";": [
-    ";"
-   ],
    "$": null
   },
   "<$>": {
@@ -256,16 +213,11 @@ with recover rules:  {
    "*": null,
    "(": null,
    ")": null,
-   ";": null,
    "$": []
   }
  },
- "axiom": "S_0",
+ "axiom": "E_0",
  "first": {
-  "S_0": [
-   "x",
-   "("
-  ],
   "E_0": [
    "x",
    "("
@@ -300,27 +252,6 @@ with recover rules:  {
   ]
  },
  "recover": {
-  "S_0": {
-   "$": [],
-   ")": [
-    ")",
-    "S_0"
-   ],
-   "(": null,
-   "+": [
-    "+",
-    "S_0"
-   ],
-   "*": [
-    "*",
-    "S_0"
-   ],
-   "x": null,
-   ";": [
-    ";",
-    "S_0"
-   ]
-  },
   "E_0": {
    "$": [],
    ")": [],
@@ -333,11 +264,10 @@ with recover rules:  {
     "*",
     "E_0"
    ],
-   "x": null,
-   ";": []
+   "x": null
   },
   "T1_1": {
-   "$": [],
+   "$": null,
    ")": null,
    "(": [
     "(",
@@ -348,8 +278,7 @@ with recover rules:  {
    "x": [
     "x",
     "T1_1"
-   ],
-   ";": null
+   ]
   },
   "F_0": {
    "$": [],
@@ -357,8 +286,7 @@ with recover rules:  {
    "(": null,
    "+": [],
    "*": [],
-   "x": null,
-   ";": []
+   "x": null
   },
   "F_1": {
    "$": [],
@@ -366,8 +294,7 @@ with recover rules:  {
    "(": null,
    "+": [],
    "*": [],
-   "x": null,
-   ";": []
+   "x": null
   },
   "T_0": {
    "$": [],
@@ -378,11 +305,10 @@ with recover rules:  {
     "*",
     "T_0"
    ],
-   "x": null,
-   ";": []
+   "x": null
   },
   "E1_0": {
-   "$": [],
+   "$": null,
    ")": null,
    "(": [
     "(",
@@ -396,11 +322,10 @@ with recover rules:  {
    "x": [
     "x",
     "E1_0"
-   ],
-   ";": null
+   ]
   },
   "T1_0": {
-   "$": [],
+   "$": null,
    ")": null,
    "(": [
     "(",
@@ -411,11 +336,10 @@ with recover rules:  {
    "x": [
     "x",
     "T1_0"
-   ],
-   ";": null
+   ]
   },
   "E1_1": {
-   "$": [],
+   "$": null,
    ")": null,
    "(": [
     "(",
@@ -429,8 +353,7 @@ with recover rules:  {
    "x": [
     "x",
     "E1_1"
-   ],
-   ";": null
+   ]
   },
   "<x>": {
    "x": null,
@@ -445,9 +368,6 @@ with recover rules:  {
    ],
    ")": [
     ")"
-   ],
-   ";": [
-    ";"
    ],
    "$": []
   },
@@ -465,9 +385,6 @@ with recover rules:  {
    ")": [
     ")"
    ],
-   ";": [
-    ";"
-   ],
    "$": []
   },
   "<*>": {
@@ -483,9 +400,6 @@ with recover rules:  {
    ],
    ")": [
     ")"
-   ],
-   ";": [
-    ";"
    ],
    "$": []
   },
@@ -503,9 +417,6 @@ with recover rules:  {
    ")": [
     ")"
    ],
-   ";": [
-    ";"
-   ],
    "$": []
   },
   "<)>": {
@@ -522,28 +433,6 @@ with recover rules:  {
     "("
    ],
    ")": null,
-   ";": [
-    ";"
-   ],
-   "$": []
-  },
-  "<;>": {
-   "x": [
-    "x"
-   ],
-   "+": [
-    "+"
-   ],
-   "*": [
-    "*"
-   ],
-   "(": [
-    "("
-   ],
-   ")": [
-    ")"
-   ],
-   ";": null,
    "$": []
   },
   "<$>": {
@@ -562,324 +451,139 @@ with recover rules:  {
    ")": [
     ")"
    ],
-   ";": [
-    ";"
-   ],
    "$": null
   }
  }
 }
 Создание графа конфигураций...
 ---------------
- CURRENT NODE: CONFIGURATION (0): [S_0] from []
+ CURRENT NODE: CONFIGURATION (0): [E_0] from []
 
-[ 'S_0' ] 'x'
-[ '<;>', 'E_0' ] 'x'
-[ '<;>', 'E1_0', 'T_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<;>
+[ 'E_0' ] 'x'
+[ 'E1_0', 'T_0' ] 'x'
+[ 'E1_0', 'T1_0', 'F_0' ] 'x'
+[ 'E1_0', 'T1_0', 'F_1' ] 'x'
+[ 'E1_0', 'T1_0', '<x>' ] 'x'
+[ 'E1_0', 'T1_0', 'x' ] 'x'
+IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
+     res: true
+=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0' ]
->   COMPARE:  [ 'T1_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0', '<;>' ] [] 0
+> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0' ]
+>   COMPARE:  [ 'T1_0', 'E1_0' ] [ 'E_0' ] 0
+>   COMPARE:  [ 'T1_0', 'E1_0' ] [] 0
 true
-ADD NEW CONFIGURATION:  CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
+ADD NEW CONFIGURATION:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-[ 'S_0' ] '+'
-[ 'S_0', '+' ] '+'
-IS FINAL NODE:  [ 'S_0' ]
+[ 'E_0' ] '+'
+[ 'E_0', '+' ] '+'
+IS FINAL NODE:  [ 'E_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: S_0
+=> CURRENT STACK BY TERMINAL +: E_0
 => ERROR: true
--- CREATED CYCLE: S_0
--- FROM: CONFIGURATION (0): [S_0] from []
+-- CREATED CYCLE: E_0
+-- FROM: CONFIGURATION (0): [E_0] from []
 
--- TO: CONFIGURATION (0): [S_0] from []
+-- TO: CONFIGURATION (0): [E_0] from []
 
 -- by terminal: +
-[ 'S_0' ] '*'
-[ 'S_0', '*' ] '*'
-IS FINAL NODE:  [ 'S_0' ]
+[ 'E_0' ] '*'
+[ 'E_0', '*' ] '*'
+IS FINAL NODE:  [ 'E_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL *: S_0
+=> CURRENT STACK BY TERMINAL *: E_0
 => ERROR: true
--- CREATED CYCLE: S_0
--- FROM: CONFIGURATION (0): [S_0] from []
+-- CREATED CYCLE: E_0
+-- FROM: CONFIGURATION (0): [E_0] from []
 
--- TO: CONFIGURATION (0): [S_0] from []
+-- TO: CONFIGURATION (0): [E_0] from []
 
 -- by terminal: *
-[ 'S_0' ] '('
-[ '<;>', 'E_0' ] '('
-[ '<;>', 'E1_0', 'T_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
-[ 'S_0' ] ')'
-[ 'S_0', ')' ] ')'
-IS FINAL NODE:  [ 'S_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL ): S_0
-=> ERROR: true
--- CREATED CYCLE: S_0
--- FROM: CONFIGURATION (0): [S_0] from []
-
--- TO: CONFIGURATION (0): [S_0] from []
-
--- by terminal: )
-[ 'S_0' ] ';'
-[ 'S_0', ';' ] ';'
-IS FINAL NODE:  [ 'S_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL ;: S_0
-=> ERROR: true
--- CREATED CYCLE: S_0
--- FROM: CONFIGURATION (0): [S_0] from []
-
--- TO: CONFIGURATION (0): [S_0] from []
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ]
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (3): [T1_0, E1_0, <)>, T1_0, E1_0, <;>] from [E_0, <)>, T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ] '+'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '+' ] '+'
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: E_0,<)>,T1_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0,<;>
--- FROM: CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
--- by terminal: +
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ] '*'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '*' ] '*'
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: E_0,<)>,T1_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0,<;>
--- FROM: CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-
--- by terminal: *
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] 4
->   suffix length:  1 4
-true
-CREATED LET-NODE FOR A|C => A|B|C: E_0,<)>,T1_0,E1_0,<;> => E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>
-# REMOVE CONFIGURATION:  CONFIGURATION (2): [E_0, <)>, T1_0, E1_0, <;>] from [S_0]
-transitions:
--- by "x" to (3) (normal, not visited)
--- by "+" to (2) (error, not visited)
--- by "*" to (2) (error, not visited)
-remove config:  2
-remove transition by  x CONFIGURATION (3): [T1_0, E1_0, <)>, T1_0, E1_0, <;>] from [E_0, <)>, T1_0, E1_0, <;>]
-
-remove config:  3
-ADD NEW UPPER CONFIG:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-transitions:
-
-ADD NEW LOWER CONFIG:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-transitions:
-
----------------
- CURRENT NODE: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-[ '<;>' ] 'x'
-[ 'x' ] 'x'
-=> CURRENT STACK BY TERMINAL x: 
-=> ERROR: true
-> CHECK TURCHIN RELATION FOR:  []
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (7): [] from [<;>]
-
-[ '<;>' ] '+'
-[ '+' ] '+'
-=> CURRENT STACK BY TERMINAL +: 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: +
-[ '<;>' ] '*'
-[ '*' ] '*'
-=> CURRENT STACK BY TERMINAL *: 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: *
-[ '<;>' ] '('
-[ '(' ] '('
-=> CURRENT STACK BY TERMINAL (: 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: (
-[ '<;>' ] ')'
-[ ')' ] ')'
-=> CURRENT STACK BY TERMINAL ): 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: )
-[ '<;>' ] ';'
-[ ';' ] ';'
-=> CURRENT STACK BY TERMINAL ;: 
-=> ERROR: false
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (7): [] from [<;>]
-
----------------
- CURRENT NODE: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ]
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '+' ] '+'
+[ 'E_0' ] '('
+[ 'E1_0', 'T_0' ] '('
+[ 'E1_0', 'T1_0', 'F_0' ] '('
+[ 'E1_0', 'T1_0', 'F_1' ] '('
+[ 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
+[ 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
 IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: E_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- by terminal: +
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '*' ] '*'
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: E_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
+=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 4
+> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
 true
-CREATED LET-NODE FOR A => A|B: E_0,<)>,T1_0,E1_0 => E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
-ADD NEW LOWER CONFIG:  CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
+CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
+ADD NEW LOWER CONFIG:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
 
 -- created new let-node and config
--- from CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+-- from CONFIGURATION (0): [E_0] from []
  by (
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] ')'
+[ 'E_0' ] ')'
+---------------
+ CURRENT NODE: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+[ 'E1_0', 'T1_0', '<)>' ] 'x'
+[ 'E1_0', 'T1_0', 'x' ] 'x'
+IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
+     res: true
+=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
+=> ERROR: true
+-- CREATED CYCLE: T1_0,E1_0
+-- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+-- by terminal: x
+[ 'E1_0', 'T1_0', '<)>' ] '+'
+[ 'E1_0', 'T1_0', '+' ] '+'
+IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
+     res: true
+=> CURRENT STACK BY TERMINAL +: T1_0,E1_0
+=> ERROR: true
+-- CREATED CYCLE: T1_0,E1_0
+-- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+-- by terminal: +
+[ 'E1_0', 'T1_0', '<)>' ] '*'
+[ 'E1_0', 'T1_0', '*' ] '*'
+IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
+     res: true
+=> CURRENT STACK BY TERMINAL *: T1_0,E1_0
+=> ERROR: true
+-- CREATED CYCLE: T1_0,E1_0
+-- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+-- by terminal: *
+[ 'E1_0', 'T1_0', '<)>' ] '('
+[ 'E1_0', 'T1_0', '(' ] '('
+IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
+     res: true
+=> CURRENT STACK BY TERMINAL (: T1_0,E1_0
+=> ERROR: true
+-- CREATED CYCLE: T1_0,E1_0
+-- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+-- by terminal: (
 [ 'E1_0', 'T1_0', '<)>' ] ')'
 [ 'E1_0', 'T1_0', ')' ] ')'
 IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
      res: true
 => CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: true
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0' ]
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>' ] ';'
-[ 'E1_0', 'T1_0', ';' ] ';'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ;: T1_0,E1_0
-=> ERROR: true
+=> ERROR: false
 -- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+-- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
 
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
--- by terminal: ;
+-- by terminal: )
 ---------------
- CURRENT NODE: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+ CURRENT NODE: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 [ 'E1_0', 'T1_0' ] 'x'
 [ 'E1_0', 'T1_0', 'x' ] 'x'
@@ -888,9 +592,9 @@ IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL x: T1_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- FROM: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 -- by terminal: x
 [ 'E1_0', 'T1_0' ] '+'
@@ -904,8 +608,10 @@ IS FINAL NODE:  [ 'T_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL +: T_0,E1_0
 => ERROR: false
 > CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T_0' ]
+>   COMPARE:  [ 'T_0', 'E1_0' ] [ 'E_0' ] 0
+>   COMPARE:  [ 'T_0', 'E1_0' ] [] 0
 true
-ADD NEW CONFIGURATION:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+ADD NEW CONFIGURATION:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 [ 'E1_0', 'T1_0' ] '*'
 [ 'E1_0', 'T1_1' ] '*'
@@ -917,8 +623,10 @@ IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0' ]
 => ERROR: false
 > CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', 'F_0' ]
 >   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
+>   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [ 'E_0' ] 0
+>   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [] 0
 true
-ADD NEW CONFIGURATION:  CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+ADD NEW CONFIGURATION:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
 [ 'E1_0', 'T1_0' ] '('
 [ 'E1_0', 'T1_0', '(' ] '('
@@ -927,21 +635,17 @@ IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL (: T1_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- FROM: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 -- by terminal: (
 [ 'E1_0', 'T1_0' ] ')'
 [ 'E1_0', 'T1_1' ] ')'
 [ 'E1_0' ] ')'
 [ 'E1_1' ] ')'
-[ 'E1_0', 'T1_0' ] ';'
-[ 'E1_0', 'T1_1' ] ';'
-[ 'E1_0' ] ';'
-[ 'E1_1' ] ';'
 ---------------
- CURRENT NODE: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+ CURRENT NODE: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
 [ 'E1_0', 'T1_0', 'F_0' ] 'x'
 [ 'E1_0', 'T1_0', 'F_1' ] 'x'
@@ -952,9 +656,9 @@ IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL x: T1_0,E1_0
 => ERROR: false
 -- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 -- by terminal: x
 [ 'E1_0', 'T1_0', 'F_0' ] '+'
@@ -969,9 +673,9 @@ IS FINAL NODE:  [ 'T_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL +: T_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 -- by terminal: +
 [ 'E1_0', 'T1_0', 'F_0' ] '*'
@@ -984,9 +688,9 @@ IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: F_0,T1_0,E1_0
--- FROM: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
 -- by terminal: *
 [ 'E1_0', 'T1_0', 'F_0' ] '('
@@ -997,24 +701,21 @@ IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
      res: false
 => CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
 => ERROR: false
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
--- TO: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- by terminal: (
+> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'F_0', 'T1_0', 'E1_0' ] 0
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
+true
+CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
+-- equal conf found
+-- equal let-node found
 [ 'E1_0', 'T1_0', 'F_0' ] ')'
 [ 'E1_0', 'T1_0' ] ')'
 [ 'E1_0', 'T1_1' ] ')'
 [ 'E1_0' ] ')'
 [ 'E1_1' ] ')'
-[ 'E1_0', 'T1_0', 'F_0' ] ';'
-[ 'E1_0', 'T1_0' ] ';'
-[ 'E1_0', 'T1_1' ] ';'
-[ 'E1_0' ] ';'
-[ 'E1_1' ] ';'
 ---------------
- CURRENT NODE: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+ CURRENT NODE: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 [ 'E1_0', 'T_0' ] 'x'
 [ 'E1_0', 'T1_0', 'F_0' ] 'x'
@@ -1026,9 +727,9 @@ IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL x: T1_0,E1_0
 => ERROR: false
 -- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+-- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 -- by terminal: x
 [ 'E1_0', 'T_0' ] '+'
@@ -1041,9 +742,9 @@ IS FINAL NODE:  [ 'T_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL +: T_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 -- by terminal: +
 [ 'E1_0', 'T_0' ] '*'
@@ -1053,9 +754,9 @@ IS FINAL NODE:  [ 'T_0', 'E1_0' ]
 => CURRENT STACK BY TERMINAL *: T_0,E1_0
 => ERROR: true
 -- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
--- TO: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 -- by terminal: *
 [ 'E1_0', 'T_0' ] '('
@@ -1067,1251 +768,396 @@ IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
      res: false
 => CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
 => ERROR: false
--- CREATED CYCLE: E_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
-
--- TO: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
--- by terminal: (
+> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T_0', 'E1_0' ] 0
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
+>   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
+true
+CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
+-- equal conf found
+-- equal let-node found
 [ 'E1_0', 'T_0' ] ')'
 [ 'E1_0' ] ')'
 [ 'E1_1' ] ')'
-[ 'E1_0', 'T_0' ] ';'
-[ 'E1_0' ] ';'
-[ 'E1_1' ] ';'
----------------
- CURRENT NODE: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', '<)>' ] '+'
-[ 'E1_0', 'T1_0', '+' ] '+'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL +: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: +
-[ 'E1_0', 'T1_0', '<)>' ] '*'
-[ 'E1_0', 'T1_0', '*' ] '*'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL *: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', '<)>' ] '('
-[ 'E1_0', 'T1_0', '(' ] '('
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL (: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: (
-[ 'E1_0', 'T1_0', '<)>' ] ')'
-[ 'E1_0', 'T1_0', ')' ] ')'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: )
-[ 'E1_0', 'T1_0', '<)>' ] ';'
-[ 'E1_0', 'T1_0', ';' ] ';'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ;: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ]
->   COMPARE:  [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ]
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '(' ] '('
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: (
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ')'
-[ 'E1_0', 'T1_0', '<)>' ] ')'
-[ 'E1_0', 'T1_0', ')' ] ')'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: )
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ';'
-[ 'E1_0', 'T1_0', '<)>' ] ';'
-[ 'E1_0', 'T1_0', ';' ] ';'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ;: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- by terminal: +
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: F_0,T1_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'F_0', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 4
-true
-CREATED LET-NODE FOR A => A|B: E_0,<)>,T1_0,E1_0 => E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
--- equal conf found
--- equal let-node found
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ')'
-[ 'E1_0', 'T1_0', '<)>' ] ')'
-[ 'E1_0', 'T1_0', ')' ] ')'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: )
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_1' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ';'
-[ 'E1_0', 'T1_0', '<)>' ] ';'
-[ 'E1_0', 'T1_0', ';' ] ';'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ;: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- by terminal: +
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] '*'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0', '*' ] '*'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: T_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T_0,E1_0,<)>,T1_0,E1_0
--- FROM: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'T_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0', '<)>', 'T1_0', 'E1_0' ] 4
-true
-CREATED LET-NODE FOR A => A|B: E_0,<)>,T1_0,E1_0 => E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0
--- equal conf found
--- equal let-node found
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ')'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ')'
-[ 'E1_0', 'T1_0', '<)>' ] ')'
-[ 'E1_0', 'T1_0', ')' ] ')'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: )
-[ 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_0' ] ';'
-[ 'E1_0', 'T1_0', '<)>', 'E1_1' ] ';'
-[ 'E1_0', 'T1_0', '<)>' ] ';'
-[ 'E1_0', 'T1_0', ';' ] ';'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ;: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
-[ '<;>', 'E1_0', 'T1_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0,<;>
--- FROM: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- by terminal: x
-[ '<;>', 'E1_0', 'T1_0' ] '+'
-[ '<;>', 'E1_0', 'T1_1' ] '+'
-[ '<;>', 'E1_0' ] '+'
-[ '<;>', 'E1_1' ] '+'
-[ '<;>', 'E1_0', 'T_0', '<+>' ] '+'
-[ '<;>', 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T_0' ]
->   COMPARE:  [ 'T_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'T_0', 'E1_0', '<;>' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (18): [T_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0' ] '*'
-[ '<;>', 'E1_0', 'T1_1' ] '*'
-[ '<;>', 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ '<;>', 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', 'F_0' ]
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0', '<;>' ] [ 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0', '<;>' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', '(' ] '('
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: T1_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0,<;>
--- FROM: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- by terminal: (
-[ '<;>', 'E1_0', 'T1_0' ] ')'
-[ '<;>', 'E1_0', 'T1_1' ] ')'
-[ '<;>', 'E1_0' ] ')'
-[ '<;>', 'E1_1' ] ')'
-[ '<;>' ] ')'
-[ ')' ] ')'
-=> CURRENT STACK BY TERMINAL ): 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: )
-[ '<;>', 'E1_0', 'T1_0' ] ';'
-[ '<;>', 'E1_0', 'T1_1' ] ';'
-[ '<;>', 'E1_0' ] ';'
-[ '<;>', 'E1_1' ] ';'
-[ '<;>' ] ';'
-[ ';' ] ';'
-=> CURRENT STACK BY TERMINAL ;: 
-=> ERROR: false
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<;>
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0,<;>
--- FROM: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-
--- by terminal: x
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] '+'
-[ '<;>', 'E1_0', 'T1_0' ] '+'
-[ '<;>', 'E1_0', 'T1_1' ] '+'
-[ '<;>', 'E1_0' ] '+'
-[ '<;>', 'E1_1' ] '+'
-[ '<;>', 'E1_0', 'T_0', '<+>' ] '+'
-[ '<;>', 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: T_0,E1_0,<;>
--- FROM: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (18): [T_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- by terminal: +
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] '*'
-[ '<;>', 'E1_0', 'T1_0' ] '*'
-[ '<;>', 'E1_0', 'T1_1' ] '*'
-[ '<;>', 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ '<;>', 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0,<;>
-=> ERROR: true
--- CREATED CYCLE: F_0,T1_0,E1_0,<;>
--- FROM: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- by terminal: *
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] '('
-[ '<;>', 'E1_0', 'T1_0', 'F_1' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'F_0', 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'S_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (20): [E_0, <)>, T1_0, E1_0, <;>] from [F_0, T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] ')'
-[ '<;>', 'E1_0', 'T1_0' ] ')'
-[ '<;>', 'E1_0', 'T1_1' ] ')'
-[ '<;>', 'E1_0' ] ')'
-[ '<;>', 'E1_1' ] ')'
-[ '<;>' ] ')'
-[ ')' ] ')'
-=> CURRENT STACK BY TERMINAL ): 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: )
-[ '<;>', 'E1_0', 'T1_0', 'F_0' ] ';'
-[ '<;>', 'E1_0', 'T1_0' ] ';'
-[ '<;>', 'E1_0', 'T1_1' ] ';'
-[ '<;>', 'E1_0' ] ';'
-[ '<;>', 'E1_1' ] ';'
-[ '<;>' ] ';'
-[ ';' ] ';'
-=> CURRENT STACK BY TERMINAL ;: 
-=> ERROR: true
--- CREATED CYCLE: 
--- FROM: CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
--- TO: CONFIGURATION (7): [] from [<;>]
-
--- by terminal: ;
----------------
- CURRENT NODE: CONFIGURATION (20): [E_0, <)>, T1_0, E1_0, <;>] from [F_0, T1_0, E1_0, <;>]
-
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', '<x>' ] 'x'
-[ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ]
-     res: false
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0,<)>,T1_0,E1_0,<;>
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ '<;>', 'E1_0', 'T1_0', '<)>', 'E1_0', 'T1_0' ]
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'E_0', '<)>', 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'F_0', 'T1_0', 'E1_0', '<;>' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0', '<)>', 'T1_0', 'E1_0', '<;>' ] [ 'T1_0', 'E1_0', '<;>' ] 2
->   suffix length:  1 2
-true
-CREATED LET-NODE FOR A|C => A|B|C: T1_0,E1_0,<;> => T1_0,E1_0,<)>,T1_0,E1_0,<;>
-# REMOVE CONFIGURATION:  CONFIGURATION (1): [T1_0, E1_0, <;>] from [S_0]
-transitions:
--- by "x" to (1) (error, not visited)
--- by "+" to (18) (normal, not visited)
--- by "*" to (19) (normal, not visited)
--- by "(" to (1) (error, not visited)
--- by ")" to (7) (error, not visited)
--- by ";" to (7) (normal, not visited)
-remove config:  1
-remove transition by  + CONFIGURATION (18): [T_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-remove config:  18
-remove from queue:  CONFIGURATION (18): [T_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-remove transition by  * CONFIGURATION (19): [F_0, T1_0, E1_0, <;>] from [T1_0, E1_0, <;>]
-
-remove config:  19
-remove transition by  ( CONFIGURATION (20): [E_0, <)>, T1_0, E1_0, <;>] from [F_0, T1_0, E1_0, <;>]
-
-remove config:  20
 digraph {
 rankdir=LR;
 size="8,5";
 node [shape = circle, color = black];
-0 [label="0 - [S_0]"];
-5 [label="5 - [E_0,<)>,T1_0,E1_0]"];
-6 [label="6 - [<;>]"];
-8 [label="8 - [T1_0,E1_0,<)>,T1_0,E1_0]"];
-10 [label="10 - [<)>,T1_0,E1_0]"];
-12 [label="12 - [T_0,E1_0]"];
-13 [label="13 - [F_0,T1_0,E1_0]"];
-14 [label="14 - [T_0,E1_0,<)>,T1_0,E1_0]"];
-15 [label="15 - [F_0,T1_0,E1_0,<)>,T1_0,E1_0]"];
+0 [label="0 - [E_0]"];
+3 [label="3 - [<)>,T1_0,E1_0]"];
+4 [label="4 - [T_0,E1_0]"];
+5 [label="5 - [F_0,T1_0,E1_0]"];
 node [shape = octagon];
-4 [label="4 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
-9 [label="9 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0]"];
-21 [label="21 - [T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
+2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
 node [shape = doublecircle];
-7 [label="7 - []"];
-11 [label="11 - [T1_0,E1_0]"];
-0 -> 21 [ label = "x", color = "black" ];
-0 -> 4 [ label = "(", color = "black" ];
-5 -> 8 [ label = "x", color = "black" ];
-5 -> 9 [ label = "(", color = "black" ];
-6 -> 7 [ label = ";", color = "black" ];
-4 -> 5 [label="up"];
-4 -> 6 [style=dotted, label="down"];
-8 -> 14 [ label = "+", color = "black" ];
-8 -> 15 [ label = "*", color = "black" ];
-8 -> 11 [ label = ")", color = "black" ];
-10 -> 11 [ label = ")", color = "black" ];
-9 -> 5 [label="up"];
-9 -> 10 [style=dotted, label="down"];
-11 -> 12 [ label = "+", color = "black" ];
-11 -> 13 [ label = "*", color = "black" ];
-12 -> 11 [ label = "x", color = "black" ];
-12 -> 5 [ label = "(", color = "black" ];
-13 -> 11 [ label = "x", color = "black" ];
-13 -> 5 [ label = "(", color = "black" ];
-14 -> 8 [ label = "x", color = "black" ];
-14 -> 9 [ label = "(", color = "black" ];
-15 -> 8 [ label = "x", color = "black" ];
-15 -> 9 [ label = "(", color = "black" ];
-21 -> 11 [label="up"];
-21 -> 6 [style=dotted, label="down"];
+1 [label="1 - [T1_0,E1_0]"];
+0 -> 1 [ label = "x", color = "black" ];
+0 -> 2 [ label = "(", color = "black" ];
+1 -> 4 [ label = "+", color = "black" ];
+1 -> 5 [ label = "*", color = "black" ];
+3 -> 1 [ label = ")", color = "black" ];
+2 -> 0 [label="up"];
+2 -> 3 [style=dotted, label="down"];
+4 -> 1 [ label = "x", color = "black" ];
+4 -> 2 [ label = "(", color = "black" ];
+5 -> 1 [ label = "x", color = "black" ];
+5 -> 2 [ label = "(", color = "black" ];
 }
-current node:  CONFIGURATION (0): [S_0] from []
+current node:  CONFIGURATION (0): [E_0] from []
 
 res:  
-find path from: CONFIGURATION (0): [S_0] from []
+find path from: CONFIGURATION (0): [E_0] from []
 
 shift:  [ 0 ]
-visit configuration:  CONFIGURATION (0): [S_0] from []
+visit configuration:  CONFIGURATION (0): [E_0] from []
 
-transition found:  by "x" to (21) (normal, visited)
-current node:  LET NODE (21) for:
-CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+transition found:  by "x" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 res:  x
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+find path from: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-res:  x
-find path from: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+shift:  [ 1 ]
+visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-shift:  [ 6, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-transition found:  by "+" to (12) (normal, visited)
-current node:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+transition found:  by "+" to (4) (normal, visited)
+current node:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
 res:  x +
-find path from: CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+find path from: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
-shift:  [ 6, 12 ]
-visit configuration:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
+shift:  [ 4 ]
+visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
-transition found:  by "x" to (11) (normal, visited)
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+transition found:  by "x" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 res:  x + x
-find path from: CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+find path from: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-shift:  [ 6, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+shift:  [ 1 ]
+visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-push:  by "+" to (12) (normal, visited)
-transition found:  by "*" to (13) (normal, visited)
-current node:  CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+push:  by "+" to (4) (normal, visited)
+transition found:  by "*" to (5) (normal, visited)
+current node:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
 res:  x + x *
-find path from: CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+find path from: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
-shift:  [ 6, 13 ]
-visit configuration:  CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+shift:  [ 5 ]
+visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
-transition found:  by "x" to (11) (normal, visited)
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-res:  x + x * x
-current node:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+transition found:  by "x" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
 res:  x + x * x
-find path from: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6 ]
-visit configuration:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-transition found:  by ";" to (7) (normal, visited)
-current node:  CONFIGURATION (7): [] from [<;>]
-
-res:  x + x * x ;
-NEW TEST:  x + x * x ; 
+NEW TEST:  x + x * x 
 ----------------------------
 digraph {
 rankdir=LR;
 size="8,5";
 node [shape = circle, color = black];
-0 [label="0 - [S_0]"];
-5 [label="5 - [E_0,<)>,T1_0,E1_0]"];
-6 [label="6 - [<;>]"];
-8 [label="8 - [T1_0,E1_0,<)>,T1_0,E1_0]"];
-10 [label="10 - [<)>,T1_0,E1_0]"];
-12 [label="12 - [T_0,E1_0]"];
-13 [label="13 - [F_0,T1_0,E1_0]"];
-14 [label="14 - [T_0,E1_0,<)>,T1_0,E1_0]"];
-15 [label="15 - [F_0,T1_0,E1_0,<)>,T1_0,E1_0]"];
+0 [label="0 - [E_0]"];
+3 [label="3 - [<)>,T1_0,E1_0]"];
+4 [label="4 - [T_0,E1_0]"];
+5 [label="5 - [F_0,T1_0,E1_0]"];
 node [shape = octagon];
-4 [label="4 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
-9 [label="9 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0]"];
-21 [label="21 - [T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
+2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
 node [shape = doublecircle];
-7 [label="7 - []"];
-11 [label="11 - [T1_0,E1_0]"];
-0 -> 21 [ label = "x", color = "green" ];
-0 -> 4 [ label = "(", color = "black" ];
-5 -> 8 [ label = "x", color = "black" ];
-5 -> 9 [ label = "(", color = "black" ];
-6 -> 7 [ label = ";", color = "green" ];
-4 -> 5 [label="up"];
-4 -> 6 [style=dotted, label="down"];
-8 -> 14 [ label = "+", color = "black" ];
-8 -> 15 [ label = "*", color = "black" ];
-8 -> 11 [ label = ")", color = "black" ];
-10 -> 11 [ label = ")", color = "black" ];
-9 -> 5 [label="up"];
-9 -> 10 [style=dotted, label="down"];
-11 -> 12 [ label = "+", color = "green" ];
-11 -> 13 [ label = "*", color = "green" ];
-12 -> 11 [ label = "x", color = "green" ];
-12 -> 5 [ label = "(", color = "black" ];
-13 -> 11 [ label = "x", color = "green" ];
-13 -> 5 [ label = "(", color = "black" ];
-14 -> 8 [ label = "x", color = "black" ];
-14 -> 9 [ label = "(", color = "black" ];
-15 -> 8 [ label = "x", color = "black" ];
-15 -> 9 [ label = "(", color = "black" ];
-21 -> 11 [label="up"];
-21 -> 6 [style=dotted, label="down"];
+1 [label="1 - [T1_0,E1_0]"];
+0 -> 1 [ label = "x", color = "green",  = "empty" ];
+0 -> 2 [ label = "(", color = "black" ];
+1 -> 4 [ label = "+", color = "green", arrowType = "empty" ];
+1 -> 5 [ label = "*", color = "green", arrowType = "empty" ];
+3 -> 1 [ label = ")", color = "black" ];
+2 -> 0 [label="up"];
+2 -> 3 [style=dotted, label="down"];
+4 -> 1 [ label = "x", color = "green", arrowType = "empty" ];
+4 -> 2 [ label = "(", color = "black" ];
+5 -> 1 [ label = "x", color = "green", arrowType = "empty" ];
+5 -> 2 [ label = "(", color = "black" ];
 }
-current node:  CONFIGURATION (0): [S_0] from []
+current node:  CONFIGURATION (0): [E_0] from []
 
 res:  
-find path from: CONFIGURATION (0): [S_0] from []
+find path from: CONFIGURATION (0): [E_0] from []
 
 shift:  [ 0 ]
-visit configuration:  CONFIGURATION (0): [S_0] from []
+visit configuration:  CONFIGURATION (0): [E_0] from []
 
-push:  by "x" to (21) (normal, visited)
-transition found:  by "(" to (4) (normal, visited)
-current node:  LET NODE (4) for:
-CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+push:  by "x" to (1) (normal, visited)
+transition found:  by "(" to (2) (normal, visited)
+current node:  LET NODE (2) for:
+CONFIGURATION (0): [E_0] from []
 
-CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  (
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
 
 res:  (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+current node:  CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+res:  (
+find path from: CONFIGURATION (0): [E_0] from []
 
-transition found:  by "x" to (8) (normal, visited)
-current node:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+shift:  [ 3, 0 ]
+visit configuration:  CONFIGURATION (0): [E_0] from []
 
-res:  ( x
-find path from: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 1 ]
+visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-shift:  [ 6, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by "+" to (4) (normal, visited)
+push:  by "*" to (5) (normal, visited)
+shift:  [ 3, 2 ]
+visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+ CONFIGURATION (0): [E_0] from []
 
-transition found:  by "+" to (14) (normal, visited)
-current node:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+current stack:  [ 3, 3, 0 ]
+shift:  [ 3, 4 ]
+visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
-res:  ( x +
-find path from: CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+push:  by "x" to (1) (normal, visited)
+transition found:  by "(" to (2) (normal, visited)
+current node:  LET NODE (2) for:
+CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
 
-transition found:  by "x" to (8) (normal, visited)
-current node:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  ( x + (
+current node:  CONFIGURATION (0): [E_0] from []
 
-res:  ( x + x
-find path from: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  ( x + (
+find path from: CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+shift:  [ 3, 3, 0 ]
+visit configuration:  CONFIGURATION (0): [E_0] from []
 
-push:  by "+" to (14) (normal, visited)
-transition found:  by "*" to (15) (normal, visited)
-current node:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 3, 1 ]
+visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-res:  ( x + x *
-find path from: CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+push:  by "+" to (4) (normal, visited)
+push:  by "*" to (5) (normal, visited)
+shift:  [ 3, 3, 2 ]
+visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+ CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6, 15 ]
-visit configuration:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
+current stack:  [ 3, 3, 3, 0 ]
+shift:  [ 3, 3, 4 ]
+visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
-transition found:  by "x" to (8) (normal, visited)
-current node:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 3, 5 ]
+visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
-res:  ( x + x * x
-find path from: CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by "x" to (1) (normal, visited)
+transition found:  by "(" to (2) (normal, visited)
+current node:  LET NODE (2) for:
+CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
 
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-transition found:  by ")" to (11) (normal, visited)
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  ( x + ( x * (
+current node:  CONFIGURATION (0): [E_0] from []
 
-res:  ( x + x * x )
-current node:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+res:  ( x + ( x * (
+find path from: CONFIGURATION (0): [E_0] from []
 
-res:  ( x + x * x )
-find path from: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+shift:  [ 3, 3, 3, 0 ]
+visit configuration:  CONFIGURATION (0): [E_0] from []
 
-shift:  [ 6 ]
-visit configuration:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 3, 3, 1 ]
+visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
 
-push:  by ";" to (7) (normal, visited)
-shift:  [ 7 ]
-visit configuration:  CONFIGURATION (7): [] from [<;>]
+push:  by "+" to (4) (normal, visited)
+push:  by "*" to (5) (normal, visited)
+shift:  [ 3, 3, 3, 2 ]
+visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+ CONFIGURATION (0): [E_0] from []
 
-shift:  []
-stack visited or empty!:  []
-search failed, try to get first final node...
-find nearest final node from: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
+current stack:  [ 3, 3, 3, 3, 0 ]
+shift:  [ 3, 3, 3, 4 ]
+visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
 
-current node:  CONFIGURATION (7): [] from [<;>]
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 3, 3, 5 ]
+visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
 
-res:  ( x + x * x ) ;
-NEW TEST:  ( x + x * x ) ; 
+push:  by "x" to (1) (normal, visited)
+push:  by "(" to (2) (normal, visited)
+shift:  [ 3, 3, 3 ]
+visit configuration:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+transition found:  by ")" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+res:  ( x + ( x * ( x )
+current node:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+res:  ( x + ( x * ( x )
+find nearest final node from: ConfigurationNode {
+  state: [ 'E1_0', 'T1_0', '<)>' ],
+  ancestor: 
+   LetNode {
+     state: [ 'E1_0', 'T1_0', '<)>', 'E_0' ],
+     ancestor: null,
+     id: 2,
+     level: 0,
+     isFinal: false,
+     upperNode: 
+      ConfigurationNode {
+        state: [Array],
+        ancestor: [Object],
+        id: 0,
+        level: 1,
+        isFinal: false,
+        transitions: [Object],
+        hasAllTransitions: false,
+        visited: false },
+     lowerNode: [Circular],
+     visited: true },
+  id: 3,
+  level: 1,
+  isFinal: false,
+  transitions: 
+   { x: 
+      Transition {
+        term: 'x',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '+': 
+      Transition {
+        term: '+',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '*': 
+      Transition {
+        term: '*',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '(': 
+      Transition {
+        term: '(',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     ')': 
+      Transition {
+        term: ')',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true } },
+  hasAllTransitions: true,
+  visited: false }
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+res:  ( x + ( x * ( x ) )
+current node:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+
+res:  ( x + ( x * ( x ) )
+find nearest final node from: ConfigurationNode {
+  state: [ 'E1_0', 'T1_0', '<)>' ],
+  ancestor: 
+   LetNode {
+     state: [ 'E1_0', 'T1_0', '<)>', 'E_0' ],
+     ancestor: null,
+     id: 2,
+     level: 0,
+     isFinal: false,
+     upperNode: 
+      ConfigurationNode {
+        state: [Array],
+        ancestor: [Object],
+        id: 0,
+        level: 1,
+        isFinal: false,
+        transitions: [Object],
+        hasAllTransitions: false,
+        visited: false },
+     lowerNode: [Circular],
+     visited: false },
+  id: 3,
+  level: 1,
+  isFinal: false,
+  transitions: 
+   { x: 
+      Transition {
+        term: 'x',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '+': 
+      Transition {
+        term: '+',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '*': 
+      Transition {
+        term: '*',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     '(': 
+      Transition {
+        term: '(',
+        toEqualState: true,
+        node: [Object],
+        error: true,
+        visited: false },
+     ')': 
+      Transition {
+        term: ')',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true } },
+  hasAllTransitions: true,
+  visited: false }
+current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+
+res:  ( x + ( x * ( x ) ) )
+NEW TEST:  ( x + ( x * ( x ) ) ) 
 ----------------------------
+EEXIST: file already exists, mkdir 'D:\supercompilation\graph-builder\tests\arith'
 digraph {
 rankdir=LR;
 size="8,5";
 node [shape = circle, color = black];
-0 [label="0 - [S_0]"];
-5 [label="5 - [E_0,<)>,T1_0,E1_0]"];
-6 [label="6 - [<;>]"];
-8 [label="8 - [T1_0,E1_0,<)>,T1_0,E1_0]"];
-10 [label="10 - [<)>,T1_0,E1_0]"];
-12 [label="12 - [T_0,E1_0]"];
-13 [label="13 - [F_0,T1_0,E1_0]"];
-14 [label="14 - [T_0,E1_0,<)>,T1_0,E1_0]"];
-15 [label="15 - [F_0,T1_0,E1_0,<)>,T1_0,E1_0]"];
+0 [label="0 - [E_0]"];
+3 [label="3 - [<)>,T1_0,E1_0]"];
+4 [label="4 - [T_0,E1_0]"];
+5 [label="5 - [F_0,T1_0,E1_0]"];
 node [shape = octagon];
-4 [label="4 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
-9 [label="9 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0]"];
-21 [label="21 - [T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
+2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
 node [shape = doublecircle];
-7 [label="7 - []"];
-11 [label="11 - [T1_0,E1_0]"];
-0 -> 21 [ label = "x", color = "green" ];
-0 -> 4 [ label = "(", color = "green" ];
-5 -> 8 [ label = "x", color = "green" ];
-5 -> 9 [ label = "(", color = "black" ];
-6 -> 7 [ label = ";", color = "green" ];
-4 -> 5 [label="up"];
-4 -> 6 [style=dotted, label="down"];
-8 -> 14 [ label = "+", color = "green" ];
-8 -> 15 [ label = "*", color = "green" ];
-8 -> 11 [ label = ")", color = "green" ];
-10 -> 11 [ label = ")", color = "black" ];
-9 -> 5 [label="up"];
-9 -> 10 [style=dotted, label="down"];
-11 -> 12 [ label = "+", color = "green" ];
-11 -> 13 [ label = "*", color = "green" ];
-12 -> 11 [ label = "x", color = "green" ];
-12 -> 5 [ label = "(", color = "black" ];
-13 -> 11 [ label = "x", color = "green" ];
-13 -> 5 [ label = "(", color = "black" ];
-14 -> 8 [ label = "x", color = "green" ];
-14 -> 9 [ label = "(", color = "black" ];
-15 -> 8 [ label = "x", color = "green" ];
-15 -> 9 [ label = "(", color = "black" ];
-21 -> 11 [label="up"];
-21 -> 6 [style=dotted, label="down"];
-}
-current node:  CONFIGURATION (0): [S_0] from []
-
-res:  
-find path from: CONFIGURATION (0): [S_0] from []
-
-shift:  [ 0 ]
-visit configuration:  CONFIGURATION (0): [S_0] from []
-
-push:  by "x" to (21) (normal, visited)
-push:  by "(" to (4) (normal, visited)
-shift:  [ 21 ]
-visit let node, push: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
- CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-current stack:  [ 6, 11 ]
-shift:  [ 4 ]
-visit let node, push: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 5 ]
-shift:  [ 6, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (12) (normal, visited)
-push:  by "*" to (13) (normal, visited)
-shift:  [ 6, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-transition found:  by "(" to (9) (normal, visited)
-current node:  LET NODE (9) for:
-CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-res:  ( (
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-push:  by ")" to (11) (normal, visited)
-shift:  [ 6, 10, 9 ]
-visit let node, push: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 10, 10, 5 ]
-shift:  [ 6, 10, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-transition found:  by "(" to (9) (normal, visited)
-current node:  LET NODE (9) for:
-CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + (
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( ( x + (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-push:  by ")" to (11) (normal, visited)
-shift:  [ 6, 10, 10, 9 ]
-visit let node, push: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 10, 10, 10, 5 ]
-shift:  [ 6, 10, 10, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 15 ]
-visit configuration:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-transition found:  by "(" to (9) (normal, visited)
-current node:  LET NODE (9) for:
-CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * (
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( ( x + ( x * (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-push:  by ")" to (11) (normal, visited)
-shift:  [ 6, 10, 10, 10, 9 ]
-visit let node, push: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 10, 10, 10, 10, 5 ]
-shift:  [ 6, 10, 10, 10, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 15 ]
-visit configuration:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (12) (normal, visited)
-push:  by "*" to (13) (normal, visited)
-shift:  [ 6, 10, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 12 ]
-visit configuration:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
-
-push:  by "x" to (11) (normal, visited)
-transition found:  by "(" to (5) (normal, visited)
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( ( x + ( x * ( x ) + (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-push:  by ")" to (11) (normal, visited)
-shift:  [ 6, 10, 10, 10, 9 ]
-visit let node, push: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 10, 10, 10, 10, 5 ]
-shift:  [ 6, 10, 10, 10, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 15 ]
-visit configuration:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (12) (normal, visited)
-push:  by "*" to (13) (normal, visited)
-shift:  [ 6, 10, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 12 ]
-visit configuration:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
-
-push:  by "x" to (11) (normal, visited)
-push:  by "(" to (5) (normal, visited)
-shift:  [ 6, 10, 10, 10, 13 ]
-visit configuration:  CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
-push:  by "x" to (11) (normal, visited)
-transition found:  by "(" to (5) (normal, visited)
-current node:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * (
-find path from: CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-shift:  [ 6, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-visit configuration:  CONFIGURATION (8): [T1_0, E1_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (14) (normal, visited)
-push:  by "*" to (15) (normal, visited)
-push:  by ")" to (11) (normal, visited)
-shift:  [ 6, 10, 10, 10, 9 ]
-visit let node, push: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
- CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current stack:  [ 6, 10, 10, 10, 10, 5 ]
-shift:  [ 6, 10, 10, 10, 14 ]
-visit configuration:  CONFIGURATION (14): [T_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 15 ]
-visit configuration:  CONFIGURATION (15): [F_0, T1_0, E1_0, <)>, T1_0, E1_0] from [T1_0, E1_0, <)>, T1_0, E1_0]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 11 ]
-visit configuration:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-push:  by "+" to (12) (normal, visited)
-push:  by "*" to (13) (normal, visited)
-shift:  [ 6, 10, 10, 10, 10, 5 ]
-visit configuration:  CONFIGURATION (5): [E_0, <)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-push:  by "x" to (8) (normal, visited)
-push:  by "(" to (9) (normal, visited)
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 8 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 8 ]
-shift:  [ 6, 10, 10, 10, 9 ]
-stack visited or empty!:  [ 6, 10, 10, 10, 9 ]
-shift:  [ 6, 10, 10, 10, 12 ]
-visit configuration:  CONFIGURATION (12): [T_0, E1_0] from [T1_0, E1_0]
-
-push:  by "x" to (11) (normal, visited)
-push:  by "(" to (5) (normal, visited)
-shift:  [ 6, 10, 10, 10, 13 ]
-visit configuration:  CONFIGURATION (13): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
-push:  by "x" to (11) (normal, visited)
-push:  by "(" to (5) (normal, visited)
-shift:  [ 6, 10, 10, 10 ]
-visit configuration:  CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-transition found:  by ")" to (11) (normal, visited)
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) )
-current node:  CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) )
-find nearest final node from: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) )
-current node:  CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) )
-find nearest final node from: CONFIGURATION (10): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0]
-
-current node:  CONFIGURATION (11): [T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) ) )
-current node:  CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) ) )
-find nearest final node from: CONFIGURATION (6): [<;>] from [E_0, <)>, T1_0, E1_0, <)>, T1_0, E1_0, <;>]
-
-current node:  CONFIGURATION (7): [] from [<;>]
-
-res:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) ) ) ;
-NEW TEST:  ( ( x + ( x * ( x ) + ( x ) * ( x ) ) ) ) ; 
-----------------------------
-digraph {
-rankdir=LR;
-size="8,5";
-node [shape = circle, color = black];
-0 [label="0 - [S_0]"];
-5 [label="5 - [E_0,<)>,T1_0,E1_0]"];
-6 [label="6 - [<;>]"];
-8 [label="8 - [T1_0,E1_0,<)>,T1_0,E1_0]"];
-10 [label="10 - [<)>,T1_0,E1_0]"];
-12 [label="12 - [T_0,E1_0]"];
-13 [label="13 - [F_0,T1_0,E1_0]"];
-14 [label="14 - [T_0,E1_0,<)>,T1_0,E1_0]"];
-15 [label="15 - [F_0,T1_0,E1_0,<)>,T1_0,E1_0]"];
-node [shape = octagon];
-4 [label="4 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
-9 [label="9 - [E_0,<)>,T1_0,E1_0,<)>,T1_0,E1_0]"];
-21 [label="21 - [T1_0,E1_0,<)>,T1_0,E1_0,<;>]"];
-node [shape = doublecircle];
-7 [label="7 - []"];
-11 [label="11 - [T1_0,E1_0]"];
-0 -> 21 [ label = "x", color = "green" ];
-0 -> 4 [ label = "(", color = "green" ];
-5 -> 8 [ label = "x", color = "green" ];
-5 -> 9 [ label = "(", color = "green" ];
-6 -> 7 [ label = ";", color = "green" ];
-4 -> 5 [label="up"];
-4 -> 6 [style=dotted, label="down"];
-8 -> 14 [ label = "+", color = "green" ];
-8 -> 15 [ label = "*", color = "green" ];
-8 -> 11 [ label = ")", color = "green" ];
-10 -> 11 [ label = ")", color = "green" ];
-9 -> 5 [label="up"];
-9 -> 10 [style=dotted, label="down"];
-11 -> 12 [ label = "+", color = "green" ];
-11 -> 13 [ label = "*", color = "green" ];
-12 -> 11 [ label = "x", color = "green" ];
-12 -> 5 [ label = "(", color = "green" ];
-13 -> 11 [ label = "x", color = "green" ];
-13 -> 5 [ label = "(", color = "green" ];
-14 -> 8 [ label = "x", color = "green" ];
-14 -> 9 [ label = "(", color = "green" ];
-15 -> 8 [ label = "x", color = "green" ];
-15 -> 9 [ label = "(", color = "green" ];
-21 -> 11 [label="up"];
-21 -> 6 [style=dotted, label="down"];
+1 [label="1 - [T1_0,E1_0]"];
+0 -> 1 [ label = "x", color = "black" ];
+0 -> 2 [ label = "(", color = "black" ];
+1 -> 4 [ label = "+", color = "black" ];
+1 -> 5 [ label = "*", color = "black" ];
+3 -> 1 [ label = ")", color = "black" ];
+2 -> 0 [label="up"];
+2 -> 3 [style=dotted, label="down"];
+4 -> 1 [ label = "x", color = "black" ];
+4 -> 2 [ label = "(", color = "black" ];
+5 -> 1 [ label = "x", color = "black" ];
+5 -> 2 [ label = "(", color = "black" ];
 }

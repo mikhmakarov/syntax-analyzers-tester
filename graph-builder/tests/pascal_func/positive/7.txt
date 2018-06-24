@@ -1,0 +1,1 @@
+ident ( ident : boolean ; ident : string ; ident : real ; ident : integer ) : ident ;

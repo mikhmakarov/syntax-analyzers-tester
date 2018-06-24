@@ -893,7 +893,7 @@ class Tester(object):
         self._unique_id_negative = 0
         self._negative_count = 0
 
-        self.prepare_tests_directory()
+        #self.prepare_tests_directory()
 
         self.calculate_first_for_non_terminals()
         self.calculate_follow_for_non_terminals()
