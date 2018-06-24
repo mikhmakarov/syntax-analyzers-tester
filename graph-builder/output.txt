@@ -1,455 +1,1489 @@
 with recover rules:  {
  "follow": {
-  "E_0": [
-   "$",
-   ")"
+  "json_1": [
+   "$"
   ],
-  "T1_1": [
-   "+",
-   "$",
-   ")"
+  "json_0": [
+   "$"
   ],
-  "F_0": [
-   "+",
-   "*",
-   "$",
-   ")"
+  "object_1": [
+   "}"
   ],
-  "F_1": [
-   "+",
-   "*",
-   "$",
-   ")"
+  "value_5": [
+   "}",
+   "]",
+   ","
   ],
-  "T_0": [
-   "$",
-   "+",
-   ")"
+  "value_4": [
+   "}",
+   "]",
+   ","
   ],
-  "E1_0": [
-   "$",
-   ")"
+  "value_6": [
+   "}",
+   "]",
+   ","
   ],
-  "T1_0": [
-   "+",
-   "$",
-   ")"
+  "value_1": [
+   "}",
+   "]",
+   ","
   ],
-  "E1_1": [
+  "value_0": [
+   "}",
+   "]",
+   ","
+  ],
+  "value_3": [
+   "}",
+   "]",
+   ","
+  ],
+  "value_2": [
+   "}",
+   "]",
+   ","
+  ],
+  "object_0": [
+   "}",
+   "]",
    "$",
-   ")"
+   ","
+  ],
+  "array_0": [
+   "}",
+   "]",
+   "$",
+   ","
+  ],
+  "pair_0": [
+   "}",
+   ","
+  ],
+  "array_1": [
+   "]"
   ]
  },
  "terminals": [
-  "x",
-  "+",
-  "*",
-  "(",
-  ")",
+  "{",
+  ",",
+  "}",
+  "STRING",
+  "NUMBER",
+  ":",
+  "[",
+  "]",
+  "true",
+  "false",
+  "null",
   "$"
  ],
  "table": {
-  "E_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "T_0",
-    "E1_0"
+  "json_1": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": [
+    "object_0"
    ],
-   "+": null,
-   "*": null,
-   "x": [
-    "T_0",
-    "E1_0"
-   ]
-  },
-  "T1_1": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [],
-   "*": [
-    "<*>",
-    "F_0",
-    "T1_0"
+   ":": null,
+   "}": null,
+   "[": [
+    "array_0"
    ],
-   "x": null
-  },
-  "F_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "F_1"
-   ],
-   "+": null,
-   "*": null,
-   "x": [
-    "F_1"
-   ]
-  },
-  "F_1": {
-   "$": null,
-   ")": null,
-   "(": [
-    "<(>",
-    "E_0",
-    "<)>"
-   ],
-   "+": null,
-   "*": null,
-   "x": [
-    "<x>"
-   ]
-  },
-  "T_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "F_0",
-    "T1_0"
-   ],
-   "+": null,
-   "*": null,
-   "x": [
-    "F_0",
-    "T1_0"
-   ]
-  },
-  "E1_0": {
-   "$": [
-    "E1_1"
-   ],
-   ")": [
-    "E1_1"
-   ],
-   "(": null,
-   "+": [
-    "E1_1"
-   ],
-   "*": null,
-   "x": null
-  },
-  "T1_0": {
-   "$": [
-    "T1_1"
-   ],
-   ")": [
-    "T1_1"
-   ],
-   "(": null,
-   "+": [
-    "T1_1"
-   ],
-   "*": [
-    "T1_1"
-   ],
-   "x": null
-  },
-  "E1_1": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [
-    "<+>",
-    "T_0",
-    "E1_0"
-   ],
-   "*": null,
-   "x": null
-  },
-  "<x>": {
-   "x": [
-    "x"
-   ],
-   "+": null,
-   "*": null,
-   "(": null,
-   ")": null,
    "$": null
   },
-  "<+>": {
-   "x": null,
-   "+": [
-    "+"
+  "json_0": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": [
+    "json_1"
    ],
-   "*": null,
-   "(": null,
-   ")": null,
+   ":": null,
+   "}": null,
+   "[": [
+    "json_1"
+   ],
    "$": null
   },
-  "<*>": {
-   "x": null,
-   "+": null,
-   "*": [
-    "*"
+  "object_1": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": [
+    "<,>",
+    "pair_0",
+    "object_1"
    ],
-   "(": null,
-   ")": null,
+   "{": null,
+   ":": null,
+   "}": [],
+   "[": null,
    "$": null
   },
-  "<(>": {
-   "x": null,
-   "+": null,
-   "*": null,
-   "(": [
-    "("
+  "value_5": {
+   "null": [
+    "value_6"
    ],
-   ")": null,
+   "false": [
+    "value_6"
+   ],
+   "STRING": null,
+   "true": [
+    "<true>"
+   ],
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": null,
    "$": null
   },
-  "<)>": {
-   "x": null,
-   "+": null,
-   "*": null,
-   "(": null,
-   ")": [
-    ")"
+  "value_4": {
+   "null": [
+    "value_5"
+   ],
+   "false": [
+    "value_5"
+   ],
+   "STRING": null,
+   "true": [
+    "value_5"
+   ],
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": [
+    "array_0"
+   ],
+   "$": null
+  },
+  "value_6": {
+   "null": [
+    "<null>"
+   ],
+   "false": [
+    "<false>"
+   ],
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": null,
+   "$": null
+  },
+  "value_1": {
+   "null": [
+    "value_2"
+   ],
+   "false": [
+    "value_2"
+   ],
+   "STRING": [
+    "<STRING>"
+   ],
+   "true": [
+    "value_2"
+   ],
+   "]": null,
+   "NUMBER": [
+    "value_2"
+   ],
+   ",": null,
+   "{": [
+    "value_2"
+   ],
+   ":": null,
+   "}": null,
+   "[": [
+    "value_2"
+   ],
+   "$": null
+  },
+  "value_0": {
+   "null": [
+    "value_1"
+   ],
+   "false": [
+    "value_1"
+   ],
+   "STRING": [
+    "value_1"
+   ],
+   "true": [
+    "value_1"
+   ],
+   "]": null,
+   "NUMBER": [
+    "value_1"
+   ],
+   ",": null,
+   "{": [
+    "value_1"
+   ],
+   ":": null,
+   "}": null,
+   "[": [
+    "value_1"
+   ],
+   "$": null
+  },
+  "value_3": {
+   "null": [
+    "value_4"
+   ],
+   "false": [
+    "value_4"
+   ],
+   "STRING": null,
+   "true": [
+    "value_4"
+   ],
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": [
+    "object_0"
+   ],
+   ":": null,
+   "}": null,
+   "[": [
+    "value_4"
+   ],
+   "$": null
+  },
+  "value_2": {
+   "null": [
+    "value_3"
+   ],
+   "false": [
+    "value_3"
+   ],
+   "STRING": null,
+   "true": [
+    "value_3"
+   ],
+   "]": null,
+   "NUMBER": [
+    "<NUMBER>"
+   ],
+   ",": null,
+   "{": [
+    "value_3"
+   ],
+   ":": null,
+   "}": null,
+   "[": [
+    "value_3"
+   ],
+   "$": null
+  },
+  "object_0": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": [
+    "<{>",
+    "pair_0",
+    "object_1",
+    "<}>"
+   ],
+   ":": null,
+   "}": null,
+   "[": null,
+   "$": null
+  },
+  "array_0": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": [
+    "<[>",
+    "value_0",
+    "array_1",
+    "<]>"
+   ],
+   "$": null
+  },
+  "pair_0": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "<STRING>",
+    "<:>",
+    "value_0"
+   ],
+   "true": null,
+   "]": null,
+   "NUMBER": null,
+   ",": null,
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": null,
+   "$": null
+  },
+  "array_1": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": [],
+   "NUMBER": null,
+   ",": [
+    "<,>",
+    "value_0",
+    "array_1"
+   ],
+   "{": null,
+   ":": null,
+   "}": null,
+   "[": null,
+   "$": null
+  },
+  "<{>": {
+   "{": [
+    "{"
+   ],
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<,>": {
+   "{": null,
+   ",": [
+    ","
+   ],
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<}>": {
+   "{": null,
+   ",": null,
+   "}": [
+    "}"
+   ],
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<STRING>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<NUMBER>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<:>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": [
+    ":"
+   ],
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<[>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": [
+    "["
+   ],
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<]>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": [
+    "]"
+   ],
+   "true": null,
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<true>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": [
+    "true"
+   ],
+   "false": null,
+   "null": null,
+   "$": null
+  },
+  "<false>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": [
+    "false"
+   ],
+   "null": null,
+   "$": null
+  },
+  "<null>": {
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": [
+    "null"
    ],
    "$": null
   },
   "<$>": {
-   "x": null,
-   "+": null,
-   "*": null,
-   "(": null,
-   ")": null,
+   "{": null,
+   ",": null,
+   "}": null,
+   "STRING": null,
+   "NUMBER": null,
+   ":": null,
+   "[": null,
+   "]": null,
+   "true": null,
+   "false": null,
+   "null": null,
    "$": []
   }
  },
- "axiom": "E_0",
+ "axiom": "json_0",
  "first": {
-  "E_0": [
-   "x",
-   "("
+  "json_1": [
+   "[",
+   "{"
   ],
-  "T1_1": [
-   null,
-   "*"
+  "json_0": [
+   "[",
+   "{"
   ],
-  "F_0": [
-   "x",
-   "("
-  ],
-  "F_1": [
-   "x",
-   "("
-  ],
-  "T_0": [
-   "x",
-   "("
-  ],
-  "E1_0": [
-   "+",
+  "object_1": [
+   ",",
    null
   ],
-  "T1_0": [
-   "*",
-   null
+  "value_5": [
+   "false",
+   "null",
+   "true"
   ],
-  "E1_1": [
-   "+",
+  "value_4": [
+   "[",
+   "true",
+   "false",
+   "null"
+  ],
+  "value_6": [
+   "false",
+   "null"
+  ],
+  "value_1": [
+   "[",
+   "false",
+   "true",
+   "{",
+   "null",
+   "STRING",
+   "NUMBER"
+  ],
+  "value_0": [
+   "[",
+   "false",
+   "true",
+   "{",
+   "null",
+   "STRING",
+   "NUMBER"
+  ],
+  "value_3": [
+   "[",
+   "false",
+   "true",
+   "{",
+   "null"
+  ],
+  "value_2": [
+   "[",
+   "{",
+   "true",
+   "false",
+   "null",
+   "NUMBER"
+  ],
+  "object_0": [
+   "{"
+  ],
+  "array_0": [
+   "["
+  ],
+  "pair_0": [
+   "STRING"
+  ],
+  "array_1": [
+   ",",
    null
   ]
  },
  "recover": {
-  "E_0": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [
-    "+",
-    "E_0"
+  "json_1": {
+   "null": [
+    "null",
+    "json_1"
    ],
-   "*": [
-    "*",
-    "E_0"
+   "false": [
+    "false",
+    "json_1"
    ],
-   "x": null
+   "STRING": [
+    "STRING",
+    "json_1"
+   ],
+   "true": [
+    "true",
+    "json_1"
+   ],
+   "]": [
+    "]",
+    "json_1"
+   ],
+   "NUMBER": [
+    "NUMBER",
+    "json_1"
+   ],
+   ",": [
+    ",",
+    "json_1"
+   ],
+   "{": null,
+   ":": [
+    ":",
+    "json_1"
+   ],
+   "}": [
+    "}",
+    "json_1"
+   ],
+   "[": null,
+   "$": []
   },
-  "T1_1": {
-   "$": null,
-   ")": null,
-   "(": [
-    "(",
-    "T1_1"
+  "json_0": {
+   "null": [
+    "null",
+    "json_0"
    ],
-   "+": null,
-   "*": null,
-   "x": [
-    "x",
-    "T1_1"
-   ]
+   "false": [
+    "false",
+    "json_0"
+   ],
+   "STRING": [
+    "STRING",
+    "json_0"
+   ],
+   "true": [
+    "true",
+    "json_0"
+   ],
+   "]": [
+    "]",
+    "json_0"
+   ],
+   "NUMBER": [
+    "NUMBER",
+    "json_0"
+   ],
+   ",": [
+    ",",
+    "json_0"
+   ],
+   "{": null,
+   ":": [
+    ":",
+    "json_0"
+   ],
+   "}": [
+    "}",
+    "json_0"
+   ],
+   "[": null,
+   "$": []
   },
-  "F_0": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [],
-   "*": [],
-   "x": null
-  },
-  "F_1": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [],
-   "*": [],
-   "x": null
-  },
-  "T_0": {
-   "$": [],
-   ")": [],
-   "(": null,
-   "+": [],
-   "*": [
-    "*",
-    "T_0"
+  "object_1": {
+   "null": [
+    "null",
+    "object_1"
    ],
-   "x": null
-  },
-  "E1_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "(",
-    "E1_0"
+   "false": [
+    "false",
+    "object_1"
    ],
-   "+": null,
-   "*": [
-    "*",
-    "E1_0"
+   "STRING": [
+    "STRING",
+    "object_1"
    ],
-   "x": [
-    "x",
-    "E1_0"
-   ]
-  },
-  "T1_0": {
-   "$": null,
-   ")": null,
-   "(": [
-    "(",
-    "T1_0"
+   "true": [
+    "true",
+    "object_1"
    ],
-   "+": null,
-   "*": null,
-   "x": [
-    "x",
-    "T1_0"
-   ]
-  },
-  "E1_1": {
-   "$": null,
-   ")": null,
-   "(": [
-    "(",
-    "E1_1"
+   "]": [
+    "]",
+    "object_1"
    ],
-   "+": null,
-   "*": [
-    "*",
-    "E1_1"
+   "NUMBER": [
+    "NUMBER",
+    "object_1"
    ],
-   "x": [
-    "x",
-    "E1_1"
-   ]
-  },
-  "<x>": {
-   "x": null,
-   "+": [
-    "+"
+   ",": null,
+   "{": [
+    "{",
+    "object_1"
    ],
-   "*": [
-    "*"
+   ":": [
+    ":",
+    "object_1"
    ],
-   "(": [
-    "("
-   ],
-   ")": [
-    ")"
+   "}": null,
+   "[": [
+    "[",
+    "object_1"
    ],
    "$": []
   },
-  "<+>": {
-   "x": [
-    "x"
+  "value_5": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "STRING",
+    "value_5"
    ],
-   "+": null,
-   "*": [
-    "*"
+   "true": null,
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "value_5"
    ],
-   "(": [
-    "("
+   ",": [],
+   "{": [
+    "{",
+    "value_5"
    ],
-   ")": [
-    ")"
+   ":": [
+    ":",
+    "value_5"
    ],
-   "$": []
-  },
-  "<*>": {
-   "x": [
-    "x"
-   ],
-   "+": [
-    "+"
-   ],
-   "*": null,
-   "(": [
-    "("
-   ],
-   ")": [
-    ")"
+   "}": [],
+   "[": [
+    "[",
+    "value_5"
    ],
    "$": []
   },
-  "<(>": {
-   "x": [
-    "x"
+  "value_4": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "STRING",
+    "value_4"
    ],
-   "+": [
-    "+"
+   "true": null,
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "value_4"
    ],
-   "*": [
-    "*"
+   ",": [],
+   "{": [
+    "{",
+    "value_4"
    ],
-   "(": null,
-   ")": [
-    ")"
+   ":": [
+    ":",
+    "value_4"
+   ],
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "value_6": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "STRING",
+    "value_6"
+   ],
+   "true": [
+    "true",
+    "value_6"
+   ],
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "value_6"
+   ],
+   ",": [],
+   "{": [
+    "{",
+    "value_6"
+   ],
+   ":": [
+    ":",
+    "value_6"
+   ],
+   "}": [],
+   "[": [
+    "[",
+    "value_6"
    ],
    "$": []
   },
-  "<)>": {
-   "x": [
-    "x"
+  "value_1": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": [],
+   "NUMBER": null,
+   ",": [],
+   "{": null,
+   ":": [
+    ":",
+    "value_1"
    ],
-   "+": [
-    "+"
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "value_0": {
+   "null": null,
+   "false": null,
+   "STRING": null,
+   "true": null,
+   "]": [],
+   "NUMBER": null,
+   ",": [],
+   "{": null,
+   ":": [
+    ":",
+    "value_0"
    ],
-   "*": [
-    "*"
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "value_3": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "STRING",
+    "value_3"
    ],
-   "(": [
-    "("
+   "true": null,
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "value_3"
    ],
-   ")": null,
+   ",": [],
+   "{": null,
+   ":": [
+    ":",
+    "value_3"
+   ],
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "value_2": {
+   "null": null,
+   "false": null,
+   "STRING": [
+    "STRING",
+    "value_2"
+   ],
+   "true": null,
+   "]": [],
+   "NUMBER": null,
+   ",": [],
+   "{": null,
+   ":": [
+    ":",
+    "value_2"
+   ],
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "object_0": {
+   "null": [
+    "null",
+    "object_0"
+   ],
+   "false": [
+    "false",
+    "object_0"
+   ],
+   "STRING": [
+    "STRING",
+    "object_0"
+   ],
+   "true": [
+    "true",
+    "object_0"
+   ],
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "object_0"
+   ],
+   ",": [],
+   "{": null,
+   ":": [
+    ":",
+    "object_0"
+   ],
+   "}": [],
+   "[": [
+    "[",
+    "object_0"
+   ],
+   "$": []
+  },
+  "array_0": {
+   "null": [
+    "null",
+    "array_0"
+   ],
+   "false": [
+    "false",
+    "array_0"
+   ],
+   "STRING": [
+    "STRING",
+    "array_0"
+   ],
+   "true": [
+    "true",
+    "array_0"
+   ],
+   "]": [],
+   "NUMBER": [
+    "NUMBER",
+    "array_0"
+   ],
+   ",": [],
+   "{": [
+    "{",
+    "array_0"
+   ],
+   ":": [
+    ":",
+    "array_0"
+   ],
+   "}": [],
+   "[": null,
+   "$": []
+  },
+  "pair_0": {
+   "null": [
+    "null",
+    "pair_0"
+   ],
+   "false": [
+    "false",
+    "pair_0"
+   ],
+   "STRING": null,
+   "true": [
+    "true",
+    "pair_0"
+   ],
+   "]": [
+    "]",
+    "pair_0"
+   ],
+   "NUMBER": [
+    "NUMBER",
+    "pair_0"
+   ],
+   ",": [],
+   "{": [
+    "{",
+    "pair_0"
+   ],
+   ":": [
+    ":",
+    "pair_0"
+   ],
+   "}": [],
+   "[": [
+    "[",
+    "pair_0"
+   ],
+   "$": []
+  },
+  "array_1": {
+   "null": [
+    "null",
+    "array_1"
+   ],
+   "false": [
+    "false",
+    "array_1"
+   ],
+   "STRING": [
+    "STRING",
+    "array_1"
+   ],
+   "true": [
+    "true",
+    "array_1"
+   ],
+   "]": null,
+   "NUMBER": [
+    "NUMBER",
+    "array_1"
+   ],
+   ",": null,
+   "{": [
+    "{",
+    "array_1"
+   ],
+   ":": [
+    ":",
+    "array_1"
+   ],
+   "}": [
+    "}",
+    "array_1"
+   ],
+   "[": [
+    "[",
+    "array_1"
+   ],
+   "$": []
+  },
+  "<{>": {
+   "{": null,
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<,>": {
+   "{": [
+    "{"
+   ],
+   ",": null,
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<}>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": null,
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<STRING>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": null,
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<NUMBER>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": null,
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<:>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": null,
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<[>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": null,
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<]>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": null,
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<true>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": null,
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<false>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": null,
+   "null": [
+    "null"
+   ],
+   "$": []
+  },
+  "<null>": {
+   "{": [
+    "{"
+   ],
+   ",": [
+    ","
+   ],
+   "}": [
+    "}"
+   ],
+   "STRING": [
+    "STRING"
+   ],
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": null,
    "$": []
   },
   "<$>": {
-   "x": [
-    "x"
+   "{": [
+    "{"
    ],
-   "+": [
-    "+"
+   ",": [
+    ","
    ],
-   "*": [
-    "*"
+   "}": [
+    "}"
    ],
-   "(": [
-    "("
+   "STRING": [
+    "STRING"
    ],
-   ")": [
-    ")"
+   "NUMBER": [
+    "NUMBER"
+   ],
+   ":": [
+    ":"
+   ],
+   "[": [
+    "["
+   ],
+   "]": [
+    "]"
+   ],
+   "true": [
+    "true"
+   ],
+   "false": [
+    "false"
+   ],
+   "null": [
+    "null"
    ],
    "$": null
   }
@@ -457,564 +1491,2250 @@ with recover rules:  {
 }
 Создание графа конфигураций...
 ---------------
- CURRENT NODE: CONFIGURATION (0): [E_0] from []
+ CURRENT NODE: CONFIGURATION (0): [json_0] from []
 
-[ 'E_0' ] 'x'
-[ 'E1_0', 'T_0' ] 'x'
-[ 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
+[ 'json_0' ] '{'
+[ 'json_1' ] '{'
+[ 'object_0' ] '{'
+[ '<}>', 'object_1', 'pair_0', '<{>' ] '{'
+[ '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0' ]
->   COMPARE:  [ 'T1_0', 'E1_0' ] [ 'E_0' ] 0
->   COMPARE:  [ 'T1_0', 'E1_0' ] [] 0
+> CHECK TURCHIN RELATION FOR:  [ '<}>', 'object_1', 'pair_0' ]
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>' ] [ 'json_0' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>' ] [] 0
 true
-ADD NEW CONFIGURATION:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+ADD NEW CONFIGURATION:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-[ 'E_0' ] '+'
-[ 'E_0', '+' ] '+'
-IS FINAL NODE:  [ 'E_0' ]
+[ 'json_0' ] ','
+[ 'json_0', ',' ] ','
+IS FINAL NODE:  [ 'json_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: E_0
+=> CURRENT STACK BY TERMINAL ,: json_0
 => ERROR: true
--- CREATED CYCLE: E_0
--- FROM: CONFIGURATION (0): [E_0] from []
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
 
--- TO: CONFIGURATION (0): [E_0] from []
+-- TO: CONFIGURATION (0): [json_0] from []
 
--- by terminal: +
-[ 'E_0' ] '*'
-[ 'E_0', '*' ] '*'
-IS FINAL NODE:  [ 'E_0' ]
+-- by terminal: ,
+[ 'json_0' ] '}'
+[ 'json_0', '}' ] '}'
+IS FINAL NODE:  [ 'json_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL *: E_0
+=> CURRENT STACK BY TERMINAL }: json_0
 => ERROR: true
--- CREATED CYCLE: E_0
--- FROM: CONFIGURATION (0): [E_0] from []
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
 
--- TO: CONFIGURATION (0): [E_0] from []
+-- TO: CONFIGURATION (0): [json_0] from []
 
--- by terminal: *
-[ 'E_0' ] '('
-[ 'E1_0', 'T_0' ] '('
-[ 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
+-- by terminal: }
+[ 'json_0' ] 'STRING'
+[ 'json_0', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'json_0' ]
      res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
+=> CURRENT STACK BY TERMINAL STRING: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: STRING
+[ 'json_0' ] 'NUMBER'
+[ 'json_0', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: NUMBER
+[ 'json_0' ] ':'
+[ 'json_0', ':' ] ':'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: :
+[ 'json_0' ] '['
+[ 'json_1' ] '['
+[ 'array_0' ] '['
+[ '<]>', 'array_1', 'value_0', '<[>' ] '['
+[ '<]>', 'array_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,array_1,<]>
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>' ] [ 'json_0' ] 0
+>   COMPARE:  [ 'value_0', 'array_1', '<]>' ] [] 0
 true
-CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
-ADD NEW LOWER CONFIG:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+ADD NEW CONFIGURATION:  CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+[ 'json_0' ] ']'
+[ 'json_0', ']' ] ']'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: ]
+[ 'json_0' ] 'true'
+[ 'json_0', 'true' ] 'true'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: true
+[ 'json_0' ] 'false'
+[ 'json_0', 'false' ] 'false'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: false
+[ 'json_0' ] 'null'
+[ 'json_0', 'null' ] 'null'
+IS FINAL NODE:  [ 'json_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: json_0
+=> ERROR: true
+-- CREATED CYCLE: json_0
+-- FROM: CONFIGURATION (0): [json_0] from []
+
+-- TO: CONFIGURATION (0): [json_0] from []
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+[ '<]>', 'array_1', 'value_0' ] '{'
+[ '<]>', 'array_1', 'value_1' ] '{'
+[ '<]>', 'array_1', 'value_2' ] '{'
+[ '<]>', 'array_1', 'value_3' ] '{'
+[ '<]>', 'array_1', 'object_0' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '<{>' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ]
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'json_0' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] [] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', 'value_0' ] ','
+[ '<]>', 'array_1' ] ','
+[ '<]>', 'array_1', 'value_0', '<,>' ] ','
+[ '<]>', 'array_1', 'value_0', ',' ] ','
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: value_0,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: value_0,array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- by terminal: ,
+[ '<]>', 'array_1', 'value_0' ] '}'
+[ '<]>', 'array_1' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1' ]
+>   COMPARE:  [ 'array_1', '<]>' ] [ 'json_0' ] 0
+>   COMPARE:  [ 'array_1', '<]>' ] [] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', 'value_0' ] 'STRING'
+[ '<]>', 'array_1', 'value_1' ] 'STRING'
+[ '<]>', 'array_1', '<STRING>' ] 'STRING'
+[ '<]>', 'array_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: STRING
+[ '<]>', 'array_1', 'value_0' ] 'NUMBER'
+[ '<]>', 'array_1', 'value_1' ] 'NUMBER'
+[ '<]>', 'array_1', 'value_2' ] 'NUMBER'
+[ '<]>', 'array_1', '<NUMBER>' ] 'NUMBER'
+[ '<]>', 'array_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1', 'value_0' ] ':'
+[ '<]>', 'array_1', 'value_0', ':' ] ':'
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: value_0,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: value_0,array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- by terminal: :
+[ '<]>', 'array_1', 'value_0' ] '['
+[ '<]>', 'array_1', 'value_1' ] '['
+[ '<]>', 'array_1', 'value_2' ] '['
+[ '<]>', 'array_1', 'value_3' ] '['
+[ '<]>', 'array_1', 'value_4' ] '['
+[ '<]>', 'array_1', 'array_0' ] '['
+[ '<]>', 'array_1', '<]>', 'array_1', 'value_0', '<[>' ] '['
+[ '<]>', 'array_1', '<]>', 'array_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,array_1,<]>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 3
+true
+CREATED LET-NODE FOR A => A|B: value_0,array_1,<]> => value_0,array_1,<]>,array_1,<]>
+-- equal conf found
+[ '<]>', 'array_1', 'value_0' ] ']'
+[ '<]>', 'array_1' ] ']'
+[ '<]>' ] ']'
+[ ']' ] ']'
+=> CURRENT STACK BY TERMINAL ]: 
+=> ERROR: true
+> CHECK TURCHIN RELATION FOR:  []
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (6): [] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', 'value_0' ] 'true'
+[ '<]>', 'array_1', 'value_1' ] 'true'
+[ '<]>', 'array_1', 'value_2' ] 'true'
+[ '<]>', 'array_1', 'value_3' ] 'true'
+[ '<]>', 'array_1', 'value_4' ] 'true'
+[ '<]>', 'array_1', 'value_5' ] 'true'
+[ '<]>', 'array_1', '<true>' ] 'true'
+[ '<]>', 'array_1', 'true' ] 'true'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1', 'value_0' ] 'false'
+[ '<]>', 'array_1', 'value_1' ] 'false'
+[ '<]>', 'array_1', 'value_2' ] 'false'
+[ '<]>', 'array_1', 'value_3' ] 'false'
+[ '<]>', 'array_1', 'value_4' ] 'false'
+[ '<]>', 'array_1', 'value_5' ] 'false'
+[ '<]>', 'array_1', 'value_6' ] 'false'
+[ '<]>', 'array_1', '<false>' ] 'false'
+[ '<]>', 'array_1', 'false' ] 'false'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1', 'value_0' ] 'null'
+[ '<]>', 'array_1', 'value_1' ] 'null'
+[ '<]>', 'array_1', 'value_2' ] 'null'
+[ '<]>', 'array_1', 'value_3' ] 'null'
+[ '<]>', 'array_1', 'value_4' ] 'null'
+[ '<]>', 'array_1', 'value_5' ] 'null'
+[ '<]>', 'array_1', 'value_6' ] 'null'
+[ '<]>', 'array_1', '<null>' ] 'null'
+[ '<]>', 'array_1', 'null' ] 'null'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (6): [] from [value_0, array_1, <]>]
+
+---------------
+ CURRENT NODE: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1' ] '{'
+[ '<]>', 'array_1', '{' ] '{'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: {
+[ '<]>', 'array_1' ] ','
+[ '<]>', 'array_1', 'value_0', '<,>' ] ','
+[ '<]>', 'array_1', 'value_0', ',' ] ','
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: value_0,array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: value_0,array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+-- by terminal: ,
+[ '<]>', 'array_1' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: }
+[ '<]>', 'array_1' ] 'STRING'
+[ '<]>', 'array_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: STRING
+[ '<]>', 'array_1' ] 'NUMBER'
+[ '<]>', 'array_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1' ] ':'
+[ '<]>', 'array_1', ':' ] ':'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: :
+[ '<]>', 'array_1' ] '['
+[ '<]>', 'array_1', '[' ] '['
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: [
+[ '<]>', 'array_1' ] ']'
+[ '<]>' ] ']'
+[ ']' ] ']'
+=> CURRENT STACK BY TERMINAL ]: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (6): [] from [value_0, array_1, <]>]
+
+-- by terminal: ]
+[ '<]>', 'array_1' ] 'true'
+[ '<]>', 'array_1', 'true' ] 'true'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1' ] 'false'
+[ '<]>', 'array_1', 'false' ] 'false'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1' ] 'null'
+[ '<]>', 'array_1', 'null' ] 'null'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: {
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '<,>' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ',' ] ','
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: ,
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '}'
+[ '<]>', 'array_1', '<}>', 'object_1' ] '}'
+[ '<]>', 'array_1', '<}>' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: }
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'STRING'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>', '<STRING>' ] 'STRING'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: <:>,value_0,object_1,<}>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>' ]
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'json_0' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (7): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'NUMBER'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ':'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ':' ] ':'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: :
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '['
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '[' ] '['
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: [
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ']'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ']' ] ']'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: ]
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'true'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'true' ] 'true'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'false'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'false' ] 'false'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'null'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'null' ] 'null'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (7): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '{' ] '{'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: value_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 1
+>   suffix length:  2 1
+true
+CREATED LET-NODE FOR A|C => A|B|C: value_0,array_1,<]> => value_0,object_1,<}>,array_1,<]>
+# REMOVE CONFIGURATION:  CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+transitions:
+-- by "{" to (3) (normal, not visited)
+-- by "," to (2) (error, not visited)
+-- by "}" to (4) (error, not visited)
+-- by "STRING" to (4) (normal, not visited)
+-- by "NUMBER" to (4) (normal, not visited)
+-- by ":" to (2) (error, not visited)
+-- by "[" to (5) (normal, not visited)
+-- by "]" to (6) (error, not visited)
+-- by "true" to (4) (normal, not visited)
+-- by "false" to (4) (normal, not visited)
+-- by "null" to (4) (normal, not visited)
+remove config:  2
+remove transition by  { CONFIGURATION (3): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+remove config:  3
+remove transition by  STRING CONFIGURATION (7): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+remove config:  7
+remove transition by  } CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+remove config:  4
+remove transition by  [ LET NODE (5) for:
+CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+remove let node:  LET NODE (5) for:
+CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+upper node has not been removed: CONFIGURATION (2): [value_0, array_1, <]>] from [json_0]
+
+lower node has not been removed: CONFIGURATION (4): [array_1, <]>] from [value_0, array_1, <]>]
+
+remove transition by  ] CONFIGURATION (6): [] from [value_0, array_1, <]>]
+
+remove config:  6
+ADD NEW UPPER CONFIG:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+
+ADD NEW LOWER CONFIG:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+
+---------------
+ CURRENT NODE: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+[ '<]>', 'array_1' ] '{'
+[ '<]>', 'array_1', '{' ] '{'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: {
+[ '<]>', 'array_1' ] ','
+[ '<]>', 'array_1', 'value_0', '<,>' ] ','
+[ '<]>', 'array_1', 'value_0', ',' ] ','
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: value_0,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>' ] [ 'array_1', '<]>' ] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+[ '<]>', 'array_1' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: }
+[ '<]>', 'array_1' ] 'STRING'
+[ '<]>', 'array_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: STRING
+[ '<]>', 'array_1' ] 'NUMBER'
+[ '<]>', 'array_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1' ] ':'
+[ '<]>', 'array_1', ':' ] ':'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: :
+[ '<]>', 'array_1' ] '['
+[ '<]>', 'array_1', '[' ] '['
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: [
+[ '<]>', 'array_1' ] ']'
+[ '<]>' ] ']'
+[ ']' ] ']'
+=> CURRENT STACK BY TERMINAL ]: 
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  []
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (12): [] from [array_1, <]>]
+
+[ '<]>', 'array_1' ] 'true'
+[ '<]>', 'array_1', 'true' ] 'true'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1' ] 'false'
+[ '<]>', 'array_1', 'false' ] 'false'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1' ] 'null'
+[ '<]>', 'array_1', 'null' ] 'null'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (12): [] from [array_1, <]>]
+
+---------------
+ CURRENT NODE: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+[ '<]>', 'array_1', 'value_0' ] '{'
+[ '<]>', 'array_1', 'value_1' ] '{'
+[ '<]>', 'array_1', 'value_2' ] '{'
+[ '<]>', 'array_1', 'value_3' ] '{'
+[ '<]>', 'array_1', 'object_0' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '<{>' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ]
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'array_1', '<]>' ] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', 'value_0' ] ','
+[ '<]>', 'array_1' ] ','
+[ '<]>', 'array_1', 'value_0', '<,>' ] ','
+[ '<]>', 'array_1', 'value_0', ',' ] ','
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: value_0,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: value_0,array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- by terminal: ,
+[ '<]>', 'array_1', 'value_0' ] '}'
+[ '<]>', 'array_1' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: }
+[ '<]>', 'array_1', 'value_0' ] 'STRING'
+[ '<]>', 'array_1', 'value_1' ] 'STRING'
+[ '<]>', 'array_1', '<STRING>' ] 'STRING'
+[ '<]>', 'array_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: STRING
+[ '<]>', 'array_1', 'value_0' ] 'NUMBER'
+[ '<]>', 'array_1', 'value_1' ] 'NUMBER'
+[ '<]>', 'array_1', 'value_2' ] 'NUMBER'
+[ '<]>', 'array_1', '<NUMBER>' ] 'NUMBER'
+[ '<]>', 'array_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1', 'value_0' ] ':'
+[ '<]>', 'array_1', 'value_0', ':' ] ':'
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: value_0,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: value_0,array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- by terminal: :
+[ '<]>', 'array_1', 'value_0' ] '['
+[ '<]>', 'array_1', 'value_1' ] '['
+[ '<]>', 'array_1', 'value_2' ] '['
+[ '<]>', 'array_1', 'value_3' ] '['
+[ '<]>', 'array_1', 'value_4' ] '['
+[ '<]>', 'array_1', 'array_0' ] '['
+[ '<]>', 'array_1', '<]>', 'array_1', 'value_0', '<[>' ] '['
+[ '<]>', 'array_1', '<]>', 'array_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,array_1,<]>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 3
+true
+CREATED LET-NODE FOR A => A|B: value_0,array_1,<]> => value_0,array_1,<]>,array_1,<]>
+-- equal conf found
+[ '<]>', 'array_1', 'value_0' ] ']'
+[ '<]>', 'array_1' ] ']'
+[ '<]>' ] ']'
+[ ']' ] ']'
+=> CURRENT STACK BY TERMINAL ]: 
+=> ERROR: true
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: ]
+[ '<]>', 'array_1', 'value_0' ] 'true'
+[ '<]>', 'array_1', 'value_1' ] 'true'
+[ '<]>', 'array_1', 'value_2' ] 'true'
+[ '<]>', 'array_1', 'value_3' ] 'true'
+[ '<]>', 'array_1', 'value_4' ] 'true'
+[ '<]>', 'array_1', 'value_5' ] 'true'
+[ '<]>', 'array_1', '<true>' ] 'true'
+[ '<]>', 'array_1', 'true' ] 'true'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1', 'value_0' ] 'false'
+[ '<]>', 'array_1', 'value_1' ] 'false'
+[ '<]>', 'array_1', 'value_2' ] 'false'
+[ '<]>', 'array_1', 'value_3' ] 'false'
+[ '<]>', 'array_1', 'value_4' ] 'false'
+[ '<]>', 'array_1', 'value_5' ] 'false'
+[ '<]>', 'array_1', 'value_6' ] 'false'
+[ '<]>', 'array_1', '<false>' ] 'false'
+[ '<]>', 'array_1', 'false' ] 'false'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1', 'value_0' ] 'null'
+[ '<]>', 'array_1', 'value_1' ] 'null'
+[ '<]>', 'array_1', 'value_2' ] 'null'
+[ '<]>', 'array_1', 'value_3' ] 'null'
+[ '<]>', 'array_1', 'value_4' ] 'null'
+[ '<]>', 'array_1', 'value_5' ] 'null'
+[ '<]>', 'array_1', 'value_6' ] 'null'
+[ '<]>', 'array_1', '<null>' ] 'null'
+[ '<]>', 'array_1', 'null' ] 'null'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: array_1,<]>
+=> ERROR: false
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: {
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '<,>' ] ','
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ',' ] ','
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: ,
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '}'
+[ '<]>', 'array_1', '<}>', 'object_1' ] '}'
+[ '<]>', 'array_1', '<}>' ] '}'
+[ '<]>', 'array_1', '}' ] '}'
+IS FINAL NODE:  [ 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: }
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'STRING'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>', '<STRING>' ] 'STRING'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: <:>,value_0,object_1,<}>,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>' ]
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'array_1', '<]>' ] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (15): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'NUMBER'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: NUMBER
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ':'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ':' ] ':'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: :
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] '['
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', '[' ] '['
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: [
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] ']'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', ']' ] ']'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: ]
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'true'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'true' ] 'true'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: true
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'false'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'false' ] 'false'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: false
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0' ] 'null'
+[ '<]>', 'array_1', '<}>', 'object_1', 'pair_0', 'null' ] 'null'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: pair_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>,array_1,<]>
+-- FROM: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- TO: CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (15): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '<:>' ] '{'
+[ '<]>', 'array_1', '<}>', 'object_1', 'value_0', '{' ] '{'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: value_0,object_1,<}>,array_1,<]>
+=> ERROR: true
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', '<}>', 'object_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'object_1', '<}>', 'array_1', '<]>' ] [ 'value_0', 'array_1', '<]>' ] 1
+>   suffix length:  2 1
+true
+CREATED LET-NODE FOR A|C => A|B|C: value_0,array_1,<]> => value_0,object_1,<}>,array_1,<]>
+# REMOVE CONFIGURATION:  CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+transitions:
+-- by "{" to (13) (normal, not visited)
+-- by "," to (11) (error, not visited)
+-- by "}" to (10) (error, not visited)
+-- by "STRING" to (10) (normal, not visited)
+-- by "NUMBER" to (10) (normal, not visited)
+-- by ":" to (11) (error, not visited)
+-- by "[" to (14) (normal, not visited)
+-- by "]" to (12) (error, not visited)
+-- by "true" to (10) (normal, not visited)
+-- by "false" to (10) (normal, not visited)
+-- by "null" to (10) (normal, not visited)
+remove config:  11
+remove transition by  { CONFIGURATION (13): [pair_0, object_1, <}>, array_1, <]>] from [value_0, array_1, <]>]
+
+remove config:  13
+remove transition by  STRING CONFIGURATION (15): [<:>, value_0, object_1, <}>, array_1, <]>] from [pair_0, object_1, <}>, array_1, <]>]
+
+remove config:  15
+remove transition by  [ LET NODE (14) for:
+CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+remove let node:  LET NODE (14) for:
+CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+upper node has not been removed: CONFIGURATION (11): [value_0, array_1, <]>] from [array_1, <]>]
+
+lower node has not been removed: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+---------------
+ CURRENT NODE: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+[ 'value_0' ] '{'
+[ 'value_1' ] '{'
+[ 'value_2' ] '{'
+[ 'value_3' ] '{'
+[ 'object_0' ] '{'
+[ '<}>', 'object_1', 'pair_0', '<{>' ] '{'
+[ '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>
+=> ERROR: false
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: {
+[ 'value_0' ] ','
+[ 'value_0' ] '}'
+[ 'value_0' ] 'STRING'
+[ 'value_1' ] 'STRING'
+[ '<STRING>' ] 'STRING'
+[ 'STRING' ] 'STRING'
+=> CURRENT STACK BY TERMINAL STRING: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: STRING
+[ 'value_0' ] 'NUMBER'
+[ 'value_1' ] 'NUMBER'
+[ 'value_2' ] 'NUMBER'
+[ '<NUMBER>' ] 'NUMBER'
+[ 'NUMBER' ] 'NUMBER'
+=> CURRENT STACK BY TERMINAL NUMBER: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: NUMBER
+[ 'value_0' ] ':'
+[ 'value_0', ':' ] ':'
+IS FINAL NODE:  [ 'value_0' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: value_0
+=> ERROR: true
+-- CREATED CYCLE: value_0
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- by terminal: :
+[ 'value_0' ] '['
+[ 'value_1' ] '['
+[ 'value_2' ] '['
+[ 'value_3' ] '['
+[ 'value_4' ] '['
+[ 'array_0' ] '['
+[ '<]>', 'array_1', 'value_0', '<[>' ] '['
+[ '<]>', 'array_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,array_1,<]>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>' ] [ 'value_0' ] 1
+true
+CREATED LET-NODE FOR A => A|B: value_0 => value_0,array_1,<]>
+-- equal conf found
+[ 'value_0' ] ']'
+[ 'value_0' ] 'true'
+[ 'value_1' ] 'true'
+[ 'value_2' ] 'true'
+[ 'value_3' ] 'true'
+[ 'value_4' ] 'true'
+[ 'value_5' ] 'true'
+[ '<true>' ] 'true'
+[ 'true' ] 'true'
+=> CURRENT STACK BY TERMINAL true: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: true
+[ 'value_0' ] 'false'
+[ 'value_1' ] 'false'
+[ 'value_2' ] 'false'
+[ 'value_3' ] 'false'
+[ 'value_4' ] 'false'
+[ 'value_5' ] 'false'
+[ 'value_6' ] 'false'
+[ '<false>' ] 'false'
+[ 'false' ] 'false'
+=> CURRENT STACK BY TERMINAL false: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: false
+[ 'value_0' ] 'null'
+[ 'value_1' ] 'null'
+[ 'value_2' ] 'null'
+[ 'value_3' ] 'null'
+[ 'value_4' ] 'null'
+[ 'value_5' ] 'null'
+[ 'value_6' ] 'null'
+[ '<null>' ] 'null'
+[ 'null' ] 'null'
+=> CURRENT STACK BY TERMINAL null: 
+=> ERROR: false
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+[ '<}>', 'object_1', 'pair_0' ] '{'
+[ '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: {
+[ '<}>', 'object_1', 'pair_0' ] ','
+[ '<}>', 'object_1' ] ','
+[ '<}>', 'object_1', 'pair_0', '<,>' ] ','
+[ '<}>', 'object_1', 'pair_0', ',' ] ','
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: ,
+[ '<}>', 'object_1', 'pair_0' ] '}'
+[ '<}>', 'object_1' ] '}'
+[ '<}>' ] '}'
+[ '}' ] '}'
+=> CURRENT STACK BY TERMINAL }: 
+=> ERROR: true
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: }
+[ '<}>', 'object_1', 'pair_0' ] 'STRING'
+[ '<}>', 'object_1', 'value_0', '<:>', '<STRING>' ] 'STRING'
+[ '<}>', 'object_1', 'value_0', '<:>', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ '<:>', 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: <:>,value_0,object_1,<}>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<}>', 'object_1', 'value_0', '<:>' ]
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>' ] [ 'pair_0', 'object_1', '<}>' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>' ] [ 'json_0' ] 0
+>   COMPARE:  [ '<:>', 'value_0', 'object_1', '<}>' ] [] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+[ '<}>', 'object_1', 'pair_0' ] 'NUMBER'
+[ '<}>', 'object_1', 'pair_0', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: NUMBER
+[ '<}>', 'object_1', 'pair_0' ] ':'
+[ '<}>', 'object_1', 'pair_0', ':' ] ':'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: :
+[ '<}>', 'object_1', 'pair_0' ] '['
+[ '<}>', 'object_1', 'pair_0', '[' ] '['
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: [
+[ '<}>', 'object_1', 'pair_0' ] ']'
+[ '<}>', 'object_1', 'pair_0', ']' ] ']'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: ]
+[ '<}>', 'object_1', 'pair_0' ] 'true'
+[ '<}>', 'object_1', 'pair_0', 'true' ] 'true'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: true
+[ '<}>', 'object_1', 'pair_0' ] 'false'
+[ '<}>', 'object_1', 'pair_0', 'false' ] 'false'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: false
+[ '<}>', 'object_1', 'pair_0' ] 'null'
+[ '<}>', 'object_1', 'pair_0', 'null' ] 'null'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+[ '<}>', 'object_1', 'value_0', '<:>' ] '{'
+[ '<}>', 'object_1', 'value_0', '{' ] '{'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: value_0,object_1,<}>
+=> ERROR: true
+> CHECK TURCHIN RELATION FOR:  [ '<}>', 'object_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'object_1', '<}>' ] [ 'json_0' ] 0
+>   COMPARE:  [ 'value_0', 'object_1', '<}>' ] [] 0
+true
+ADD NEW CONFIGURATION:  CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+[ '<}>', 'object_1', 'value_0', '<:>' ] ','
+[ '<}>', 'object_1', 'value_0', ',' ] ','
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ,: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: ,
+[ '<}>', 'object_1', 'value_0', '<:>' ] '}'
+[ '<}>', 'object_1', 'value_0', '}' ] '}'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL }: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: }
+[ '<}>', 'object_1', 'value_0', '<:>' ] 'STRING'
+[ '<}>', 'object_1', 'value_0', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: STRING
+[ '<}>', 'object_1', 'value_0', '<:>' ] 'NUMBER'
+[ '<}>', 'object_1', 'value_0', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: NUMBER
+[ '<}>', 'object_1', 'value_0', '<:>' ] ':'
+[ '<}>', 'object_1', 'value_0', ':' ] ':'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: value_0,object_1,<}>
+=> ERROR: false
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: :
+[ '<}>', 'object_1', 'value_0', '<:>' ] '['
+[ '<}>', 'object_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: [
+[ '<}>', 'object_1', 'value_0', '<:>' ] ']'
+[ '<}>', 'object_1', 'value_0', ']' ] ']'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: ]
+[ '<}>', 'object_1', 'value_0', '<:>' ] 'true'
+[ '<}>', 'object_1', 'value_0', 'true' ] 'true'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: true
+[ '<}>', 'object_1', 'value_0', '<:>' ] 'false'
+[ '<}>', 'object_1', 'value_0', 'false' ] 'false'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: false
+[ '<}>', 'object_1', 'value_0', '<:>' ] 'null'
+[ '<}>', 'object_1', 'value_0', 'null' ] 'null'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: null
+---------------
+ CURRENT NODE: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+[ '<}>', 'object_1', 'value_0' ] '{'
+[ '<}>', 'object_1', 'value_1' ] '{'
+[ '<}>', 'object_1', 'value_2' ] '{'
+[ '<}>', 'object_1', 'value_3' ] '{'
+[ '<}>', 'object_1', 'object_0' ] '{'
+[ '<}>', 'object_1', '<}>', 'object_1', 'pair_0', '<{>' ] '{'
+[ '<}>', 'object_1', '<}>', 'object_1', 'pair_0', '{' ] '{'
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL {: pair_0,object_1,<}>,object_1,<}>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<}>', 'object_1', '<}>', 'object_1', 'pair_0' ]
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'object_1', '<}>' ] [ 'value_0', 'object_1', '<}>' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'object_1', '<}>' ] [ '<:>', 'value_0', 'object_1', '<}>' ] 0
+>   COMPARE:  [ 'pair_0', 'object_1', '<}>', 'object_1', '<}>' ] [ 'pair_0', 'object_1', '<}>' ] 3
+true
+CREATED LET-NODE FOR A => A|B: pair_0,object_1,<}> => pair_0,object_1,<}>,object_1,<}>
+ADD NEW LOWER CONFIG:  CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
 
 -- created new let-node and config
--- from CONFIGURATION (0): [E_0] from []
- by (
-[ 'E_0' ] ')'
----------------
- CURRENT NODE: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
-[ 'E1_0', 'T1_0', '<)>' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', '<)>' ] '+'
-[ 'E1_0', 'T1_0', '+' ] '+'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL +: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: +
-[ 'E1_0', 'T1_0', '<)>' ] '*'
-[ 'E1_0', 'T1_0', '*' ] '*'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL *: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', '<)>' ] '('
-[ 'E1_0', 'T1_0', '(' ] '('
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL (: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: (
-[ 'E1_0', 'T1_0', '<)>' ] ')'
-[ 'E1_0', 'T1_0', ')' ] ')'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL ): T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: )
----------------
- CURRENT NODE: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
-[ 'E1_0', 'T1_0' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0' ] '+'
-[ 'E1_0', 'T1_1' ] '+'
-[ 'E1_0' ] '+'
-[ 'E1_1' ] '+'
-[ 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0' ]
+-- from CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+ by {
+[ '<}>', 'object_1', 'value_0' ] ','
+[ '<}>', 'object_1' ] ','
+[ '<}>', 'object_1', 'pair_0', '<,>' ] ','
+[ '<}>', 'object_1', 'pair_0', ',' ] ','
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0
+=> CURRENT STACK BY TERMINAL ,: pair_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: ,
+[ '<}>', 'object_1', 'value_0' ] '}'
+[ '<}>', 'object_1' ] '}'
+[ '<}>' ] '}'
+[ '}' ] '}'
+=> CURRENT STACK BY TERMINAL }: 
+=> ERROR: true
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
+
+-- by terminal: }
+[ '<}>', 'object_1', 'value_0' ] 'STRING'
+[ '<}>', 'object_1', 'value_1' ] 'STRING'
+[ '<}>', 'object_1', '<STRING>' ] 'STRING'
+[ '<}>', 'object_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL STRING: object_1,<}>
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T_0' ]
->   COMPARE:  [ 'T_0', 'E1_0' ] [ 'E_0' ] 0
->   COMPARE:  [ 'T_0', 'E1_0' ] [] 0
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- TO: CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
+
+-- by terminal: STRING
+[ '<}>', 'object_1', 'value_0' ] 'NUMBER'
+[ '<}>', 'object_1', 'value_1' ] 'NUMBER'
+[ '<}>', 'object_1', 'value_2' ] 'NUMBER'
+[ '<}>', 'object_1', '<NUMBER>' ] 'NUMBER'
+[ '<}>', 'object_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL NUMBER: object_1,<}>
+=> ERROR: false
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- TO: CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
+
+-- by terminal: NUMBER
+[ '<}>', 'object_1', 'value_0' ] ':'
+[ '<}>', 'object_1', 'value_0', ':' ] ':'
+IS FINAL NODE:  [ 'value_0', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL :: value_0,object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: value_0,object_1,<}>
+-- FROM: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- TO: CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+
+-- by terminal: :
+[ '<}>', 'object_1', 'value_0' ] '['
+[ '<}>', 'object_1', 'value_1' ] '['
+[ '<}>', 'object_1', 'value_2' ] '['
+[ '<}>', 'object_1', 'value_3' ] '['
+[ '<}>', 'object_1', 'value_4' ] '['
+[ '<}>', 'object_1', 'array_0' ] '['
+[ '<}>', 'object_1', '<]>', 'array_1', 'value_0', '<[>' ] '['
+[ '<}>', 'object_1', '<]>', 'array_1', 'value_0', '[' ] '['
+IS FINAL NODE:  [ 'value_0', 'array_1', '<]>', 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: value_0,array_1,<]>,object_1,<}>
+=> ERROR: false
+> CHECK TURCHIN RELATION FOR:  [ '<}>', 'object_1', '<]>', 'array_1', 'value_0' ]
+>   COMPARE:  [ 'value_0', 'array_1', '<]>', 'object_1', '<}>' ] [ 'value_0', 'object_1', '<}>' ] 1
+>   suffix length:  2 1
 true
-ADD NEW CONFIGURATION:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+CREATED LET-NODE FOR A|C => A|B|C: value_0,object_1,<}> => value_0,array_1,<]>,object_1,<}>
+# REMOVE CONFIGURATION:  CONFIGURATION (19): [value_0, object_1, <}>] from [<:>, value_0, object_1, <}>]
+transitions:
+-- by "{" to (20) (normal, not visited)
+-- by "," to (1) (error, not visited)
+-- by "}" to (12) (error, not visited)
+-- by "STRING" to (21) (normal, not visited)
+-- by "NUMBER" to (21) (normal, not visited)
+-- by ":" to (19) (error, not visited)
+remove config:  19
+remove transition by  { LET NODE (20) for:
+CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-[ 'E1_0', 'T1_0' ] '*'
-[ 'E1_0', 'T1_1' ] '*'
-[ 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', 'F_0' ]
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [ 'E_0' ] 0
->   COMPARE:  [ 'F_0', 'T1_0', 'E1_0' ] [] 0
-true
-ADD NEW CONFIGURATION:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
 
-[ 'E1_0', 'T1_0' ] '('
-[ 'E1_0', 'T1_0', '(' ] '('
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL (: T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+remove let node:  LET NODE (20) for:
+CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
 
--- by terminal: (
-[ 'E1_0', 'T1_0' ] ')'
-[ 'E1_0', 'T1_1' ] ')'
-[ 'E1_0' ] ')'
-[ 'E1_1' ] ')'
+upper node has not been removed: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+and lower node:  CONFIGURATION (21): [object_1, <}>] from [pair_0, object_1, <}>, object_1, <}>]
+
+remove config:  21
+ADD NEW LOWER CONFIG:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+transitions:
+
 ---------------
- CURRENT NODE: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+ CURRENT NODE: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-[ 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
-=> ERROR: false
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
--- by terminal: x
-[ 'E1_0', 'T1_0', 'F_0' ] '+'
-[ 'E1_0', 'T1_0' ] '+'
-[ 'E1_0', 'T1_1' ] '+'
-[ 'E1_0' ] '+'
-[ 'E1_1' ] '+'
-[ 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0' ]
+[ '<}>', 'object_1' ] '{'
+[ '<}>', 'object_1', '{' ] '{'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0
+=> CURRENT STACK BY TERMINAL {: object_1,<}>
 => ERROR: true
--- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- by terminal: +
-[ 'E1_0', 'T1_0', 'F_0' ] '*'
-[ 'E1_0', 'T1_0' ] '*'
-[ 'E1_0', 'T1_1' ] '*'
-[ 'E1_0', 'T1_0', 'F_0', '<*>' ] '*'
-[ 'E1_0', 'T1_0', 'F_0', '*' ] '*'
-IS FINAL NODE:  [ 'F_0', 'T1_0', 'E1_0' ]
+-- by terminal: {
+[ '<}>', 'object_1' ] ','
+[ '<}>', 'object_1', 'pair_0', '<,>' ] ','
+[ '<}>', 'object_1', 'pair_0', ',' ] ','
+IS FINAL NODE:  [ 'pair_0', 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL *: F_0,T1_0,E1_0
-=> ERROR: true
--- CREATED CYCLE: F_0,T1_0,E1_0
--- FROM: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
--- TO: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
-
--- by terminal: *
-[ 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
-     res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
+=> CURRENT STACK BY TERMINAL ,: pair_0,object_1,<}>
 => ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'F_0', 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
-true
-CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
--- equal conf found
--- equal let-node found
-[ 'E1_0', 'T1_0', 'F_0' ] ')'
-[ 'E1_0', 'T1_0' ] ')'
-[ 'E1_0', 'T1_1' ] ')'
-[ 'E1_0' ] ')'
-[ 'E1_1' ] ')'
----------------
- CURRENT NODE: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- CREATED CYCLE: pair_0,object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-[ 'E1_0', 'T_0' ] 'x'
-[ 'E1_0', 'T1_0', 'F_0' ] 'x'
-[ 'E1_0', 'T1_0', 'F_1' ] 'x'
-[ 'E1_0', 'T1_0', '<x>' ] 'x'
-[ 'E1_0', 'T1_0', 'x' ] 'x'
-IS FINAL NODE:  [ 'T1_0', 'E1_0' ]
-     res: true
-=> CURRENT STACK BY TERMINAL x: T1_0,E1_0
+-- TO: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+-- by terminal: ,
+[ '<}>', 'object_1' ] '}'
+[ '<}>' ] '}'
+[ '}' ] '}'
+=> CURRENT STACK BY TERMINAL }: 
 => ERROR: false
--- CREATED CYCLE: T1_0,E1_0
--- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- CREATED CYCLE: 
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- TO: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+-- TO: CONFIGURATION (12): [] from [array_1, <]>]
 
--- by terminal: x
-[ 'E1_0', 'T_0' ] '+'
-[ 'E1_0' ] '+'
-[ 'E1_1' ] '+'
-[ 'E1_0', 'T_0', '<+>' ] '+'
-[ 'E1_0', 'T_0', '+' ] '+'
-IS FINAL NODE:  [ 'T_0', 'E1_0' ]
+-- by terminal: }
+[ '<}>', 'object_1' ] 'STRING'
+[ '<}>', 'object_1', 'STRING' ] 'STRING'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL +: T_0,E1_0
+=> CURRENT STACK BY TERMINAL STRING: object_1,<}>
 => ERROR: true
--- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- by terminal: +
-[ 'E1_0', 'T_0' ] '*'
-[ 'E1_0', 'T_0', '*' ] '*'
-IS FINAL NODE:  [ 'T_0', 'E1_0' ]
+-- by terminal: STRING
+[ '<}>', 'object_1' ] 'NUMBER'
+[ '<}>', 'object_1', 'NUMBER' ] 'NUMBER'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL *: T_0,E1_0
+=> CURRENT STACK BY TERMINAL NUMBER: object_1,<}>
 => ERROR: true
--- CREATED CYCLE: T_0,E1_0
--- FROM: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- TO: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
--- by terminal: *
-[ 'E1_0', 'T_0' ] '('
-[ 'E1_0', 'T1_0', 'F_0' ] '('
-[ 'E1_0', 'T1_0', 'F_1' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '<(>' ] '('
-[ 'E1_0', 'T1_0', '<)>', 'E_0', '(' ] '('
-IS FINAL NODE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ]
+-- by terminal: NUMBER
+[ '<}>', 'object_1' ] ':'
+[ '<}>', 'object_1', ':' ] ':'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
      res: false
-=> CURRENT STACK BY TERMINAL (: E_0,<)>,T1_0,E1_0
-=> ERROR: false
-> CHECK TURCHIN RELATION FOR:  [ 'E1_0', 'T1_0', '<)>', 'E_0' ]
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'T1_0', 'E1_0' ] 0
->   COMPARE:  [ 'E_0', '<)>', 'T1_0', 'E1_0' ] [ 'E_0' ] 1
-true
-CREATED LET-NODE FOR A => A|B: E_0 => E_0,<)>,T1_0,E1_0
--- equal conf found
--- equal let-node found
-[ 'E1_0', 'T_0' ] ')'
-[ 'E1_0' ] ')'
-[ 'E1_1' ] ')'
+=> CURRENT STACK BY TERMINAL :: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: :
+[ '<}>', 'object_1' ] '['
+[ '<}>', 'object_1', '[' ] '['
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL [: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: [
+[ '<}>', 'object_1' ] ']'
+[ '<}>', 'object_1', ']' ] ']'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL ]: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: ]
+[ '<}>', 'object_1' ] 'true'
+[ '<}>', 'object_1', 'true' ] 'true'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL true: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: true
+[ '<}>', 'object_1' ] 'false'
+[ '<}>', 'object_1', 'false' ] 'false'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL false: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: false
+[ '<}>', 'object_1' ] 'null'
+[ '<}>', 'object_1', 'null' ] 'null'
+IS FINAL NODE:  [ 'object_1', '<}>' ]
+     res: false
+=> CURRENT STACK BY TERMINAL null: object_1,<}>
+=> ERROR: true
+-- CREATED CYCLE: object_1,<}>
+-- FROM: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- TO: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+-- by terminal: null
 digraph {
 rankdir=LR;
 size="8,5";
 node [shape = circle, color = black];
-0 [label="0 - [E_0]"];
-3 [label="3 - [<)>,T1_0,E1_0]"];
-4 [label="4 - [T_0,E1_0]"];
-5 [label="5 - [F_0,T1_0,E1_0]"];
+0 [label="0 - [json_0]"];
+1 [label="1 - [pair_0,object_1,<}>]"];
+9 [label="9 - [value_0]"];
+10 [label="10 - [array_1,<]>]"];
+18 [label="18 - [<:>,value_0,object_1,<}>]"];
+23 [label="23 - [object_1,<}>]"];
 node [shape = octagon];
-2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
+8 [label="8 - [value_0,object_1,<}>,array_1,<]>]"];
+17 [label="17 - [value_0,array_1,<]>]"];
+22 [label="22 - [value_0,array_1,<]>,object_1,<}>]"];
 node [shape = doublecircle];
-1 [label="1 - [T1_0,E1_0]"];
-0 -> 1 [ label = "x", color = "black" ];
-0 -> 2 [ label = "(", color = "black" ];
-1 -> 4 [ label = "+", color = "black" ];
-1 -> 5 [ label = "*", color = "black" ];
-3 -> 1 [ label = ")", color = "black" ];
-2 -> 0 [label="up"];
-2 -> 3 [style=dotted, label="down"];
-4 -> 1 [ label = "x", color = "black" ];
-4 -> 2 [ label = "(", color = "black" ];
-5 -> 1 [ label = "x", color = "black" ];
-5 -> 2 [ label = "(", color = "black" ];
+12 [label="12 - []"];
+0 -> 1 [ label = "{", color = "black" ];
+0 -> 8 [ label = "[", color = "black" ];
+1 -> 18 [ label = "STRING", color = "black" ];
+9 -> 1 [ label = "{", color = "black" ];
+9 -> 12 [ label = "STRING", color = "black" ];
+9 -> 12 [ label = "NUMBER", color = "black" ];
+9 -> 17 [ label = "[", color = "black" ];
+9 -> 12 [ label = "true", color = "black" ];
+9 -> 12 [ label = "false", color = "black" ];
+9 -> 12 [ label = "null", color = "black" ];
+10 -> 8 [ label = ",", color = "black" ];
+10 -> 12 [ label = "]", color = "black" ];
+8 -> 9 [label="up"];
+8 -> 10 [style=dotted, label="down"];
+17 -> 9 [label="up"];
+17 -> 10 [style=dotted, label="down"];
+18 -> 22 [ label = ":", color = "black" ];
+23 -> 1 [ label = ",", color = "black" ];
+23 -> 12 [ label = "}", color = "black" ];
+22 -> 9 [label="up"];
+22 -> 23 [style=dotted, label="down"];
 }
-current node:  CONFIGURATION (0): [E_0] from []
+current node:  CONFIGURATION (0): [json_0] from []
 
 res:  
-find path from: CONFIGURATION (0): [E_0] from []
+find path from: CONFIGURATION (0): [json_0] from []
 
 shift:  [ 0 ]
-visit configuration:  CONFIGURATION (0): [E_0] from []
+visit configuration:  CONFIGURATION (0): [json_0] from []
 
-transition found:  by "x" to (1) (normal, visited)
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+transition found:  by "{" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-res:  x
-find path from: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
-shift:  [ 1 ]
-visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
-transition found:  by "+" to (4) (normal, visited)
-current node:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
-
-res:  x +
-find path from: CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
-
-shift:  [ 4 ]
-visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
-
-transition found:  by "x" to (1) (normal, visited)
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
-
-res:  x + x
-find path from: CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+res:  {
+find path from: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
 shift:  [ 1 ]
-visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-push:  by "+" to (4) (normal, visited)
-transition found:  by "*" to (5) (normal, visited)
-current node:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+transition found:  by "STRING" to (18) (normal, visited)
+current node:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-res:  x + x *
-find path from: CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+res:  { STRING
+find path from: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-shift:  [ 5 ]
-visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+shift:  [ 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-transition found:  by "x" to (1) (normal, visited)
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+transition found:  by ":" to (22) (normal, visited)
+current node:  LET NODE (22) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-res:  x + x * x
-NEW TEST:  x + x * x 
-----------------------------
-digraph {
-rankdir=LR;
-size="8,5";
-node [shape = circle, color = black];
-0 [label="0 - [E_0]"];
-3 [label="3 - [<)>,T1_0,E1_0]"];
-4 [label="4 - [T_0,E1_0]"];
-5 [label="5 - [F_0,T1_0,E1_0]"];
-node [shape = octagon];
-2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
-node [shape = doublecircle];
-1 [label="1 - [T1_0,E1_0]"];
-0 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-0 -> 2 [ label = "(", color = "black" ];
-1 -> 4 [ label = "+", color = "green", penwidth=3.5 ];
-1 -> 5 [ label = "*", color = "green", penwidth=3.5 ];
-3 -> 1 [ label = ")", color = "black" ];
-2 -> 0 [label="up"];
-2 -> 3 [style=dotted, label="down"];
-4 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-4 -> 2 [ label = "(", color = "black" ];
-5 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-5 -> 2 [ label = "(", color = "black" ];
-}
-current node:  CONFIGURATION (0): [E_0] from []
+CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-res:  
-find path from: CONFIGURATION (0): [E_0] from []
+res:  { STRING :
+current node:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-shift:  [ 0 ]
-visit configuration:  CONFIGURATION (0): [E_0] from []
+res:  { STRING :
+find path from: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-push:  by "x" to (1) (normal, visited)
-transition found:  by "(" to (2) (normal, visited)
-current node:  LET NODE (2) for:
-CONFIGURATION (0): [E_0] from []
+shift:  [ 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+transition found:  by "{" to (1) (normal, visited)
+current node:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-res:  (
-current node:  CONFIGURATION (0): [E_0] from []
+res:  { STRING : {
+find path from: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-res:  (
-find path from: CONFIGURATION (0): [E_0] from []
+shift:  [ 23, 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-shift:  [ 3, 0 ]
-visit configuration:  CONFIGURATION (0): [E_0] from []
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 23, 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 1 ]
-visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+push:  by ":" to (22) (normal, visited)
+shift:  [ 23, 22 ]
+visit let node, push: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-push:  by "+" to (4) (normal, visited)
-push:  by "*" to (5) (normal, visited)
-shift:  [ 3, 2 ]
-visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
- CONFIGURATION (0): [E_0] from []
+current stack:  [ 23, 23, 9 ]
+shift:  [ 23, 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-current stack:  [ 3, 3, 0 ]
-shift:  [ 3, 4 ]
-visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+push:  by "{" to (1) (normal, visited)
+transition found:  by "STRING" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
 
-push:  by "x" to (1) (normal, visited)
-transition found:  by "(" to (2) (normal, visited)
-current node:  LET NODE (2) for:
-CONFIGURATION (0): [E_0] from []
+res:  { STRING : { STRING : STRING
+current node:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  { STRING : { STRING : STRING
+find path from: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-res:  ( x + (
-current node:  CONFIGURATION (0): [E_0] from []
+shift:  [ 23, 23 ]
+visit configuration:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-res:  ( x + (
-find path from: CONFIGURATION (0): [E_0] from []
+transition found:  by "," to (1) (normal, visited)
+current node:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-shift:  [ 3, 3, 0 ]
-visit configuration:  CONFIGURATION (0): [E_0] from []
+res:  { STRING : { STRING : STRING ,
+find path from: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 3, 1 ]
-visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+shift:  [ 23, 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-push:  by "+" to (4) (normal, visited)
-push:  by "*" to (5) (normal, visited)
-shift:  [ 3, 3, 2 ]
-visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
- CONFIGURATION (0): [E_0] from []
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 23, 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-current stack:  [ 3, 3, 3, 0 ]
-shift:  [ 3, 3, 4 ]
-visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+push:  by ":" to (22) (normal, visited)
+shift:  [ 23, 22 ]
+visit let node, push: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 3, 5 ]
-visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+current stack:  [ 23, 23, 9 ]
+shift:  [ 23, 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-push:  by "x" to (1) (normal, visited)
-transition found:  by "(" to (2) (normal, visited)
-current node:  LET NODE (2) for:
-CONFIGURATION (0): [E_0] from []
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+transition found:  by "NUMBER" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
 
-CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  { STRING : { STRING : STRING , STRING : NUMBER
+current node:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-res:  ( x + ( x * (
-current node:  CONFIGURATION (0): [E_0] from []
+res:  { STRING : { STRING : STRING , STRING : NUMBER
+find path from: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-res:  ( x + ( x * (
-find path from: CONFIGURATION (0): [E_0] from []
+shift:  [ 23, 23 ]
+visit configuration:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-shift:  [ 3, 3, 3, 0 ]
-visit configuration:  CONFIGURATION (0): [E_0] from []
+push:  by "," to (1) (normal, visited)
+transition found:  by "}" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 3, 3, 1 ]
-visit configuration:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+res:  { STRING : { STRING : STRING , STRING : NUMBER }
+current node:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-push:  by "+" to (4) (normal, visited)
-push:  by "*" to (5) (normal, visited)
-shift:  [ 3, 3, 3, 2 ]
-visit let node, push: CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
- CONFIGURATION (0): [E_0] from []
+res:  { STRING : { STRING : STRING , STRING : NUMBER }
+find path from: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-current stack:  [ 3, 3, 3, 3, 0 ]
-shift:  [ 3, 3, 3, 4 ]
-visit configuration:  CONFIGURATION (4): [T_0, E1_0] from [T1_0, E1_0]
+shift:  [ 23 ]
+visit configuration:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 3, 3, 5 ]
-visit configuration:  CONFIGURATION (5): [F_0, T1_0, E1_0] from [T1_0, E1_0]
+push:  by "," to (1) (normal, visited)
+push:  by "}" to (12) (normal, visited)
+shift:  [ 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
 
-push:  by "x" to (1) (normal, visited)
-push:  by "(" to (2) (normal, visited)
-shift:  [ 3, 3, 3 ]
-visit configuration:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 12 ]
+visit configuration:  CONFIGURATION (12): [] from [array_1, <]>]
 
-transition found:  by ")" to (1) (normal, visited)
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+shift:  [ 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
 
-res:  ( x + ( x * ( x )
-current node:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+push:  by ":" to (22) (normal, visited)
+shift:  []
+stack visited or empty!:  []
+shift:  [ 22 ]
+visit let node, push: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
 
-res:  ( x + ( x * ( x )
+current stack:  [ 23, 9 ]
+shift:  [ 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+transition found:  by "[" to (17) (normal, visited)
+current node:  LET NODE (17) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [
+current node:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [
+find path from: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+shift:  [ 23, 10, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+push:  by "[" to (17) (normal, visited)
+transition found:  by "true" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true
+current node:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true
+find path from: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+shift:  [ 23, 10 ]
+visit configuration:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+transition found:  by "," to (8) (normal, visited)
+current node:  LET NODE (8) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true ,
+current node:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true ,
+find path from: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+shift:  [ 23, 10, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+push:  by "[" to (17) (normal, visited)
+push:  by "true" to (12) (normal, visited)
+transition found:  by "false" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false
+current node:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false
+find path from: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+shift:  [ 23, 10 ]
+visit configuration:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "," to (8) (normal, visited)
+transition found:  by "]" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ]
+current node:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ]
+find path from: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+shift:  [ 23 ]
+visit configuration:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+push:  by "," to (1) (normal, visited)
+push:  by "}" to (12) (normal, visited)
+shift:  [ 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 12 ]
+visit configuration:  CONFIGURATION (12): [] from [array_1, <]>]
+
+shift:  [ 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+push:  by ":" to (22) (normal, visited)
+shift:  []
+stack visited or empty!:  []
+shift:  [ 22 ]
+visit let node, push: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack:  [ 23, 9 ]
+shift:  [ 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+push:  by "[" to (17) (normal, visited)
+push:  by "true" to (12) (normal, visited)
+push:  by "false" to (12) (normal, visited)
+transition found:  by "null" to (12) (normal, visited)
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ] , STRING : null
+current node:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ] , STRING : null
+find path from: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+shift:  [ 23 ]
+visit configuration:  CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+push:  by "," to (1) (normal, visited)
+push:  by "}" to (12) (normal, visited)
+shift:  [ 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 12 ]
+visit configuration:  CONFIGURATION (12): [] from [array_1, <]>]
+
+shift:  [ 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+push:  by ":" to (22) (normal, visited)
+shift:  []
+stack visited or empty!:  []
+shift:  [ 22 ]
+visit let node, push: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack:  [ 23, 9 ]
+shift:  [ 23, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+push:  by "[" to (17) (normal, visited)
+push:  by "true" to (12) (normal, visited)
+push:  by "false" to (12) (normal, visited)
+push:  by "null" to (12) (normal, visited)
+shift:  [ 23, 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 23, 12 ]
+visit configuration:  CONFIGURATION (12): [] from [array_1, <]>]
+
+shift:  [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+shift:  [ 23, 17 ]
+visit let node, push: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack:  [ 23, 10, 9 ]
+shift:  [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+shift:  [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+shift:  [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+shift:  [ 23, 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+push:  by ":" to (22) (normal, visited)
+shift:  [ 23 ]
+stack visited or empty!:  [ 23 ]
+shift:  [ 23, 10, 9 ]
+visit configuration:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "{" to (1) (normal, visited)
+push:  by "STRING" to (12) (normal, visited)
+push:  by "NUMBER" to (12) (normal, visited)
+push:  by "[" to (17) (normal, visited)
+push:  by "true" to (12) (normal, visited)
+push:  by "false" to (12) (normal, visited)
+push:  by "null" to (12) (normal, visited)
+shift:  [ 23, 22 ]
+shift:  [ 23, 10, 1 ]
+visit configuration:  CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+
+push:  by "STRING" to (18) (normal, visited)
+shift:  [ 23, 10, 12 ]
+visit configuration:  CONFIGURATION (12): [] from [array_1, <]>]
+
+shift:  [ 23, 10, 12 ]
+stack visited or empty!:  [ 23, 10, 12 ]
+shift:  [ 23, 10, 17 ]
+shift:  [ 23, 10, 12 ]
+stack visited or empty!:  [ 23, 10, 12 ]
+shift:  [ 23, 10, 12 ]
+stack visited or empty!:  [ 23, 10, 12 ]
+shift:  [ 23, 10, 12 ]
+stack visited or empty!:  [ 23, 10, 12 ]
+shift:  [ 23, 10, 18 ]
+visit configuration:  CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+
+push:  by ":" to (22) (normal, visited)
+shift:  [ 23, 10 ]
+visit configuration:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+push:  by "," to (8) (normal, visited)
+push:  by "]" to (12) (normal, visited)
+shift:  [ 23, 10, 22 ]
+shift:  [ 23, 8 ]
+visit let node, push: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+ CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack:  [ 23, 10, 9 ]
+shift:  [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+shift:  [ 23, 10, 9 ]
+stack visited or empty!:  [ 23, 10, 9 ]
+search failed, try to get first final node...
 find nearest final node from: ConfigurationNode {
-  state: [ 'E1_0', 'T1_0', '<)>' ],
+  state: [ '<}>', 'object_1' ],
   ancestor: 
    LetNode {
-     state: [ 'E1_0', 'T1_0', '<)>', 'E_0' ],
+     state: [ '<}>', 'object_1', '<]>', 'array_1', 'value_0' ],
      ancestor: null,
-     id: 2,
+     id: 22,
      level: 0,
      isFinal: false,
      upperNode: 
       ConfigurationNode {
         state: [Array],
         ancestor: [Object],
-        id: 0,
+        id: 9,
         level: 1,
         isFinal: false,
         transitions: [Object],
@@ -1022,67 +3742,254 @@ find nearest final node from: ConfigurationNode {
         visited: false },
      lowerNode: [Circular],
      visited: true },
-  id: 3,
+  id: 23,
   level: 1,
   isFinal: false,
   transitions: 
-   { x: 
+   { '{': 
       Transition {
-        term: 'x',
+        term: '{',
         toEqualState: true,
-        node: [Object],
+        node: [Circular],
         error: true,
         visited: false },
-     '+': 
+     ',': 
       Transition {
-        term: '+',
+        term: ',',
         toEqualState: true,
         node: [Object],
-        error: true,
-        visited: false },
-     '*': 
+        error: false,
+        visited: true },
+     '}': 
       Transition {
-        term: '*',
+        term: '}',
         toEqualState: true,
         node: [Object],
+        error: false,
+        visited: true },
+     STRING: 
+      Transition {
+        term: 'STRING',
+        toEqualState: true,
+        node: [Circular],
         error: true,
         visited: false },
-     '(': 
+     NUMBER: 
       Transition {
-        term: '(',
+        term: 'NUMBER',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     ':': 
+      Transition {
+        term: ':',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     '[': 
+      Transition {
+        term: '[',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     ']': 
+      Transition {
+        term: ']',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     true: 
+      Transition {
+        term: 'true',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     false: 
+      Transition {
+        term: 'false',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     null: 
+      Transition {
+        term: 'null',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false } },
+  hasAllTransitions: true,
+  visited: false }
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
+
+res:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ] , STRING : null }
+NEW POSITIVE TEST:  { STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ] , STRING : null } 
+----------------------------
+digraph {
+rankdir=LR;
+size="8,5";
+node [shape = circle, color = black];
+0 [label="0 - [json_0]"];
+1 [label="1 - [pair_0,object_1,<}>]"];
+9 [label="9 - [value_0]"];
+10 [label="10 - [array_1,<]>]"];
+18 [label="18 - [<:>,value_0,object_1,<}>]"];
+23 [label="23 - [object_1,<}>]"];
+node [shape = octagon];
+8 [label="8 - [value_0,object_1,<}>,array_1,<]>]"];
+17 [label="17 - [value_0,array_1,<]>]"];
+22 [label="22 - [value_0,array_1,<]>,object_1,<}>]"];
+node [shape = doublecircle];
+12 [label="12 - []"];
+0 -> 1 [ label = "{", color = "green", penwidth=3.5 ];
+0 -> 8 [ label = "[", color = "black" ];
+1 -> 18 [ label = "STRING", color = "green", penwidth=3.5 ];
+9 -> 1 [ label = "{", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "STRING", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "NUMBER", color = "green", penwidth=3.5 ];
+9 -> 17 [ label = "[", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "true", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "false", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "null", color = "green", penwidth=3.5 ];
+10 -> 8 [ label = ",", color = "green", penwidth=3.5 ];
+10 -> 12 [ label = "]", color = "green", penwidth=3.5 ];
+8 -> 9 [label="up"];
+8 -> 10 [style=dotted, label="down"];
+17 -> 9 [label="up"];
+17 -> 10 [style=dotted, label="down"];
+18 -> 22 [ label = ":", color = "green", penwidth=3.5 ];
+23 -> 1 [ label = ",", color = "green", penwidth=3.5 ];
+23 -> 12 [ label = "}", color = "green", penwidth=3.5 ];
+22 -> 9 [label="up"];
+22 -> 23 [style=dotted, label="down"];
+}
+current node:  CONFIGURATION (0): [json_0] from []
+
+res:  
+find path from: CONFIGURATION (0): [json_0] from []
+
+shift:  [ 0 ]
+visit configuration:  CONFIGURATION (0): [json_0] from []
+
+push:  by "{" to (1) (normal, visited)
+transition found:  by "[" to (8) (normal, visited)
+current node:  LET NODE (8) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  [
+current node:  CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+res:  [
+find nearest final node from: ConfigurationNode {
+  state: [ 'value_0' ],
+  ancestor: 
+   LetNode {
+     state: [ '<]>', 'array_1', '<}>', 'object_1', 'value_0' ],
+     ancestor: null,
+     id: 8,
+     level: 0,
+     isFinal: false,
+     upperNode: [Circular],
+     lowerNode: 
+      ConfigurationNode {
+        state: [Array],
+        ancestor: [Circular],
+        id: 10,
+        level: 1,
+        isFinal: false,
+        transitions: [Object],
+        hasAllTransitions: true,
+        visited: false },
+     visited: false },
+  id: 9,
+  level: 1,
+  isFinal: false,
+  transitions: 
+   { '{': 
+      Transition {
+        term: '{',
         toEqualState: true,
         node: [Object],
+        error: false,
+        visited: true },
+     STRING: 
+      Transition {
+        term: 'STRING',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true },
+     NUMBER: 
+      Transition {
+        term: 'NUMBER',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true },
+     ':': 
+      Transition {
+        term: ':',
+        toEqualState: true,
+        node: [Circular],
         error: true,
         visited: false },
-     ')': 
+     '[': 
       Transition {
-        term: ')',
+        term: '[',
+        toEqualState: false,
+        node: [Object],
+        error: false,
+        visited: true },
+     true: 
+      Transition {
+        term: 'true',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true },
+     false: 
+      Transition {
+        term: 'false',
+        toEqualState: true,
+        node: [Object],
+        error: false,
+        visited: true },
+     null: 
+      Transition {
+        term: 'null',
         toEqualState: true,
         node: [Object],
         error: false,
         visited: true } },
-  hasAllTransitions: true,
+  hasAllTransitions: false,
   visited: false }
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
 
-res:  ( x + ( x * ( x ) )
-current node:  CONFIGURATION (3): [<)>, T1_0, E1_0] from [E_0, <)>, T1_0, E1_0]
+res:  [ STRING
+current node:  CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
 
-res:  ( x + ( x * ( x ) )
+res:  [ STRING
 find nearest final node from: ConfigurationNode {
-  state: [ 'E1_0', 'T1_0', '<)>' ],
+  state: [ '<]>', 'array_1' ],
   ancestor: 
    LetNode {
-     state: [ 'E1_0', 'T1_0', '<)>', 'E_0' ],
+     state: [ '<]>', 'array_1', '<}>', 'object_1', 'value_0' ],
      ancestor: null,
-     id: 2,
+     id: 8,
      level: 0,
      isFinal: false,
      upperNode: 
       ConfigurationNode {
         state: [Array],
-        ancestor: [Object],
-        id: 0,
+        ancestor: [Circular],
+        id: 9,
         level: 1,
         isFinal: false,
         transitions: [Object],
@@ -1090,73 +3997,620 @@ find nearest final node from: ConfigurationNode {
         visited: false },
      lowerNode: [Circular],
      visited: false },
-  id: 3,
+  id: 10,
   level: 1,
   isFinal: false,
   transitions: 
-   { x: 
+   { '{': 
       Transition {
-        term: 'x',
+        term: '{',
         toEqualState: true,
-        node: [Object],
+        node: [Circular],
         error: true,
         visited: false },
-     '+': 
+     ',': 
       Transition {
-        term: '+',
-        toEqualState: true,
-        node: [Object],
-        error: true,
-        visited: false },
-     '*': 
-      Transition {
-        term: '*',
-        toEqualState: true,
-        node: [Object],
-        error: true,
-        visited: false },
-     '(': 
-      Transition {
-        term: '(',
-        toEqualState: true,
-        node: [Object],
-        error: true,
-        visited: false },
-     ')': 
-      Transition {
-        term: ')',
-        toEqualState: true,
+        term: ',',
+        toEqualState: false,
         node: [Object],
         error: false,
-        visited: true } },
+        visited: true },
+     '}': 
+      Transition {
+        term: '}',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     STRING: 
+      Transition {
+        term: 'STRING',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     NUMBER: 
+      Transition {
+        term: 'NUMBER',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     ':': 
+      Transition {
+        term: ':',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     '[': 
+      Transition {
+        term: '[',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     ']': 
+      Transition {
+        term: ']',
+        toEqualState: false,
+        node: [Object],
+        error: false,
+        visited: true },
+     true: 
+      Transition {
+        term: 'true',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     false: 
+      Transition {
+        term: 'false',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false },
+     null: 
+      Transition {
+        term: 'null',
+        toEqualState: true,
+        node: [Circular],
+        error: true,
+        visited: false } },
   hasAllTransitions: true,
   visited: false }
-current node:  CONFIGURATION (1): [T1_0, E1_0] from [E_0]
+current node:  CONFIGURATION (12): [] from [array_1, <]>]
 
-res:  ( x + ( x * ( x ) ) )
-NEW TEST:  ( x + ( x * ( x ) ) ) 
+res:  [ STRING ]
+NEW POSITIVE TEST:  [ STRING ] 
 ----------------------------
 digraph {
 rankdir=LR;
 size="8,5";
 node [shape = circle, color = black];
-0 [label="0 - [E_0]"];
-3 [label="3 - [<)>,T1_0,E1_0]"];
-4 [label="4 - [T_0,E1_0]"];
-5 [label="5 - [F_0,T1_0,E1_0]"];
+0 [label="0 - [json_0]"];
+1 [label="1 - [pair_0,object_1,<}>]"];
+9 [label="9 - [value_0]"];
+10 [label="10 - [array_1,<]>]"];
+18 [label="18 - [<:>,value_0,object_1,<}>]"];
+23 [label="23 - [object_1,<}>]"];
 node [shape = octagon];
-2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
+8 [label="8 - [value_0,object_1,<}>,array_1,<]>]"];
+17 [label="17 - [value_0,array_1,<]>]"];
+22 [label="22 - [value_0,array_1,<]>,object_1,<}>]"];
 node [shape = doublecircle];
-1 [label="1 - [T1_0,E1_0]"];
-0 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-0 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
-1 -> 4 [ label = "+", color = "green", penwidth=3.5 ];
-1 -> 5 [ label = "*", color = "green", penwidth=3.5 ];
-3 -> 1 [ label = ")", color = "green", penwidth=3.5 ];
-2 -> 0 [label="up"];
-2 -> 3 [style=dotted, label="down"];
-4 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-4 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
-5 -> 1 [ label = "x", color = "green", penwidth=3.5 ];
-5 -> 2 [ label = "(", color = "green", penwidth=3.5 ];
+12 [label="12 - []"];
+0 -> 1 [ label = "{", color = "green", penwidth=3.5 ];
+0 -> 8 [ label = "[", color = "green", penwidth=3.5 ];
+1 -> 18 [ label = "STRING", color = "green", penwidth=3.5 ];
+9 -> 1 [ label = "{", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "STRING", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "NUMBER", color = "green", penwidth=3.5 ];
+9 -> 17 [ label = "[", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "true", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "false", color = "green", penwidth=3.5 ];
+9 -> 12 [ label = "null", color = "green", penwidth=3.5 ];
+10 -> 8 [ label = ",", color = "green", penwidth=3.5 ];
+10 -> 12 [ label = "]", color = "green", penwidth=3.5 ];
+8 -> 9 [label="up"];
+8 -> 10 [style=dotted, label="down"];
+17 -> 9 [label="up"];
+17 -> 10 [style=dotted, label="down"];
+18 -> 22 [ label = ":", color = "green", penwidth=3.5 ];
+23 -> 1 [ label = ",", color = "green", penwidth=3.5 ];
+23 -> 12 [ label = "}", color = "green", penwidth=3.5 ];
+22 -> 9 [label="up"];
+22 -> 23 [style=dotted, label="down"];
 }
+GENERATE NEGATIVE TESTS...
+current stack: [ 0 ]
+visit node: CONFIGURATION (0): [json_0] from []
+transitions:
+-- by "{" to (1) (normal, not visited)
+-- by "," to (0) (error, not visited)
+-- by "}" to (0) (error, not visited)
+-- by "STRING" to (0) (error, not visited)
+-- by "NUMBER" to (0) (error, not visited)
+-- by ":" to (0) (error, not visited)
+-- by "[" to (8) (normal, not visited)
+-- by "]" to (0) (error, not visited)
+-- by "true" to (0) (error, not visited)
+-- by "false" to (0) (error, not visited)
+-- by "null" to (0) (error, not visited)
+NEW NEGATIVE TEST:  
+NEW NEGATIVE TEST:  ,
+NEW NEGATIVE TEST:  }
+NEW NEGATIVE TEST:  STRING
+NEW NEGATIVE TEST:  NUMBER
+NEW NEGATIVE TEST:  :
+NEW NEGATIVE TEST:  ]
+NEW NEGATIVE TEST:  true
+NEW NEGATIVE TEST:  false
+NEW NEGATIVE TEST:  null
+current stack: [ 1 ]
+visit node: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+transitions:
+-- by "{" to (1) (error, not visited)
+-- by "," to (1) (error, not visited)
+-- by "}" to (12) (error, not visited)
+-- by "STRING" to (18) (normal, not visited)
+-- by "NUMBER" to (1) (error, not visited)
+-- by ":" to (1) (error, not visited)
+-- by "[" to (1) (error, not visited)
+-- by "]" to (1) (error, not visited)
+-- by "true" to (1) (error, not visited)
+-- by "false" to (1) (error, not visited)
+-- by "null" to (1) (error, not visited)
+NEW NEGATIVE TEST:  {
+NEW NEGATIVE TEST:  { {
+NEW NEGATIVE TEST:  { ,
+NEW NEGATIVE TEST:  { }
+NEW NEGATIVE TEST:  { NUMBER
+NEW NEGATIVE TEST:  { :
+NEW NEGATIVE TEST:  { [
+NEW NEGATIVE TEST:  { ]
+NEW NEGATIVE TEST:  { true
+NEW NEGATIVE TEST:  { false
+NEW NEGATIVE TEST:  { null
+current stack: [ 8 ]
+visit node: LET NODE (8) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack: [ 18 ]
+visit node: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+transitions:
+-- by "{" to (22) (error, not visited)
+-- by "," to (22) (error, not visited)
+-- by "}" to (22) (error, not visited)
+-- by "STRING" to (22) (error, not visited)
+-- by "NUMBER" to (22) (error, not visited)
+-- by ":" to (22) (normal, not visited)
+-- by "[" to (22) (error, not visited)
+-- by "]" to (22) (error, not visited)
+-- by "true" to (22) (error, not visited)
+-- by "false" to (22) (error, not visited)
+-- by "null" to (22) (error, not visited)
+NEW NEGATIVE TEST:  { STRING
+NEW NEGATIVE TEST:  { STRING {
+NEW NEGATIVE TEST:  { STRING ,
+NEW NEGATIVE TEST:  { STRING }
+NEW NEGATIVE TEST:  { STRING STRING
+NEW NEGATIVE TEST:  { STRING NUMBER
+NEW NEGATIVE TEST:  { STRING [
+NEW NEGATIVE TEST:  { STRING ]
+NEW NEGATIVE TEST:  { STRING true
+NEW NEGATIVE TEST:  { STRING false
+NEW NEGATIVE TEST:  { STRING null
+current stack: [ 10, 9 ]
+visit node: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+-- by "{" to (1) (normal, not visited)
+-- by "STRING" to (12) (normal, not visited)
+-- by "NUMBER" to (12) (normal, not visited)
+-- by ":" to (9) (error, not visited)
+-- by "[" to (17) (normal, not visited)
+-- by "true" to (12) (normal, not visited)
+-- by "false" to (12) (normal, not visited)
+-- by "null" to (12) (normal, not visited)
+NEW NEGATIVE TEST:  [
+NEW NEGATIVE TEST:  [ ,
+NEW NEGATIVE TEST:  [ }
+NEW NEGATIVE TEST:  [ :
+NEW NEGATIVE TEST:  [ ]
+current stack: [ 22 ]
+visit node: LET NODE (22) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+current stack: [ 10, 1 ]
+visit node: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+transitions:
+-- by "{" to (1) (error, visited)
+-- by "," to (1) (error, visited)
+-- by "}" to (12) (error, visited)
+-- by "STRING" to (18) (normal, not visited)
+-- by "NUMBER" to (1) (error, visited)
+-- by ":" to (1) (error, visited)
+-- by "[" to (1) (error, visited)
+-- by "]" to (1) (error, visited)
+-- by "true" to (1) (error, visited)
+-- by "false" to (1) (error, visited)
+-- by "null" to (1) (error, visited)
+NEW NEGATIVE TEST:  [ {
+NEW NEGATIVE TEST:  [ { {
+NEW NEGATIVE TEST:  [ { ,
+NEW NEGATIVE TEST:  [ { }
+NEW NEGATIVE TEST:  [ { NUMBER
+NEW NEGATIVE TEST:  [ { :
+NEW NEGATIVE TEST:  [ { [
+NEW NEGATIVE TEST:  [ { ]
+NEW NEGATIVE TEST:  [ { true
+NEW NEGATIVE TEST:  [ { false
+NEW NEGATIVE TEST:  [ { null
+current stack: [ 10, 12 ]
+visit node: CONFIGURATION (12): [] from [array_1, <]>]
+transitions:
+
+NEW NEGATIVE TEST:  [ STRING {
+NEW NEGATIVE TEST:  [ STRING ,
+NEW NEGATIVE TEST:  [ STRING }
+NEW NEGATIVE TEST:  [ STRING STRING
+NEW NEGATIVE TEST:  [ STRING NUMBER
+NEW NEGATIVE TEST:  [ STRING :
+NEW NEGATIVE TEST:  [ STRING [
+NEW NEGATIVE TEST:  [ STRING ]
+NEW NEGATIVE TEST:  [ STRING true
+NEW NEGATIVE TEST:  [ STRING false
+NEW NEGATIVE TEST:  [ STRING null
+current stack: [ 10, 12 ]
+stack visited or empty!:  [ 10, 12 ]
+current stack: [ 10, 17 ]
+visit node: LET NODE (17) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack: [ 10, 12 ]
+stack visited or empty!:  [ 10, 12 ]
+current stack: [ 10, 12 ]
+stack visited or empty!:  [ 10, 12 ]
+current stack: [ 10, 12 ]
+stack visited or empty!:  [ 10, 12 ]
+current stack: [ 23, 9 ]
+visit node: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+-- by "{" to (1) (normal, not visited)
+-- by "STRING" to (12) (normal, not visited)
+-- by "NUMBER" to (12) (normal, not visited)
+-- by ":" to (9) (error, visited)
+-- by "[" to (17) (normal, not visited)
+-- by "true" to (12) (normal, not visited)
+-- by "false" to (12) (normal, not visited)
+-- by "null" to (12) (normal, not visited)
+NEW NEGATIVE TEST:  { STRING :
+NEW NEGATIVE TEST:  { STRING : ,
+NEW NEGATIVE TEST:  { STRING : }
+NEW NEGATIVE TEST:  { STRING : :
+NEW NEGATIVE TEST:  { STRING : ]
+current stack: [ 10, 18 ]
+visit node: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+transitions:
+-- by "{" to (22) (error, visited)
+-- by "," to (22) (error, visited)
+-- by "}" to (22) (error, visited)
+-- by "STRING" to (22) (error, visited)
+-- by "NUMBER" to (22) (error, visited)
+-- by ":" to (22) (normal, not visited)
+-- by "[" to (22) (error, visited)
+-- by "]" to (22) (error, visited)
+-- by "true" to (22) (error, visited)
+-- by "false" to (22) (error, visited)
+-- by "null" to (22) (error, visited)
+NEW NEGATIVE TEST:  [ { STRING
+NEW NEGATIVE TEST:  [ { STRING {
+NEW NEGATIVE TEST:  [ { STRING ,
+NEW NEGATIVE TEST:  [ { STRING }
+NEW NEGATIVE TEST:  [ { STRING STRING
+NEW NEGATIVE TEST:  [ { STRING NUMBER
+NEW NEGATIVE TEST:  [ { STRING [
+NEW NEGATIVE TEST:  [ { STRING ]
+NEW NEGATIVE TEST:  [ { STRING true
+NEW NEGATIVE TEST:  [ { STRING false
+NEW NEGATIVE TEST:  [ { STRING null
+current stack: [ 10 ]
+visit node: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+-- by "{" to (10) (error, not visited)
+-- by "," to (8) (normal, not visited)
+-- by "}" to (10) (error, not visited)
+-- by "STRING" to (10) (error, not visited)
+-- by "NUMBER" to (10) (error, not visited)
+-- by ":" to (10) (error, not visited)
+-- by "[" to (10) (error, not visited)
+-- by "]" to (12) (normal, not visited)
+-- by "true" to (10) (error, not visited)
+-- by "false" to (10) (error, not visited)
+-- by "null" to (10) (error, not visited)
+NEW NEGATIVE TEST:  [ STRING
+NEW NEGATIVE TEST:  [ STRING {
+NEW NEGATIVE TEST:  [ STRING }
+NEW NEGATIVE TEST:  [ STRING STRING
+NEW NEGATIVE TEST:  [ STRING NUMBER
+NEW NEGATIVE TEST:  [ STRING :
+NEW NEGATIVE TEST:  [ STRING [
+NEW NEGATIVE TEST:  [ STRING true
+NEW NEGATIVE TEST:  [ STRING false
+NEW NEGATIVE TEST:  [ STRING null
+current stack: [ 10, 10, 9 ]
+visit node: CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+-- by "{" to (1) (normal, not visited)
+-- by "STRING" to (12) (normal, not visited)
+-- by "NUMBER" to (12) (normal, not visited)
+-- by ":" to (9) (error, visited)
+-- by "[" to (17) (normal, not visited)
+-- by "true" to (12) (normal, not visited)
+-- by "false" to (12) (normal, not visited)
+-- by "null" to (12) (normal, not visited)
+NEW NEGATIVE TEST:  [ [
+NEW NEGATIVE TEST:  [ [ ,
+NEW NEGATIVE TEST:  [ [ }
+NEW NEGATIVE TEST:  [ [ :
+NEW NEGATIVE TEST:  [ [ ]
+current stack: [ 23, 1 ]
+visit node: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+transitions:
+-- by "{" to (1) (error, visited)
+-- by "," to (1) (error, visited)
+-- by "}" to (12) (error, visited)
+-- by "STRING" to (18) (normal, not visited)
+-- by "NUMBER" to (1) (error, visited)
+-- by ":" to (1) (error, visited)
+-- by "[" to (1) (error, visited)
+-- by "]" to (1) (error, visited)
+-- by "true" to (1) (error, visited)
+-- by "false" to (1) (error, visited)
+-- by "null" to (1) (error, visited)
+NEW NEGATIVE TEST:  { STRING : {
+NEW NEGATIVE TEST:  { STRING : { {
+NEW NEGATIVE TEST:  { STRING : { ,
+NEW NEGATIVE TEST:  { STRING : { }
+NEW NEGATIVE TEST:  { STRING : { NUMBER
+NEW NEGATIVE TEST:  { STRING : { :
+NEW NEGATIVE TEST:  { STRING : { [
+NEW NEGATIVE TEST:  { STRING : { ]
+NEW NEGATIVE TEST:  { STRING : { true
+NEW NEGATIVE TEST:  { STRING : { false
+NEW NEGATIVE TEST:  { STRING : { null
+current stack: [ 23, 12 ]
+visit node: CONFIGURATION (12): [] from [array_1, <]>]
+transitions:
+
+NEW NEGATIVE TEST:  { STRING : STRING {
+NEW NEGATIVE TEST:  { STRING : STRING ,
+NEW NEGATIVE TEST:  { STRING : STRING }
+NEW NEGATIVE TEST:  { STRING : STRING STRING
+NEW NEGATIVE TEST:  { STRING : STRING NUMBER
+NEW NEGATIVE TEST:  { STRING : STRING :
+NEW NEGATIVE TEST:  { STRING : STRING [
+NEW NEGATIVE TEST:  { STRING : STRING ]
+NEW NEGATIVE TEST:  { STRING : STRING true
+NEW NEGATIVE TEST:  { STRING : STRING false
+NEW NEGATIVE TEST:  { STRING : STRING null
+current stack: [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+current stack: [ 23, 17 ]
+visit node: LET NODE (17) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack: [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+current stack: [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+current stack: [ 23, 12 ]
+stack visited or empty!:  [ 23, 12 ]
+current stack: [ 10, 22 ]
+visit node: LET NODE (22) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+current stack: [ 8 ]
+stack visited or empty!:  [ 8 ]
+current stack: [ 12 ]
+visit node: CONFIGURATION (12): [] from [array_1, <]>]
+transitions:
+
+NEW NEGATIVE TEST:  [ STRING ] {
+NEW NEGATIVE TEST:  [ STRING ] ,
+NEW NEGATIVE TEST:  [ STRING ] }
+NEW NEGATIVE TEST:  [ STRING ] STRING
+NEW NEGATIVE TEST:  [ STRING ] NUMBER
+NEW NEGATIVE TEST:  [ STRING ] :
+NEW NEGATIVE TEST:  [ STRING ] [
+NEW NEGATIVE TEST:  [ STRING ] ]
+NEW NEGATIVE TEST:  [ STRING ] true
+NEW NEGATIVE TEST:  [ STRING ] false
+NEW NEGATIVE TEST:  [ STRING ] null
+current stack: [ 10, 10, 1 ]
+visit node: CONFIGURATION (1): [pair_0, object_1, <}>] from [json_0]
+transitions:
+-- by "{" to (1) (error, visited)
+-- by "," to (1) (error, visited)
+-- by "}" to (12) (error, visited)
+-- by "STRING" to (18) (normal, not visited)
+-- by "NUMBER" to (1) (error, visited)
+-- by ":" to (1) (error, visited)
+-- by "[" to (1) (error, visited)
+-- by "]" to (1) (error, visited)
+-- by "true" to (1) (error, visited)
+-- by "false" to (1) (error, visited)
+-- by "null" to (1) (error, visited)
+NEW NEGATIVE TEST:  [ [ {
+NEW NEGATIVE TEST:  [ [ { {
+NEW NEGATIVE TEST:  [ [ { ,
+NEW NEGATIVE TEST:  [ [ { }
+NEW NEGATIVE TEST:  [ [ { NUMBER
+NEW NEGATIVE TEST:  [ [ { :
+NEW NEGATIVE TEST:  [ [ { [
+NEW NEGATIVE TEST:  [ [ { ]
+NEW NEGATIVE TEST:  [ [ { true
+NEW NEGATIVE TEST:  [ [ { false
+NEW NEGATIVE TEST:  [ [ { null
+current stack: [ 10, 10, 12 ]
+visit node: CONFIGURATION (12): [] from [array_1, <]>]
+transitions:
+
+NEW NEGATIVE TEST:  [ [ STRING {
+NEW NEGATIVE TEST:  [ [ STRING ,
+NEW NEGATIVE TEST:  [ [ STRING }
+NEW NEGATIVE TEST:  [ [ STRING STRING
+NEW NEGATIVE TEST:  [ [ STRING NUMBER
+NEW NEGATIVE TEST:  [ [ STRING :
+NEW NEGATIVE TEST:  [ [ STRING [
+NEW NEGATIVE TEST:  [ [ STRING ]
+NEW NEGATIVE TEST:  [ [ STRING true
+NEW NEGATIVE TEST:  [ [ STRING false
+NEW NEGATIVE TEST:  [ [ STRING null
+current stack: [ 10, 10, 12 ]
+stack visited or empty!:  [ 10, 10, 12 ]
+current stack: [ 10, 10, 17 ]
+visit node: LET NODE (17) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack: [ 10, 10, 12 ]
+stack visited or empty!:  [ 10, 10, 12 ]
+current stack: [ 10, 10, 12 ]
+stack visited or empty!:  [ 10, 10, 12 ]
+current stack: [ 10, 10, 12 ]
+stack visited or empty!:  [ 10, 10, 12 ]
+current stack: [ 23, 18 ]
+visit node: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+transitions:
+-- by "{" to (22) (error, visited)
+-- by "," to (22) (error, visited)
+-- by "}" to (22) (error, visited)
+-- by "STRING" to (22) (error, visited)
+-- by "NUMBER" to (22) (error, visited)
+-- by ":" to (22) (normal, not visited)
+-- by "[" to (22) (error, visited)
+-- by "]" to (22) (error, visited)
+-- by "true" to (22) (error, visited)
+-- by "false" to (22) (error, visited)
+-- by "null" to (22) (error, visited)
+NEW NEGATIVE TEST:  { STRING : { STRING
+NEW NEGATIVE TEST:  { STRING : { STRING {
+NEW NEGATIVE TEST:  { STRING : { STRING ,
+NEW NEGATIVE TEST:  { STRING : { STRING }
+NEW NEGATIVE TEST:  { STRING : { STRING STRING
+NEW NEGATIVE TEST:  { STRING : { STRING NUMBER
+NEW NEGATIVE TEST:  { STRING : { STRING [
+NEW NEGATIVE TEST:  { STRING : { STRING ]
+NEW NEGATIVE TEST:  { STRING : { STRING true
+NEW NEGATIVE TEST:  { STRING : { STRING false
+NEW NEGATIVE TEST:  { STRING : { STRING null
+current stack: [ 23 ]
+visit node: CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+transitions:
+-- by "{" to (23) (error, not visited)
+-- by "," to (1) (normal, not visited)
+-- by "}" to (12) (normal, not visited)
+-- by "STRING" to (23) (error, not visited)
+-- by "NUMBER" to (23) (error, not visited)
+-- by ":" to (23) (error, not visited)
+-- by "[" to (23) (error, not visited)
+-- by "]" to (23) (error, not visited)
+-- by "true" to (23) (error, not visited)
+-- by "false" to (23) (error, not visited)
+-- by "null" to (23) (error, not visited)
+NEW NEGATIVE TEST:  { STRING : STRING
+NEW NEGATIVE TEST:  { STRING : STRING {
+NEW NEGATIVE TEST:  { STRING : STRING STRING
+NEW NEGATIVE TEST:  { STRING : STRING NUMBER
+NEW NEGATIVE TEST:  { STRING : STRING :
+NEW NEGATIVE TEST:  { STRING : STRING [
+NEW NEGATIVE TEST:  { STRING : STRING ]
+NEW NEGATIVE TEST:  { STRING : STRING true
+NEW NEGATIVE TEST:  { STRING : STRING false
+NEW NEGATIVE TEST:  { STRING : STRING null
+current stack: [ 10, 10, 18 ]
+visit node: CONFIGURATION (18): [<:>, value_0, object_1, <}>] from [pair_0, object_1, <}>]
+transitions:
+-- by "{" to (22) (error, visited)
+-- by "," to (22) (error, visited)
+-- by "}" to (22) (error, visited)
+-- by "STRING" to (22) (error, visited)
+-- by "NUMBER" to (22) (error, visited)
+-- by ":" to (22) (normal, not visited)
+-- by "[" to (22) (error, visited)
+-- by "]" to (22) (error, visited)
+-- by "true" to (22) (error, visited)
+-- by "false" to (22) (error, visited)
+-- by "null" to (22) (error, visited)
+NEW NEGATIVE TEST:  [ [ { STRING
+NEW NEGATIVE TEST:  [ [ { STRING {
+NEW NEGATIVE TEST:  [ [ { STRING ,
+NEW NEGATIVE TEST:  [ [ { STRING }
+NEW NEGATIVE TEST:  [ [ { STRING STRING
+NEW NEGATIVE TEST:  [ [ { STRING NUMBER
+NEW NEGATIVE TEST:  [ [ { STRING [
+NEW NEGATIVE TEST:  [ [ { STRING ]
+NEW NEGATIVE TEST:  [ [ { STRING true
+NEW NEGATIVE TEST:  [ [ { STRING false
+NEW NEGATIVE TEST:  [ [ { STRING null
+current stack: [ 10, 10 ]
+visit node: CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+transitions:
+-- by "{" to (10) (error, visited)
+-- by "," to (8) (normal, not visited)
+-- by "}" to (10) (error, visited)
+-- by "STRING" to (10) (error, visited)
+-- by "NUMBER" to (10) (error, visited)
+-- by ":" to (10) (error, visited)
+-- by "[" to (10) (error, visited)
+-- by "]" to (12) (normal, not visited)
+-- by "true" to (10) (error, visited)
+-- by "false" to (10) (error, visited)
+-- by "null" to (10) (error, visited)
+NEW NEGATIVE TEST:  [ [ STRING
+NEW NEGATIVE TEST:  [ [ STRING {
+NEW NEGATIVE TEST:  [ [ STRING }
+NEW NEGATIVE TEST:  [ [ STRING STRING
+NEW NEGATIVE TEST:  [ [ STRING NUMBER
+NEW NEGATIVE TEST:  [ [ STRING :
+NEW NEGATIVE TEST:  [ [ STRING [
+NEW NEGATIVE TEST:  [ [ STRING true
+NEW NEGATIVE TEST:  [ [ STRING false
+NEW NEGATIVE TEST:  [ [ STRING null
+current stack: [ 23, 22 ]
+visit node: LET NODE (22) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+current stack: [ 1 ]
+stack visited or empty!:  [ 1 ]
+current stack: [ 12 ]
+stack visited or empty!:  [ 12 ]
+current stack: [ 10, 10, 22 ]
+visit node: LET NODE (22) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (23): [object_1, <}>] from [value_0, array_1, <]>, object_1, <}>]
+
+current stack: [ 10, 8 ]
+visit node: LET NODE (8) for:
+CONFIGURATION (9): [value_0] from [value_0, object_1, <}>, array_1, <]>]
+
+CONFIGURATION (10): [array_1, <]>] from [value_0, object_1, <}>, array_1, <]>]
+
+current stack: [ 10, 12 ]
+stack visited or empty!:  [ 10, 12 ]

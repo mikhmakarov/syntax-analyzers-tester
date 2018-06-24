@@ -6,7 +6,7 @@ node [shape = circle, color = black];
 node [shape = doublecircle];
 1 [label="1 - [E_1]"];
 0 -> 0 [ label = "a", color = "red", style = dashed ];
-0 -> 1 [ label = "b", color = "black" ];
-1 -> 1 [ label = "a", color = "black" ];
+0 -> 1 [ label = "b", color = "green", penwidth=3.5 ];
+1 -> 1 [ label = "a", color = "green", penwidth=3.5 ];
 1 -> 1 [ label = "b", color = "red", style = dashed ];
 }

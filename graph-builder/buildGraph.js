@@ -852,7 +852,7 @@ function generateAllPositiveTests(graph) {
             state = getNextPositiveState(state.stack, state.result);
         }
 
-        log('NEW TEST: ', state.result.join(' '), '\n----------------------------');
+        log('NEW POSITIVE TEST: ', state.result.join(' '), '\n----------------------------');
         tests.push(state.result.join(' '));
     }
 
@@ -1002,8 +1002,10 @@ function findClosestPathToFinalNode(initialStack, initialResult) {
         let {stack, result} = queue.shift();
 
         if (!(stack.toString() in visitedStacks) && stack.length) {
-            let node = stack.pop();
 
+            visitedStacks[stack.map(n=>n.id).toString()] = true;
+
+            let node = stack.pop();
 
             if (node instanceof LetNode && !node.visited) {
 
@@ -1090,18 +1092,90 @@ function isAllFinalNodesProcessed() {
 
 // Генерация негативных тестов
 function generateAllNegativeTests(graph) {
-    // Помечаем все ребра и вершины как непосещенные
+    // Помечаем все ребра как непосещенные
     nodes
         .filter(n => n instanceof ConfigurationNode)
         .forEach(n => {
             Object.keys(n.transitions).forEach(t => n.transitions[t].visited = false);
         });
 
-    while (true) {
-        break;
+    // Начинаем рекурсивный проход по всем вершинам
+    // добавляя при этом негативные тесты в список
+    return visitGraphWithNegativePath(graph);
+}
+
+function visitGraphWithNegativePath(graph) {
+
+    let tests = [],
+        queue = [{
+            stack: [graph],
+            result: []
+        }],
+        visitedStacks = {};
+
+    nodes.forEach(n => n.visited = false);
+
+    log('GENERATE NEGATIVE TESTS...');
+
+    while (queue.length) {
+        let {stack, result} = queue.shift();
+
+        log('current stack:', stack.map(n=>n.id));
+
+        if (!(stack.map(n=>n.id).toString() in visitedStacks) && stack.length) {
+
+            visitedStacks[stack.map(n=>n.id).toString()] = true;
+
+            let node = stack.pop();
+
+            log('visit node:', node.toString(true));
+
+            if (node instanceof ConfigurationNode) {
+
+                if (!node.isFinal) {
+                    log('NEW NEGATIVE TEST: ', result.join(" "));
+                    tests.push(result.join(" "));
+                } else if (stack.length) {
+                    queue.push({
+                        stack: stack.slice(),
+                        result: result.slice()
+                    });
+                }
+
+                let transitions = Object.keys(node.transitions).map(t => node.transitions[t]);
+                //log(transitions);
+
+                grammar.terminals.filter(t => t !== '$' && (!(t in node.transitions) || node.transitions[t].error))
+                    .forEach(t => {
+                        log('NEW NEGATIVE TEST: ', result.concat(t).join(" "));
+                        if (t in node.transitions) {
+                            node.transitions[t].visited = true;
+                        }
+                        tests.push(result.concat(t).join(" "));
+                    });
+
+                transitions.filter(transition => !transition.error).forEach(transition => {
+                    queue.push({
+                        stack: stack.concat(transition.node),
+                        result: result.concat(transition.term)
+                    });
+                });
+            } else if (node instanceof LetNode && !node.visited) {
+
+                node.visited = true;
+
+                queue.push({
+                    stack: stack.concat([node.lowerNode, node.upperNode]),
+                    result: result
+                });
+            }
+
+        } else {
+            log('stack visited or empty!: ', stack.map(n => n.id));
+        }
     }
 
-    // TODO
+    return tests;
 }
 
 //
@@ -1127,6 +1201,7 @@ let cb = (grammarInfo) => {
         positive = generateAllPositiveTests(graph) || [];
     } catch (e) {
         console.log('Ошибка генерации позитивных тестов: ', e);
+        return;
     }
 
     log(transformToDOT(nodes, false));
@@ -1135,6 +1210,7 @@ let cb = (grammarInfo) => {
         negative = generateAllNegativeTests(graph) || [];
     } catch (e) {
         console.log('Ошибка генерации негативных тестов: ', e);
+        return;
     }
 
     let fName = path.parse(inputPath).name;
@@ -1150,6 +1226,7 @@ let cb = (grammarInfo) => {
             fs.mkdirSync(`tests/${fName}/negative`);
         } catch (e) {
             console.log(e.message);
+            return;
         }
 
         positive.forEach((t, i) => {
@@ -1161,6 +1238,7 @@ let cb = (grammarInfo) => {
         });
     } catch (e) {
         console.log('Ошибка при записи тестов в файл: ', e);
+        return;
     }
 
 
