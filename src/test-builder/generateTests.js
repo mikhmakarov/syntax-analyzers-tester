@@ -221,6 +221,7 @@ function buildConfigurationGraph() {
         let node = stack.pop();
 
         log('---------------\n', `CURRENT NODE: ${node.toString()}`);
+        log(transformToDOT(nodes, true));
 
         // Выполняем переход по таблице разбора для каждого терминала
         // c целью создания/обобщения новых конфигураций.
@@ -408,13 +409,11 @@ function visitAllTransitions(parentConf, configStack) {
 
                     log('CREATED LET-NODE FOR A|C => A|B|C: ' + relation.configuration.state.slice().reverse() + ' => ' + stack.slice().reverse());
 
-                    let ancestorConf = relation.configuration.ancestor;
-
                     // Производим замену найденной конфигурации на let-вершину,
                     // предварительно удалив все вершины подграфа из списка вершин и очереди.
 
                     log('# REMOVE CONFIGURATION: ', relation.configuration.toString(true));
-                    removeNodes(relation.configuration, configStack);
+                    visitAndRemove(relation.configuration, configStack);
 
                     // Инициализация нового let-узла
                     let letNode = new LetNode(stack),
@@ -632,11 +631,7 @@ function findStateRelation(stack, parentConfig) {
     return null;
 }
 
-function removeNodes(config, queue) {
-    visitAndRemove(config, queue);
-}
-
-function visitAndRemove(node, queue) {
+function visitAndRemove(node, queue = []) {
     // Если тип узла - let-вершина,
     // то запускаем процесс удаления по двум её потомкам,
     // учитывая при этом возможность возникновения циклов
@@ -1133,7 +1128,7 @@ function visitGraphWithNegativePath(graph) {
             if (node instanceof ConfigurationNode) {
 
                 if (!node.isFinal) {
-                    log('NEW NEGATIVE TEST: ', result.join(" "));
+                    log('NEW NEGATIVE TEST: ', tests.length + 1, result.join(" "));
                     tests.push(result.join(" "));
                 } else if (stack.length) {
                     queue.push({
@@ -1147,7 +1142,7 @@ function visitGraphWithNegativePath(graph) {
 
                 grammar.terminals.filter(t => t !== '$' && (!(t in node.transitions) || node.transitions[t].error))
                     .forEach(t => {
-                        log('NEW NEGATIVE TEST: ', result.concat(t).join(" "));
+                        log('NEW NEGATIVE TEST: ', tests.length + 1, result.concat(t).join(" "));
                         if (t in node.transitions) {
                             node.transitions[t].visited = true;
                         }
@@ -1197,14 +1192,14 @@ let cb = (grammarInfo) => {
 
     let positive = [], negative = [];
 
-    try {
-        positive = generateAllPositiveTests(graph) || [];
-    } catch (e) {
-        console.log('Ошибка генерации позитивных тестов: ', e);
-        return;
-    }
-
-    log(transformToDOT(nodes, false));
+    // try {
+    //     positive = generateAllPositiveTests(graph) || [];
+    // } catch (e) {
+    //     console.log('Ошибка генерации позитивных тестов: ', e);
+    //     return;
+    // }
+    //
+    // log(transformToDOT(nodes, false));
 
     try {
         negative = generateAllNegativeTests(graph) || [];
@@ -1229,9 +1224,9 @@ let cb = (grammarInfo) => {
             return;
         }
 
-        positive.forEach((t, i) => {
-            fs.writeFileSync(`tests/${fName}/positive/${(i + 1)}.txt`, t);
-        });
+        // positive.forEach((t, i) => {
+        //     fs.writeFileSync(`tests/${fName}/positive/${(i + 1)}.txt`, t);
+        // });
 
         negative.forEach((t, i) => {
             fs.writeFileSync(`tests/${fName}/negative/${(i + 1)}.txt`, t);

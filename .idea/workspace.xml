@@ -22,7 +22,58 @@
     <favorites_list name="ДИПЛОМ" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="generateTests.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test-builder/generateTests.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24596">
+              <caret line="1132" column="42" selection-start-line="1132" selection-start-column="42" selection-end-line="1132" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="output.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test-builder/output.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="22">
+              <caret line="24870" column="38" selection-start-line="24870" selection-start-column="38" selection-end-line="24870" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self-positive.dot" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test-builder/graphs/self-positive.dot">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self-full.dot" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test-builder/graphs/self-full.dot">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="12" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="369" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="self.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test-builder/grammars/self.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -44,7 +95,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/super/stackComparison.js" />
         <option value="$PROJECT_DIR$/syntax-analyzers-tester/antlr_files/InputGrammar.g4" />
         <option value="$PROJECT_DIR$/syntax-analyzers-tester/output.txt" />
         <option value="$PROJECT_DIR$/syntax-analyzers-tester/tester.py" />
@@ -94,6 +144,8 @@
         <option value="$PROJECT_DIR$/graph-builder/output.txt" />
         <option value="$PROJECT_DIR$/graph-builder/graphs/arith-full.dot" />
         <option value="$PROJECT_DIR$/graph-builder/graphs/oper-full.dot" />
+        <option value="$PROJECT_DIR$/src/test-builder/grammars/self.txt" />
+        <option value="$PROJECT_DIR$/src/test-builder/generateTests.js" />
       </list>
     </option>
   </component>
@@ -134,8 +186,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -154,6 +206,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test-builder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test-builder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grammars" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="supercompilation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -164,7 +270,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="D:\node js\node.exe" />
-    <property name="last_opened_file_path" value="D:/calendar_dss" />
+    <property name="last_opened_file_path" value="D:/dogs-app" />
     <property name="nodejs_interpreter_path" value="D:/node js/node" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="recentsLimit" value="5" />
@@ -335,17 +441,22 @@
       <workItem from="1529935939370" duration="80000" />
       <workItem from="1530017684703" duration="1822000" />
       <workItem from="1530099922401" duration="6000" />
+      <workItem from="1530352420026" duration="3160000" />
+      <workItem from="1530435281958" duration="350000" />
+      <workItem from="1530509260368" duration="4000" />
+      <workItem from="1530527292123" duration="9000" />
+      <workItem from="1530538152119" duration="4000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="261363000" />
+    <option name="totallyTimeSpent" value="264890000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1932" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1932" height="1056" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1061246" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.105596624" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5021075" order="11" side_tool="true" content_ui="tabs" />
@@ -389,11 +500,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/180.txt" />
-    <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/182.txt" />
-    <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/176.txt" />
-    <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/171.txt" />
-    <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/172.txt" />
     <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/175.txt" />
     <entry file="file://$PROJECT_DIR$/graph-builder/tests/json/negative/174.txt" />
     <entry file="file://$PROJECT_DIR$/graph-builder/tests/self/negative/7.txt" />
@@ -440,5 +546,45 @@
     <entry file="file://$PROJECT_DIR$/graph-builder/graphs/oper-full.dot" />
     <entry file="file://$PROJECT_DIR$/graph-builder/buildGraph.js" />
     <entry file="file://$PROJECT_DIR$/graph-builder/tests/self/negative/1.txt" />
+    <entry file="file://$PROJECT_DIR$/src/test-builder/graphs/self-positive.dot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test-builder/graphs/self-full.dot">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="37" selection-start-line="0" selection-start-column="0" selection-end-line="369" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test-builder/grammars/self.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="44" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test-builder/generateTests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24596">
+          <caret line="1132" column="42" selection-start-line="1132" selection-start-column="42" selection-end-line="1132" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test-builder/output.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="24870" column="38" selection-start-line="24870" selection-start-column="38" selection-end-line="24870" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
