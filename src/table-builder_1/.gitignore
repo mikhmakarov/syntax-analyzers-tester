@@ -1,0 +1,5 @@
+# игнорируем мета-данные pyCharm
+.idea/workspace.xml
+.idea/tasks.xml
+tests
+*.pyc
