@@ -1,0 +1,8 @@
+non-terminal json, object, array, pair, value;
+terminal '{', ',', '}', STRING, NUMBER, ':', '[', ']', 'true', 'false', 'null';
+
+json ::= object | array;
+object ::= '{' pair (',' pair)* '}';
+pair ::= STRING ':' value ;
+array ::= '[' value (',' value)* ']';
+value ::= STRING |   NUMBER |   object |   array |   'true' |   'false' |   'null';

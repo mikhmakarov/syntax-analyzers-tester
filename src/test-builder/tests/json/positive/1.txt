@@ -1,0 +1,1 @@
+{ STRING : { STRING : STRING , STRING : NUMBER } , STRING : [ true , false ] , STRING : null }

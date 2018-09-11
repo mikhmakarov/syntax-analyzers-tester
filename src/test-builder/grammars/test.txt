@@ -1,0 +1,4 @@
+non-terminal E;
+terminal 'a', 'b';
+
+E ::= 'b' 'a' *;

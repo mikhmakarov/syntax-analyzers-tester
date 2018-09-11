@@ -1,0 +1,12 @@
+digraph {
+rankdir=LR;
+size="8,5";
+node [shape = circle, color = black];
+0 [label="0 - [E_0]"];
+node [shape = doublecircle];
+1 [label="1 - [E_1]"];
+0 -> 0 [ label = "a", color = "red", style = dashed ];
+0 -> 1 [ label = "b", color = "green", penwidth=3.5 ];
+1 -> 1 [ label = "a", color = "green", penwidth=3.5 ];
+1 -> 1 [ label = "b", color = "red", style = dashed ];
+}

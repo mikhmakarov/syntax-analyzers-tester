@@ -1,0 +1,24 @@
+digraph {
+rankdir=LR;
+size="8,5";
+node [shape = circle, color = black];
+0 [label="0 - [E_0]"];
+3 [label="3 - [<)>,T1_0,E1_0]"];
+4 [label="4 - [T_0,E1_0]"];
+5 [label="5 - [F_0,T1_0,E1_0]"];
+node [shape = octagon];
+2 [label="2 - [E_0,<)>,T1_0,E1_0]"];
+node [shape = doublecircle];
+1 [label="1 - [T1_0,E1_0]"];
+0 -> 1 [ label = "x", color = "black" ];
+0 -> 2 [ label = "(", color = "black" ];
+1 -> 4 [ label = "+", color = "black" ];
+1 -> 5 [ label = "*", color = "black" ];
+3 -> 1 [ label = ")", color = "black" ];
+2 -> 0 [label="up"];
+2 -> 3 [style=dotted, label="down"];
+4 -> 1 [ label = "x", color = "black" ];
+4 -> 2 [ label = "(", color = "black" ];
+5 -> 1 [ label = "x", color = "black" ];
+5 -> 2 [ label = "(", color = "black" ];
+}

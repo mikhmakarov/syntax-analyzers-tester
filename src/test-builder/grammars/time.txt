@@ -1,0 +1,5 @@
+non-terminal E, A, B, C ;
+terminal 'a', 'b', 'c' ;
+
+E ::= 'a' B ;
+B ::= 'b' 'a' 'c' B | eps ;
